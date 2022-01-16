@@ -1,0 +1,48 @@
+﻿#### Build and tests all pushes, also code coverage
+name: 🛠️ CI build check
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    name: 🔨 Build sources (CI)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📤 Checkout the repository
+        uses: actions/checkout@main
+
+      - name: 🥅 Install .Net 6
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x" # SDK Version
+
+      - name: 🔍 Enable problem matchers
+        run: echo "::add-matcher::.github/matchers/dotnet.json"
+
+      - name: 🛠️ Build code
+        run: dotnet build /warnaserror
+
+#      - name: 👀 Test
+#        run: |
+#          dotnet test src/HassModel/NetDaemon.HassModel.Tests -v minimal /p:CollectCoverage=true /p:CoverletOutputFormat=json /p:MergeWith=${{github.workspace}}/codecover.json /p:CoverletOutput=${{github.workspace}}/codecover
+#          dotnet test src/Extensions/NetDaemon.Extensions.Scheduling.Tests -v minimal /p:CollectCoverage=true /p:CoverletOutputFormat=json /p:MergeWith=${{github.workspace}}/codecover.json /p:CoverletOutput=${{github.workspace}}/codecover
+#          dotnet test src/Client/NetDaemon.HassClient.Tests -v minimal /p:CollectCoverage=true /p:CoverletOutputFormat=json /p:MergeWith=${{github.workspace}}/codecover.json /p:CoverletOutput=${{github.workspace}}/codecover
+#          dotnet test src/AppModel/NetDaemon.AppModel.Tests -v minimal /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:MergeWith=${{github.workspace}}/codecover.json /p:CoverletOutput=${{github.workspace}}/codecover
+
+#      - name: 📨 Publish coverage report to coveralls.io
+#        uses: coverallsapp/github-action@master
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
+#          path-to-lcov: ${{github.workspace}}/codecover.info
+#
+#      - name: 📨 Publish coverage to codecov
+#        uses: codecov/codecov-action@v2
+#        with:
+#          flags: unittests # optional
+#          name: codecov-umbrella # optional
+#          files: ${{github.workspace}}/codecover.info
+#          fail_ci_if_error: true # optional (default = false)
