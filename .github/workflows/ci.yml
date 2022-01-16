@@ -24,7 +24,7 @@ jobs:
         run: echo "::add-matcher::.github/matchers/dotnet.json"
 
       - name: 🛠️ Build code
-        run: dotnet build /warnaserror
+        run: dotnet build .\HeltoAutomations.sln
 
 #      - name: 👀 Test
 #        run: |
