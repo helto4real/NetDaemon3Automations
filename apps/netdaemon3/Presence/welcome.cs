@@ -1,0 +1,116 @@
+using NetDaemon.Extensions.Tts;
+
+public class WelcomeConfig
+{
+    /// <summary>
+    ///     Used to search the correct device trackers by naming
+    /// </summary>
+    public string PresenceCriteria { get; set; } = "_presence";
+
+    public MediaPlayerEntity? HallwayMediaPlayer { get; set; }
+
+    public BinarySensorEntity? DoorSensor { get; set; }
+
+    public IEnumerable<string> Greetings { get; set; } = Array.Empty<string>();
+}
+
+/// <summary>
+///     Greets (or insults) people when coming home :)
+/// </summary>
+[NetDaemonApp]
+public class WelcomeHomeManager
+{
+    private readonly WelcomeConfig _config;
+    private readonly IEntities _entities;
+    private readonly IHaContext _ha;
+    private readonly Dictionary<string, DateTime> _lastTimeGreeted = new(5);
+    private readonly Random _randomizer = new();
+    private readonly IServices _services;
+    private readonly ITextToSpeechService _tts;
+
+    public WelcomeHomeManager(
+        IHaContext haContext,
+        ITextToSpeechService textToSpeechService,
+        IAppConfig<WelcomeConfig> config)
+    {
+        _ha = haContext;
+        _tts = textToSpeechService;
+        _services = haContext.GetServices();
+        _entities = haContext.GetEntities();
+        _config = config.Value;
+        Intitialize();
+    }
+
+    private void Intitialize()
+    {
+        _config.DoorSensor?.StateChanges()
+            .Where(e => e.New.IsOn())
+            .Subscribe(s => GreetIfJustArrived(s.New?.EntityId));
+
+        // If the person/s has the presence "just arrived"
+        _ha.StateChanges()
+            .Where(
+                e => e.New?.EntityId is not null && e.New.EntityId.EndsWith(_config.PresenceCriteria) &&
+                     e.New?.State == "Nyss anlänt")
+            .Subscribe(s => GreetIfJustArrived(s.New?.EntityId));
+    }
+
+    private void GreetIfJustArrived(string? entityId)
+    {
+        ArgumentNullException.ThrowIfNull(entityId);
+
+        if (entityId.StartsWith("binary_sensor."))
+        {
+            // The door opened, lets check if someone just arrived
+            var trackerJustArrived = _ha.GetAllEntities()
+                .Where(n => n.EntityId.EndsWith(_config.PresenceCriteria!) && n.State == "Nyss anlänt");
+            foreach (var tracker in trackerJustArrived) Greet(tracker.EntityId);
+        }
+        else if (entityId.StartsWith("device_tracker."))
+        {
+            var doorSensorState = _config.DoorSensor?.State ?? throw new InvalidOperationException();
+            var lastChanged = _config.DoorSensor.EntityState?.LastChanged ?? throw new InvalidOperationException();
+
+            if (doorSensorState == "on")
+                // Door is open, greet
+                Greet(entityId);
+            else if (doorSensorState == "off")
+                // It is closed, lets check if it was recently opened
+                if (DateTime.Now.Subtract(lastChanged) <= TimeSpan.FromMinutes(5))
+                    // It was recently opened, probably when someone got home
+                    Greet(entityId);
+        }
+    }
+
+    private void Greet(string tracker)
+    {
+        // Get the name from tracker i.e. device_tracker.name_presense
+        var nameOfPerson = tracker[15..^_config.PresenceCriteria.Length];
+
+        if (!OkToGreet(nameOfPerson))
+            return; // We can not greet person just yet
+
+        _tts.Speak(_config.HallwayMediaPlayer?.EntityId!, GetGreeting(nameOfPerson), "google_cloud_say");
+    }
+
+    private bool OkToGreet(string nameOfPersion)
+    {
+        if (_lastTimeGreeted.ContainsKey(nameOfPersion) == false)
+        {
+            _lastTimeGreeted[nameOfPersion] = DateTime.Now;
+            return true;
+        }
+
+        if (DateTime.Now.Subtract(_lastTimeGreeted[nameOfPersion]) < TimeSpan.FromMinutes(15))
+            return false; // To early to greet again
+
+        _lastTimeGreeted[nameOfPersion] = DateTime.Now;
+        return true; // It is ok to greet now
+    }
+
+    private string GetGreeting(string name)
+    {
+        var randomMessageIndex = _randomizer.Next(0, _config.Greetings.Count() - 1);
+        return _config.Greetings!.ElementAt(randomMessageIndex).Replace("{namn}", name);
+    }
+}
