@@ -56,8 +56,8 @@ public class HouseStateManagerTests
         _ctx
             .WithEntityState("input_select.house_mode_select", "Natt")
             .ChangeStateFor("sensor.light_outside")
-            .FromState(34.9d)
-            .ToState(35.0d);
+                .FromState(34.9d)
+                .ToState(35.0d);
 
         // Assert
         _ctx.VerityHouseState("Morgon");
