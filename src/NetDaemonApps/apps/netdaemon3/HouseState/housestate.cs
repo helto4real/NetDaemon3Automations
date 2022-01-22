@@ -9,8 +9,8 @@ public class HouseStateManager
     private readonly ILogger<HouseStateManager> _log;
     private readonly INetDaemonScheduler _scheduler;
     private readonly TimeSpan DAYTIME = TimeSpan.Parse("09:00:00");
-    private readonly TimeSpan NIGHTTIME_WEEKDAYS = TimeSpan.Parse("23:00:00");
-    private readonly TimeSpan NIGHTTIME_WEEKENDS = TimeSpan.Parse("23:59:00");
+    private readonly TimeSpan NIGHTTIME_WEEKDAYS = TimeSpan.Parse("22:40:00");
+    private readonly TimeSpan NIGHTTIME_WEEKENDS = TimeSpan.Parse("23:40:00");
 
     public HouseStateManager(IHaContext ha, INetDaemonScheduler scheduler, ILogger<HouseStateManager> logger)
     {
@@ -55,7 +55,7 @@ public class HouseStateManager
         _log.LogInformation($"Setting weekday night time to: {NIGHTTIME_WEEKDAYS}");
         _scheduler.RunDaily(NIGHTTIME_WEEKDAYS, () =>
         {
-            if (WeekdayNightDays.Contains(DateTime.Now.DayOfWeek))
+            if (WeekdayNightDays.Contains(_scheduler.Now.DayOfWeek))
                 SetHouseState(HouseState.Night);
         });
 
@@ -63,7 +63,7 @@ public class HouseStateManager
 
         _scheduler.RunDaily(NIGHTTIME_WEEKENDS, () =>
         {
-            if (WeekendNightDays.Contains(DateTime.Now.DayOfWeek))
+            if (WeekendNightDays.Contains(_scheduler.Now.DayOfWeek))
                 SetHouseState(HouseState.Night);
         });
     }
@@ -76,8 +76,7 @@ public class HouseStateManager
         _entities.Sensor.LightOutside
             .StateChanges()
             .Where(e => _entities.Sensor.LightOutside.AsNumeric().State <= 20.0 &&
-                        DateTime.Now.Hour > 15 && DateTime.Now.Hour < 23 &&
-                        IsDaytime)
+                        _scheduler.Now.Hour is >= 15 and < 23 && IsDaytime)
             .Subscribe(s => SetHouseState(HouseState.Evening));
     }
 
@@ -89,8 +88,7 @@ public class HouseStateManager
         _entities.Sensor.LightOutside
             .StateChanges()
             .Where(e => _entities.Sensor.LightOutside.AsNumeric().State >= 35.0 &&
-                        DateTime.Now.Hour > 5 && DateTime.Now.Hour < 10 &&
-                        IsNighttime
+                        _scheduler.Now.Hour is >= 5 and < 10 && IsNighttime
             )
             .Subscribe(_ => SetHouseState(HouseState.Morning));
     }
@@ -109,7 +107,7 @@ public class HouseStateManager
             HouseState.Evening => "Kväll",
             HouseState.Night => "Natt",
             HouseState.Cleaning => "Städning",
-            _ => throw new ArgumentException("Not supported", nameof(state))
+            _ => throw new InvalidOperationException($"State {state} Not supported")
         };
         _entities.InputSelect.HouseModeSelect.SelectOption(select_state);
     }

@@ -27,6 +27,7 @@ public class MagicCubeRemoteControlManager
         // _ha = ha;
         _entities = new Entities(ha);
         _config = config.Value;
+        Initialize();
     }
 
     public void Initialize()

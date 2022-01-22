@@ -5,13 +5,13 @@ public class WelcomeConfig
     /// <summary>
     ///     Used to search the correct device trackers by naming
     /// </summary>
-    public string PresenceCriteria { get; set; } = "_presence";
+    public string? PresenceCriteria { get; set; }
 
     public MediaPlayerEntity? HallwayMediaPlayer { get; set; }
 
     public BinarySensorEntity? DoorSensor { get; set; }
 
-    public IEnumerable<string> Greetings { get; set; } = Array.Empty<string>();
+    public IEnumerable<string>? Greetings { get; init; }
 }
 
 /// <summary>
@@ -21,23 +21,26 @@ public class WelcomeConfig
 public class WelcomeHomeManager
 {
     private readonly WelcomeConfig _config;
-    private readonly IEntities _entities;
     private readonly IHaContext _ha;
     private readonly Dictionary<string, DateTime> _lastTimeGreeted = new(5);
     private readonly Random _randomizer = new();
-    private readonly IServices _services;
     private readonly ITextToSpeechService _tts;
 
     public WelcomeHomeManager(
         IHaContext haContext,
+        ILogger<WelcomeHomeManager> logger,
         ITextToSpeechService textToSpeechService,
         IAppConfig<WelcomeConfig> config)
     {
         _ha = haContext;
         _tts = textToSpeechService;
-        _services = haContext.GetServices();
-        _entities = haContext.GetEntities();
         _config = config.Value;
+        
+        ArgumentNullException.ThrowIfNull(_config.Greetings);
+        ArgumentNullException.ThrowIfNull(_config.DoorSensor);
+        ArgumentNullException.ThrowIfNull(_config.HallwayMediaPlayer);
+        ArgumentNullException.ThrowIfNull(_config.PresenceCriteria);
+        
         Intitialize();
     }
 
@@ -50,7 +53,7 @@ public class WelcomeHomeManager
         // If the person/s has the presence "just arrived"
         _ha.StateChanges()
             .Where(
-                e => e.New?.EntityId is not null && e.New.EntityId.EndsWith(_config.PresenceCriteria) &&
+                e => e.New?.EntityId is not null && e.New.EntityId.EndsWith(_config.PresenceCriteria!) &&
                      e.New?.State == "Nyss anlänt")
             .Subscribe(s => GreetIfJustArrived(s.New?.EntityId));
     }
@@ -85,7 +88,7 @@ public class WelcomeHomeManager
     private void Greet(string tracker)
     {
         // Get the name from tracker i.e. device_tracker.name_presense
-        var nameOfPerson = tracker[15..^_config.PresenceCriteria.Length];
+        var nameOfPerson = tracker[15..^_config.PresenceCriteria!.Length];
 
         if (!OkToGreet(nameOfPerson))
             return; // We can not greet person just yet
@@ -110,7 +113,7 @@ public class WelcomeHomeManager
 
     private string GetGreeting(string name)
     {
-        var randomMessageIndex = _randomizer.Next(0, _config.Greetings.Count() - 1);
+        var randomMessageIndex = _randomizer.Next(0, _config.Greetings!.Count() - 1);
         return _config.Greetings!.ElementAt(randomMessageIndex).Replace("{namn}", name);
     }
 }

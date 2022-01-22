@@ -16,7 +16,7 @@ try
         .ConfigureServices((_, services) =>
             services
                 .AddAppsFromAssembly(Assembly.GetExecutingAssembly())
-                .AddNetDameonStateManager()
+                .AddNetDaemonStateManager()
                 .AddNetDaemonScheduler()
         )
         .Build()

@@ -1,0 +1,1 @@
+﻿Copy-Item ./apps -Destination "\\192.168.1.7\config\netdaemon3" -Recurse -force

@@ -29,6 +29,7 @@ public class LightManager
         _entities = new Entities(ha);
         _services = new Services(ha);
         _config = config.Value;
+        Initialize();
     }
 
     /// <summary>

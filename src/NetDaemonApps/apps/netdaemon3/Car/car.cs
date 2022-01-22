@@ -32,7 +32,7 @@ public class CarHeaterConfig
 ///     The application is running every minute and decides if the heater is
 ///     going to be on or off. This logic will work also after restart.
 /// </summary>
-[NetDaemonApp]
+//[NetDaemonApp]
 public class CarHeaterManager
 {
     private readonly CarHeaterConfig _config;
