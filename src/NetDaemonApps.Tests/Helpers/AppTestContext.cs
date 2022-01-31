@@ -1,6 +1,6 @@
 ﻿using System;
 using NetDaemon.Extensions.Scheduler;
-using NetDaemon.HassModel.Common;
+using NetDaemon.HassModel;
 
 namespace NetDaemonApps.Tests.Helpers;
 

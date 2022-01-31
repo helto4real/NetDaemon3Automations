@@ -1,6 +1,6 @@
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using NetDaemon.HassModel.Common;
+using NetDaemon.HassModel;
 using NetDaemon.HassModel.Entities;
 using NSubstitute;
 

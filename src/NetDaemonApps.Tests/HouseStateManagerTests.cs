@@ -1,9 +1,10 @@
 ﻿using System;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
+using NetDaemonApps.Tests.Helpers;
 using NSubstitute;
 
-namespace NetDaemonApps.Tests.Helpers;
+namespace NetDaemonApps.Tests;
 
 public class HouseStateManagerTests
 {
@@ -14,11 +15,11 @@ public class HouseStateManagerTests
     {
         // Arrange
         var dayTime = TimeSpan.Parse("09:00:00");
-        var (sut, logger) = _ctx.InitHouseManagerApp();
+        _ctx.InitHouseManagerApp();
         // Act
         _ctx.AdvanceTimeTo(dayTime.Ticks);
         // Assert
-        _ctx.VerityInputSelect_SelectOption("input_select.house_mode_select", "Dag");
+        _ctx.VerifyHouseState("Dag");
     }
 
     [Theory]
@@ -41,7 +42,7 @@ public class HouseStateManagerTests
         _ctx.AdvanceTimeTo(weekDayNightTime.Ticks);
 
         // Assert
-        _ctx.VerityHouseState("Natt");
+        _ctx.VerifyHouseState("Natt");
         weekDayNightTime.DayOfWeek.Should().Be(dayOfWeek);
     }
 
@@ -60,7 +61,7 @@ public class HouseStateManagerTests
                 .ToState(35.0d);
 
         // Assert
-        _ctx.VerityHouseState("Morgon");
+        _ctx.VerifyHouseState("Morgon");
     }
     
     [Fact]
@@ -118,7 +119,7 @@ public class HouseStateManagerTests
             .ToState(20.0d);
 
         // Assert
-        _ctx.VerityHouseState("Kväll");
+        _ctx.VerifyHouseState("Kväll");
     }
     
     [Fact]
@@ -138,7 +139,7 @@ public class HouseStateManagerTests
         // Assert
         
         // Check that no select option been called, i.e HouseState not set
-        _ctx.HaContext.DidNotReceiveWithAnyArgs().CallService("input_select", "select_option", null, null);
+        _ctx.HaContext.DidNotReceiveWithAnyArgs().CallService("input_select", "select_option");
     }    
     
     [Fact]
@@ -158,7 +159,7 @@ public class HouseStateManagerTests
         // Assert
         
         // Check that no select option been called, i.e HouseState not set
-        _ctx.HaContext.DidNotReceiveWithAnyArgs().CallService("input_select", "select_option", null, null);
+        _ctx.HaContext.DidNotReceiveWithAnyArgs().CallService("input_select", "select_option");
     }
 
     [Theory]
@@ -176,11 +177,11 @@ public class HouseStateManagerTests
         _ctx.ActivateScene(sceneName);
 
         // Assert
-        _ctx.VerityHouseState(houseState);
+        _ctx.VerifyHouseState(houseState);
     }
 }
 
-public static class AppTestContextInstanceExtensions
+public static class HouseManagerAppTestContextInstanceExtensions
 {
     public static (HouseStateManager, ILogger<HouseStateManager>) InitHouseManagerApp(this AppTestContext ctx)
     {
@@ -188,8 +189,8 @@ public static class AppTestContextInstanceExtensions
         return (new HouseStateManager(ctx.HaContext, ctx.Scheduler, loggerMock), loggerMock);
     }
 
-    public static void VerityHouseState(this AppTestContext ctx, string houseState)
+    public static void VerifyHouseState(this AppTestContext ctx, string houseState)
     {
-        ctx.VerityInputSelect_SelectOption("input_select.house_mode_select", houseState);
+        ctx.VerifyInputSelect_SelectOption("input_select.house_mode_select", houseState);
     }
 }
