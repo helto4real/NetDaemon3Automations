@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reactive.Concurrency;
+using Microsoft.Reactive.Testing;
 using NetDaemon.Extensions.Scheduler;
 using NetDaemon.HassModel;
 
@@ -11,8 +13,7 @@ public class AppTestContext
 {
     public HaContextMock HaContextMock { get; } = new();
     public IHaContext HaContext => HaContextMock.HaContext;
-    public NetDaemonSchedulerMock SchedulerMock { get; } = new();
-    public INetDaemonScheduler Scheduler => SchedulerMock.Scheduler;
+    public TestScheduler Scheduler { get; } = new ();
 
     public static AppTestContext New()
     {
@@ -28,12 +29,12 @@ public class AppTestContext
 
     public void AdvanceTimeTo(long absoluteTime)
     {
-        SchedulerMock.TestScheduler.AdvanceTo(absoluteTime);
+        Scheduler.AdvanceTo(absoluteTime);
     }
 
     public void AdvanceTimeBy(long absoluteTime)
     {
-        SchedulerMock.TestScheduler.AdvanceBy(absoluteTime);
+        Scheduler.AdvanceBy(absoluteTime);
     }
 
     public void SetCurrentTime(DateTime time)

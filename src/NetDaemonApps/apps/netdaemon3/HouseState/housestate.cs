@@ -1,3 +1,5 @@
+using System.Reactive.Concurrency;
+
 /// <summary>
 ///     Manage state of morning, house, day, evening, night and cleaning
 /// </summary>
@@ -7,12 +9,12 @@ public class HouseStateManager
 {
     private readonly Entities _entities;
     private readonly ILogger<HouseStateManager> _log;
-    private readonly INetDaemonScheduler _scheduler;
+    private readonly IScheduler _scheduler;
     private readonly TimeSpan DAYTIME = TimeSpan.Parse("09:00:00");
     private readonly TimeSpan NIGHTTIME_WEEKDAYS = TimeSpan.Parse("22:40:00");
     private readonly TimeSpan NIGHTTIME_WEEKENDS = TimeSpan.Parse("23:40:00");
 
-    public HouseStateManager(IHaContext ha, INetDaemonScheduler scheduler, ILogger<HouseStateManager> logger)
+    public HouseStateManager(IHaContext ha, IScheduler scheduler, ILogger<HouseStateManager> logger)
     {
         _entities = new Entities(ha);
         _scheduler = scheduler;
@@ -43,8 +45,8 @@ public class HouseStateManager
 
     private void SetDayTime()
     {
-        _log.LogInformation($"Setting daytime: {DAYTIME}");
-        _scheduler.RunDaily(DAYTIME, () => SetHouseState(HouseState.Day));
+        _log.LogInformation($"Setting daytime: 09:00:00");
+        _scheduler.ScheduleCron("0 9 * * *", () => SetHouseState(HouseState.Day));
     }
 
     /// <summary>
@@ -52,20 +54,11 @@ public class HouseStateManager
     /// </summary>
     private void SetNightTime()
     {
-        _log.LogInformation($"Setting weekday night time to: {NIGHTTIME_WEEKDAYS}");
-        _scheduler.RunDaily(NIGHTTIME_WEEKDAYS, () =>
-        {
-            if (WeekdayNightDays.Contains(_scheduler.Now.DayOfWeek))
-                SetHouseState(HouseState.Night);
-        });
+        _log.LogInformation($"Setting weekday night time to: 22:40");
+        _scheduler.ScheduleCron("40 22 * * 0-4", () => SetHouseState(HouseState.Night));
 
-        _log.LogInformation($"Setting weekend night time to: {NIGHTTIME_WEEKENDS}");
-
-        _scheduler.RunDaily(NIGHTTIME_WEEKENDS, () =>
-        {
-            if (WeekendNightDays.Contains(_scheduler.Now.DayOfWeek))
-                SetHouseState(HouseState.Night);
-        });
+        _log.LogInformation($"Setting weekend night time to: 23:40");
+        _scheduler.ScheduleCron("40 23 * * 5-6", () => SetHouseState(HouseState.Night));
     }
 
     /// <summary>
