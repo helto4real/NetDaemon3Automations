@@ -10,9 +10,6 @@ public class HouseStateManager
     private readonly Entities _entities;
     private readonly ILogger<HouseStateManager> _log;
     private readonly IScheduler _scheduler;
-    private readonly TimeSpan DAYTIME = TimeSpan.Parse("09:00:00");
-    private readonly TimeSpan NIGHTTIME_WEEKDAYS = TimeSpan.Parse("22:40:00");
-    private readonly TimeSpan NIGHTTIME_WEEKENDS = TimeSpan.Parse("23:40:00");
 
     public HouseStateManager(IHaContext ha, IScheduler scheduler, ILogger<HouseStateManager> logger)
     {
@@ -104,25 +101,6 @@ public class HouseStateManager
         };
         _entities.InputSelect.HouseModeSelect.SelectOption(select_state);
     }
-
-    #region DayOfWeekConfig
-
-    private readonly DayOfWeek[] WeekdayNightDays =
-    {
-        DayOfWeek.Sunday,
-        DayOfWeek.Monday,
-        DayOfWeek.Tuesday,
-        DayOfWeek.Wednesday,
-        DayOfWeek.Thursday
-    };
-
-    private readonly DayOfWeek[] WeekendNightDays =
-    {
-        DayOfWeek.Friday,
-        DayOfWeek.Saturday
-    };
-
-    #endregion
 }
 
 public enum HouseState
