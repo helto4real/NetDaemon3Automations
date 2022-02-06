@@ -10,6 +10,7 @@ using System.Threading;
 ///     - When remote activity changes, run correct scene (RunScript)
 /// </summary>
 [NetDaemonApp]
+// [Focus]
 public class TVManager
 {
     private readonly Entities _entities;
@@ -39,7 +40,16 @@ public class TVManager
         _log = logger;
         _scheduler = scheduler;
 
-        _entities.MediaPlayer.ShieldTv
+        // _entities.MediaPlayer.ShieldTv.StateChanges()
+        //     .StartWith(new StateChange(_entities.MediaPlayer.ShieldTv, null, _entities.MediaPlayer.ShieldTv.EntityState))
+        //     .CombineLatest(
+        //         _entities.MediaPlayer.TvNere.StateChanges()
+        //        .StartWith(new StateChange(_entities.MediaPlayer.TvNere, null, _entities.MediaPlayer.TvNere.EntityState))
+        //     )
+        //     .Where(n => n.First.New?.State == "playing" || n.Second.New?.State == "playing")
+        //     .Subscribe(_ => _log.LogInformation())
+
+        _entities.MediaPlayer.TvNere
             .StateChanges()
             .Subscribe(s => { OnMediaStateChanged(s.New, s.Old); });
 
@@ -58,7 +68,7 @@ public class TVManager
             .Where(e => e.New?.Attributes?.CurrentActivity != e.Old?.Attributes?.CurrentActivity)
             .Subscribe(s =>
             {
-                _log.LogDebug("TV remote activity change from {from} to {to}", s.Old?.Attributes?.CurrentActivity,
+                _log.LogDebug("TV remote activity change from {From} to {To}", s.Old?.Attributes?.CurrentActivity,
                     s.New?.Attributes?.CurrentActivity);
                 switch (s.New?.Attributes?.CurrentActivity)
                 {
@@ -165,7 +175,8 @@ public class TVManager
         Thread.Sleep(200);
         _entities.Light.TvrumVagg.TurnOff(0);
         Thread.Sleep(200);
-        _entities.Switch.JulbelysningTvrummet.TurnOff();
+        // _entities.Switch.JulbelysningTvrummet.TurnOff();
+        _entities.Light.Tvrummet.TurnOff(0);
         Thread.Sleep(200);
         if (_entities.Cover.TvrumRullgardinHoger?.Attributes?.Position < 100)
             _entities.Cover.TvrumRullgardinHoger.CloseCover();

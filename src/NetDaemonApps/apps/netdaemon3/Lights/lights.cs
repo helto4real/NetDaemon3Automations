@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using NetDaemon.Extensions.Observables;
 
 public class LightsConfiguration
 {
@@ -48,26 +49,22 @@ public class LightManager
         InitializeNightLights();
 
         InitializeTimeOfDayScenes();
-
         // handle keylights
         _config.TomasRoomPir?
             .StateChanges()
-            .Where(e =>
-                e.New.IsOff() &&
-                e.Old.IsOn() &&
+            .SameStateFor(n => n.IsOff(), TimeSpan.FromMinutes(30))
+            .Where(_ =>
                 _config.ElgatoKeyLight.IsOn()
             )
-            .Throttle(TimeSpan.FromMinutes(30))
-            .Subscribe(s => _config.ElgatoKeyLight?.TurnOff(0));
+            .Subscribe(_ => _config.ElgatoKeyLight?.TurnOff(0));
 
         _config.TomasRoomPir?
             .StateChanges()
             .Where(e =>
                 e.New.IsOn() &&
-                e.Old.IsOff() &&
                 _config.ElgatoKeyLight.IsOff()
             )
-            .Subscribe(s => _config.ElgatoKeyLight?.TurnOn(0));
+            .Subscribe(_ => _config.ElgatoKeyLight?.TurnOn(0));
     }
 
     /// <summary>

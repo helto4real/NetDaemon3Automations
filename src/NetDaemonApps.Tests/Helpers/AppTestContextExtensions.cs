@@ -17,6 +17,14 @@ public static class AppTestContextExtensions
                 => x.Option == option));
     }
 
+    public static void VerifyInputSelect_SelectOption_NotChanged(this AppTestContext ctx, string entityId)
+    {
+        ctx.HaContext.DidNotReceive().CallService("input_select", "select_option",
+            Arg.Is<ServiceTarget>(x
+                => x.EntityIds != null && x.EntityIds.First() == entityId),
+            Arg.Any<InputSelectSelectOptionParameters>());
+    }
+
     public static void VerifyCallService(this AppTestContext ctx, string serviceCall, int times = 1)
     {
         var domain = serviceCall[..serviceCall.IndexOf(".", StringComparison.InvariantCultureIgnoreCase)];

@@ -1,4 +1,7 @@
 using System.Reactive.Concurrency;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
+using NetDaemon.Extensions.Observables;
 
 /// <summary>
 ///     Manage state of morning, house, day, evening, night and cleaning
@@ -17,16 +20,15 @@ public class HouseStateManager
         _scheduler = scheduler;
         _log = logger;
 
-        SetDayTime();
-        SetEveningWhenLowLightLevel();
-        SetNightTime();
-        SetMorningWhenBrightLightLevel();
+        InitDayTimeSubscriptions();
+        InitEveningTimeSubscriptions();
+        InitNightTimeSubscriptions();
+        InitMorningTimeSubscriptions();
         InitHouseStateSceneManagement();
     }
 
-    public bool IsDaytime => _entities.InputSelect.HouseModeSelect.State == "Dag";
-    public bool IsNighttime => _entities.InputSelect.HouseModeSelect.State == "Natt";
-
+    private bool IsDaytime => _entities.InputSelect.HouseModeSelect.State == "Dag";
+    private bool IsNighttime => _entities.InputSelect.HouseModeSelect.State == "Natt";
 
     /// <summary>
     ///     Sets the house state on the corresponding scene
@@ -40,7 +42,7 @@ public class HouseStateManager
         _entities.Scene.Stadning.WhenTurnsOn(s => SetHouseState(HouseState.Cleaning));
     }
 
-    private void SetDayTime()
+    private void InitDayTimeSubscriptions()
     {
         _log.LogInformation($"Setting daytime: 09:00:00");
         _scheduler.ScheduleCron("0 9 * * *", () => SetHouseState(HouseState.Day));
@@ -49,11 +51,10 @@ public class HouseStateManager
     /// <summary>
     ///     Set night time schedule on different time different weekdays
     /// </summary>
-    private void SetNightTime()
+    private void InitNightTimeSubscriptions()
     {
         _log.LogInformation($"Setting weekday night time to: 22:40");
         _scheduler.ScheduleCron("40 22 * * 0-4", () => SetHouseState(HouseState.Night));
-
         _log.LogInformation($"Setting weekend night time to: 23:40");
         _scheduler.ScheduleCron("40 23 * * 5-6", () => SetHouseState(HouseState.Night));
     }
@@ -61,19 +62,26 @@ public class HouseStateManager
     /// <summary>
     ///     Set to evening when the light level is low and it is daytime
     /// </summary>
-    private void SetEveningWhenLowLightLevel()
+    private void InitEveningTimeSubscriptions()
     {
+        _scheduler.ScheduleCron("15 15 * * *", () =>
+        {
+            if (_entities.Sensor.LightOutside.State <= 20.0 && IsDaytime)
+                SetHouseState(HouseState.Evening);
+        });
         _entities.Sensor.LightOutside
             .StateChanges()
-            .Where(e => _entities.Sensor.LightOutside.AsNumeric().State <= 20.0 &&
-                        _scheduler.Now.Hour is >= 15 and < 23 && IsDaytime)
+            .SameStateFor(n =>
+                n?.State <= 20.0 &&
+                _scheduler.Now.Hour is >= 15 and < 23 &&
+                IsDaytime, TimeSpan.FromMinutes(15), _scheduler)
             .Subscribe(s => SetHouseState(HouseState.Evening));
     }
 
     /// <summary>
     ///     When the light levels are bright enough it is considered morning time
     /// </summary>
-    private void SetMorningWhenBrightLightLevel()
+    private void InitMorningTimeSubscriptions()
     {
         _entities.Sensor.LightOutside
             .StateChanges()

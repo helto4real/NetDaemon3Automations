@@ -96,18 +96,18 @@ public class WelcomeHomeManager
         _tts.Speak(_config.HallwayMediaPlayer?.EntityId!, GetGreeting(nameOfPerson), "google_cloud_say");
     }
 
-    private bool OkToGreet(string nameOfPersion)
+    private bool OkToGreet(string nameOfPerson)
     {
-        if (_lastTimeGreeted.ContainsKey(nameOfPersion) == false)
+        if (_lastTimeGreeted.ContainsKey(nameOfPerson) == false)
         {
-            _lastTimeGreeted[nameOfPersion] = DateTime.Now;
+            _lastTimeGreeted[nameOfPerson] = DateTime.Now;
             return true;
         }
 
-        if (DateTime.Now.Subtract(_lastTimeGreeted[nameOfPersion]) < TimeSpan.FromMinutes(15))
+        if (DateTime.Now.Subtract(_lastTimeGreeted[nameOfPerson]) < TimeSpan.FromMinutes(15))
             return false; // To early to greet again
 
-        _lastTimeGreeted[nameOfPersion] = DateTime.Now;
+        _lastTimeGreeted[nameOfPerson] = DateTime.Now;
         return true; // It is ok to greet now
     }
 
