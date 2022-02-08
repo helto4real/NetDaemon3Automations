@@ -12,13 +12,16 @@ public class HouseStateManager
 {
     private readonly Entities _entities;
     private readonly ILogger<HouseStateManager> _log;
+    private readonly GlobalConfig _gc;
     private readonly IScheduler _scheduler;
 
-    public HouseStateManager(IHaContext ha, IScheduler scheduler, ILogger<HouseStateManager> logger)
+    public HouseStateManager(IHaContext ha, IScheduler scheduler, ILogger<HouseStateManager> logger,
+        IAppConfig<GlobalConfig> config)
     {
         _entities = new Entities(ha);
         _scheduler = scheduler;
         _log = logger;
+        _gc = config.Value;
 
         InitDayTimeSubscriptions();
         InitEveningTimeSubscriptions();
@@ -44,8 +47,8 @@ public class HouseStateManager
 
     private void InitDayTimeSubscriptions()
     {
-        _log.LogInformation($"Setting daytime: 09:00:00");
-        _scheduler.ScheduleCron("0 9 * * *", () => SetHouseState(HouseState.Day));
+        _log.LogInformation("Setting daytime: {DayTime}", _gc.DayTime);
+        _scheduler.ScheduleCron($"{_gc.DayTime.Minutes} {_gc.DayTime.Hours} * * *", () => SetHouseState(HouseState.Day));
     }
 
     /// <summary>
@@ -53,10 +56,15 @@ public class HouseStateManager
     /// </summary>
     private void InitNightTimeSubscriptions()
     {
-        _log.LogInformation($"Setting weekday night time to: 22:40");
-        _scheduler.ScheduleCron("40 22 * * 0-4", () => SetHouseState(HouseState.Night));
-        _log.LogInformation($"Setting weekend night time to: 23:40");
-        _scheduler.ScheduleCron("40 23 * * 5-6", () => SetHouseState(HouseState.Night));
+        _log.LogInformation("Setting weekday night time to: {NightTime}",
+            _gc.NightTimeWeekdays);
+        _scheduler.ScheduleCron($"{_gc.NightTimeWeekdays.Minutes} {_gc.NightTimeWeekdays.Hours} * * 0-4",
+            () => SetHouseState(HouseState.Night));
+
+        _log.LogInformation("Setting weekend night time to: {NightTime}",
+            _gc.NightTimeWeekends);
+        _scheduler.ScheduleCron($"{_gc.NightTimeWeekends.Minutes} {_gc.NightTimeWeekends.Hours} * * 5-6",
+            () => SetHouseState(HouseState.Night));
     }
 
     /// <summary>
@@ -80,13 +88,21 @@ public class HouseStateManager
 
     /// <summary>
     ///     When the light levels are bright enough it is considered morning time
+    ///     if the time frame is within time
     /// </summary>
     private void InitMorningTimeSubscriptions()
     {
+        _scheduler.ScheduleCron("15 5 * * *", () =>
+        {
+            if (_entities.Sensor.LightOutside.State >= 35.0 && IsNighttime)
+                SetHouseState(HouseState.Morning);
+        });
+
         _entities.Sensor.LightOutside
             .StateChanges()
-            .Where(e => _entities.Sensor.LightOutside.AsNumeric().State >= 35.0 &&
-                        _scheduler.Now.Hour is >= 5 and < 10 && IsNighttime
+            .SameStateFor(e => _entities.Sensor.LightOutside.State >= 35.0 &&
+                               _scheduler.Now.Hour is >= 5 and < 10 && IsNighttime
+                               , TimeSpan.FromMinutes(15)
             )
             .Subscribe(_ => SetHouseState(HouseState.Morning));
     }
@@ -98,7 +114,7 @@ public class HouseStateManager
     private void SetHouseState(HouseState state)
     {
         _log.LogInformation($"Setting current house state to {state}", state);
-        var select_state = state switch
+        var selectState = state switch
         {
             HouseState.Morning => "Morgon",
             HouseState.Day => "Dag",
@@ -107,7 +123,7 @@ public class HouseStateManager
             HouseState.Cleaning => "Städning",
             _ => throw new InvalidOperationException($"State {state} Not supported")
         };
-        _entities.InputSelect.HouseModeSelect.SelectOption(select_state);
+        _entities.InputSelect.HouseModeSelect.SelectOption(selectState);
     }
 }
 

@@ -27,14 +27,14 @@
         <Compile Remove="tests\**" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="JoySoftware.NetDaemon.AppModel" Version="22.5.2" />
-        <PackageReference Include="JoySoftware.NetDaemon.Extensions.Mqtt" Version="22.5.2" />
-        <PackageReference Include="JoySoftware.NetDaemon.Extensions.Tts" Version="22.5.2" />
-        <PackageReference Include="JoySoftware.NetDaemon.Runtime" Version="22.5.2" />
-        <PackageReference Include="JoySoftware.NetDaemon.HassModel" Version="22.5.2" />
-        <PackageReference Include="JoySoftware.NetDaemon.Client" Version="22.5.2" />
-        <PackageReference Include="JoySoftware.NetDaemon.Extensions.Scheduling" Version="22.5.2" />
-        <PackageReference Include="JoySoftware.NetDaemon.Extensions.Logging" Version="22.5.2" />
+        <PackageReference Include="JoySoftware.NetDaemon.AppModel" Version="22.6.0" />
+        <PackageReference Include="JoySoftware.NetDaemon.Extensions.Mqtt" Version="22.6.0" />
+        <PackageReference Include="JoySoftware.NetDaemon.Extensions.Tts" Version="22.6.0" />
+        <PackageReference Include="JoySoftware.NetDaemon.Runtime" Version="22.6.0" />
+        <PackageReference Include="JoySoftware.NetDaemon.HassModel" Version="22.6.0" />
+        <PackageReference Include="JoySoftware.NetDaemon.Client" Version="22.6.0" />
+        <PackageReference Include="JoySoftware.NetDaemon.Extensions.Scheduling" Version="22.6.0" />
+        <PackageReference Include="JoySoftware.NetDaemon.Extensions.Logging" Version="22.6.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
         <PackageReference Include="System.Reactive" Version="5.0.0" />
