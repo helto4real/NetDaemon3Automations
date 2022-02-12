@@ -58,6 +58,8 @@ namespace HomeAssistantGenerated
 
 		TimerEntities Timer { get; }
 
+		VacuumEntities Vacuum { get; }
+
 		WeatherEntities Weather { get; }
 
 		ZoneEntities Zone { get; }
@@ -96,6 +98,7 @@ namespace HomeAssistantGenerated
 		public SunEntities Sun => new(_haContext);
 		public SwitchEntities Switch => new(_haContext);
 		public TimerEntities Timer => new(_haContext);
+		public VacuumEntities Vacuum => new(_haContext);
 		public WeatherEntities Weather => new(_haContext);
 		public ZoneEntities Zone => new(_haContext);
 	}
@@ -214,6 +217,12 @@ namespace HomeAssistantGenerated
 		public BinarySensorEntity MotorvarmareHogerUpdateAvailable => new(_haContext, "binary_sensor.motorvarmare_hoger_update_available");
 		///<summary>motorvarmare_hoger_update_available</summary>
 		public BinarySensorEntity MotorvarmareHogerUpdateAvailableOld => new(_haContext, "binary_sensor.motorvarmare_hoger_update_available_old");
+		///<summary>roborock.vacuum.a15 Mop Attached</summary>
+		public BinarySensorEntity RoborockVacuumA15MopAttached => new(_haContext, "binary_sensor.roborock_vacuum_a15_mop_attached");
+		///<summary>roborock.vacuum.a15 Water Box Attached</summary>
+		public BinarySensorEntity RoborockVacuumA15WaterBoxAttached => new(_haContext, "binary_sensor.roborock_vacuum_a15_water_box_attached");
+		///<summary>roborock.vacuum.a15 Water Shortage</summary>
+		public BinarySensorEntity RoborockVacuumA15WaterShortage => new(_haContext, "binary_sensor.roborock_vacuum_a15_water_shortage");
 		///<summary>sallys_fonster_update_available</summary>
 		public BinarySensorEntity SallysFonsterUpdateAvailable => new(_haContext, "binary_sensor.sallys_fonster_update_available");
 		///<summary>Rörelsedetektor Sallys rum</summary>
@@ -240,10 +249,6 @@ namespace HomeAssistantGenerated
 		public BinarySensorEntity SovrumPirUpdateAvailable => new(_haContext, "binary_sensor.sovrum_pir_update_available");
 		///<summary>sw_input</summary>
 		public BinarySensorEntity SwInput => new(_haContext, "binary_sensor.sw_input");
-		///<summary>swe_recycling_matfors</summary>
-		public BinarySensorEntity SweRecyclingMatfors => new(_haContext, "binary_sensor.swe_recycling_matfors");
-		///<summary>swe_recycling_vattjom</summary>
-		public BinarySensorEntity SweRecyclingVattjom => new(_haContext, "binary_sensor.swe_recycling_vattjom");
 		///<summary>Tomas iPad Focus</summary>
 		public BinarySensorEntity TomasIpadFocus => new(_haContext, "binary_sensor.tomas_ipad_focus");
 		///<summary>Rörelsedetektor Tomas rum</summary>
@@ -332,6 +337,8 @@ namespace HomeAssistantGenerated
 		public CameraEntity KameraStream => new(_haContext, "camera.kamera_stream");
 		///<summary>My Camera</summary>
 		public CameraEntity MyCamera => new(_haContext, "camera.my_camera");
+		///<summary>roborock_map</summary>
+		public CameraEntity RoborockMap => new(_haContext, "camera.roborock_map");
 	}
 
 	public class CoverEntities
@@ -606,8 +613,12 @@ namespace HomeAssistantGenerated
 			_haContext = haContext;
 		}
 
+		///<summary>dev_netdaemon_persistance_app</summary>
+		public InputBooleanEntity DevNetdaemonPersistanceApp => new(_haContext, "input_boolean.dev_netdaemon_persistance_app");
 		///<summary>Good night house</summary>
 		public InputBooleanEntity GoodNightHouse => new(_haContext, "input_boolean.good_night_house");
+		///<summary>netdaemon_dinner_is_ready_manager</summary>
+		public InputBooleanEntity NetdaemonDinnerIsReadyManager => new(_haContext, "input_boolean.netdaemon_dinner_is_ready_manager");
 		///<summary>netdaemon_google_calendar_manager</summary>
 		public InputBooleanEntity NetdaemonGoogleCalendarManager => new(_haContext, "input_boolean.netdaemon_google_calendar_manager");
 		///<summary>netdaemon_house_state_manager</summary>
@@ -1141,6 +1152,14 @@ namespace HomeAssistantGenerated
 		public NumericSensorEntity PlexPlex => new(_haContext, "sensor.plex_plex");
 		///<summary>Processor use</summary>
 		public NumericSensorEntity ProcessorUse => new(_haContext, "sensor.processor_use");
+		///<summary>roborock.vacuum.a15 Current Clean Area</summary>
+		public NumericSensorEntity RoborockVacuumA15CurrentCleanArea => new(_haContext, "sensor.roborock_vacuum_a15_current_clean_area");
+		///<summary>roborock.vacuum.a15 Current Clean Duration</summary>
+		public NumericSensorEntity RoborockVacuumA15CurrentCleanDuration => new(_haContext, "sensor.roborock_vacuum_a15_current_clean_duration");
+		///<summary>roborock.vacuum.a15 Last Clean Area</summary>
+		public NumericSensorEntity RoborockVacuumA15LastCleanArea => new(_haContext, "sensor.roborock_vacuum_a15_last_clean_area");
+		///<summary>roborock.vacuum.a15 Last Clean Duration</summary>
+		public NumericSensorEntity RoborockVacuumA15LastCleanDuration => new(_haContext, "sensor.roborock_vacuum_a15_last_clean_duration");
 		///<summary>sallys_fonster_linkquality</summary>
 		public NumericSensorEntity SallysFonsterLinkquality => new(_haContext, "sensor.sallys_fonster_linkquality");
 		///<summary>sallys_rum_temp_humidity</summary>
@@ -1167,7 +1186,7 @@ namespace HomeAssistantGenerated
 		public NumericSensorEntity SmG986bLightSensor => new(_haContext, "sensor.sm_g986b_light_sensor");
 		///<summary>SM-G986B Pressure Sensor</summary>
 		public NumericSensorEntity SmG986bPressureSensor => new(_haContext, "sensor.sm_g986b_pressure_sensor");
-		///<summary>SM-G986B Storage Sensor</summary>
+		///<summary>SM-G986B Internal Storage</summary>
 		public NumericSensorEntity SmG986bStorageSensor => new(_haContext, "sensor.sm_g986b_storage_sensor");
 		///<summary>sovrum_byra_linkquality</summary>
 		public NumericSensorEntity SovrumByraLinkquality => new(_haContext, "sensor.sovrum_byra_linkquality");
@@ -1427,6 +1446,10 @@ namespace HomeAssistantGenerated
 		public SensorEntity MotorvarmareHogerUpdateStateOld => new(_haContext, "sensor.motorvarmare_hoger_update_state_old");
 		///<summary>netdaemon_status</summary>
 		public SensorEntity NetdaemonStatus => new(_haContext, "sensor.netdaemon_status");
+		///<summary>roborock.vacuum.a15 Last Clean End</summary>
+		public SensorEntity RoborockVacuumA15LastCleanEnd => new(_haContext, "sensor.roborock_vacuum_a15_last_clean_end");
+		///<summary>roborock.vacuum.a15 Last Clean Start</summary>
+		public SensorEntity RoborockVacuumA15LastCleanStart => new(_haContext, "sensor.roborock_vacuum_a15_last_clean_start");
 		///<summary>sallys_fonster_power_on_behavior</summary>
 		public SensorEntity SallysFonsterPowerOnBehavior => new(_haContext, "sensor.sallys_fonster_power_on_behavior");
 		///<summary>sallys_fonster_update_state</summary>
@@ -1449,7 +1472,7 @@ namespace HomeAssistantGenerated
 		public SensorEntity SmG975fGeocodedLocation => new(_haContext, "sensor.sm_g975f_geocoded_location");
 		///<summary>SM-G975F Wifi Connection</summary>
 		public SensorEntity SmG975fWifiConnection => new(_haContext, "sensor.sm_g975f_wifi_connection");
-		///<summary>SM-G986B Audio Sensor</summary>
+		///<summary>SM-G986B Ringer Mode</summary>
 		public SensorEntity SmG986bAudioSensor => new(_haContext, "sensor.sm_g986b_audio_sensor");
 		///<summary>SM-G986B Battery Health</summary>
 		public SensorEntity SmG986bBatteryHealth => new(_haContext, "sensor.sm_g986b_battery_health");
@@ -1467,7 +1490,7 @@ namespace HomeAssistantGenerated
 		public SensorEntity SmG986bNextAlarm => new(_haContext, "sensor.sm_g986b_next_alarm");
 		///<summary>SM-G986B Proximity Sensor</summary>
 		public SensorEntity SmG986bProximitySensor => new(_haContext, "sensor.sm_g986b_proximity_sensor");
-		///<summary>SM-G986B Wifi Connection</summary>
+		///<summary>SM-G986B WiFi Connection</summary>
 		public SensorEntity SmG986bWifiConnection => new(_haContext, "sensor.sm_g986b_wifi_connection");
 		///<summary>Snapshot State</summary>
 		public SensorEntity SnapshotBackup => new(_haContext, "sensor.snapshot_backup");
@@ -1661,8 +1684,6 @@ namespace HomeAssistantGenerated
 		public SwitchEntity GymmetDoNotDisturb => new(_haContext, "switch.gymmet_do_not_disturb");
 		///<summary>Switch Hall byrå</summary>
 		public SwitchEntity HallByra => new(_haContext, "switch.hall_byra");
-		///<summary>Julbelysning 1</summary>
-		public SwitchEntity Julbelysning1 => new(_haContext, "switch.julbelysning_1");
 		///<summary>julbelysning_kok_h</summary>
 		public SwitchEntity JulbelysningKokH => new(_haContext, "switch.julbelysning_kok_h");
 		///<summary>julbelysning_kok_v</summary>
@@ -1729,6 +1750,18 @@ namespace HomeAssistantGenerated
 
 		///<summary>Time remaining</summary>
 		public TimerEntity ZigbeePermitJoin => new(_haContext, "timer.zigbee_permit_join");
+	}
+
+	public class VacuumEntities
+	{
+		private readonly IHaContext _haContext;
+		public VacuumEntities(IHaContext haContext)
+		{
+			_haContext = haContext;
+		}
+
+		///<summary>roborock.vacuum.a15</summary>
+		public VacuumEntity RoborockVacuumA15 => new(_haContext, "vacuum.roborock_vacuum_a15");
 	}
 
 	public class WeatherEntities
@@ -2051,6 +2084,17 @@ namespace HomeAssistantGenerated
 		}
 	}
 
+	public record VacuumEntity : Entity<VacuumEntity, EntityState<VacuumAttributes>, VacuumAttributes>
+	{
+		public VacuumEntity(IHaContext haContext, string entityId) : base(haContext, entityId)
+		{
+		}
+
+		public VacuumEntity(Entity entity) : base(entity)
+		{
+		}
+	}
+
 	public record WeatherEntity : Entity<WeatherEntity, EntityState<WeatherAttributes>, WeatherAttributes>
 	{
 		public WeatherEntity(IHaContext haContext, string entityId) : base(haContext, entityId)
@@ -2106,7 +2150,7 @@ namespace HomeAssistantGenerated
 		public double? Brightness { get; init; }
 
 		[JsonPropertyName("click")]
-		public string? Click { get; init; }
+		public object? Click { get; init; }
 
 		[JsonPropertyName("color")]
 		public object? Color { get; init; }
@@ -2237,6 +2281,9 @@ namespace HomeAssistantGenerated
 		[JsonPropertyName("brand")]
 		public string? Brand { get; init; }
 
+		[JsonPropertyName("calibration_points")]
+		public object? CalibrationPoints { get; init; }
+
 		[JsonPropertyName("color_bw")]
 		public string? ColorBw { get; init; }
 
@@ -2249,6 +2296,9 @@ namespace HomeAssistantGenerated
 		[JsonPropertyName("frontend_stream_type")]
 		public string? FrontendStreamType { get; init; }
 
+		[JsonPropertyName("model")]
+		public string? Model { get; init; }
+
 		[JsonPropertyName("model_name")]
 		public string? ModelName { get; init; }
 
@@ -2260,6 +2310,9 @@ namespace HomeAssistantGenerated
 
 		[JsonPropertyName("supported_features")]
 		public double? SupportedFeatures { get; init; }
+
+		[JsonPropertyName("used_api")]
+		public string? UsedApi { get; init; }
 	}
 
 	public record CoverAttributes
@@ -2561,17 +2614,8 @@ namespace HomeAssistantGenerated
 		[JsonPropertyName("adb_response")]
 		public object? AdbResponse { get; init; }
 
-		[JsonPropertyName("app_id")]
-		public string? AppId { get; init; }
-
-		[JsonPropertyName("app_name")]
-		public string? AppName { get; init; }
-
 		[JsonPropertyName("device_class")]
 		public string? DeviceClass { get; init; }
-
-		[JsonPropertyName("entity_picture_local")]
-		public object? EntityPictureLocal { get; init; }
 
 		[JsonPropertyName("friendly_name")]
 		public string? FriendlyName { get; init; }
@@ -2582,15 +2626,6 @@ namespace HomeAssistantGenerated
 		[JsonPropertyName("icon")]
 		public string? Icon { get; init; }
 
-		[JsonPropertyName("is_volume_muted")]
-		public bool? IsVolumeMuted { get; init; }
-
-		[JsonPropertyName("media_position_updated_at")]
-		public string? MediaPositionUpdatedAt { get; init; }
-
-		[JsonPropertyName("player_source")]
-		public string? PlayerSource { get; init; }
-
 		[JsonPropertyName("restored")]
 		public bool? Restored { get; init; }
 
@@ -2599,9 +2634,6 @@ namespace HomeAssistantGenerated
 
 		[JsonPropertyName("supported_features")]
 		public double? SupportedFeatures { get; init; }
-
-		[JsonPropertyName("volume_level")]
-		public double? VolumeLevel { get; init; }
 	}
 
 	public record NumberAttributes
@@ -2799,7 +2831,7 @@ namespace HomeAssistantGenerated
 		public double? CardioCaloriesBurned { get; init; }
 
 		[JsonPropertyName("click")]
-		public string? Click { get; init; }
+		public object? Click { get; init; }
 
 		[JsonPropertyName("color")]
 		public object? Color { get; init; }
@@ -2985,7 +3017,7 @@ namespace HomeAssistantGenerated
 		public double? Brightness { get; init; }
 
 		[JsonPropertyName("click")]
-		public string? Click { get; init; }
+		public object? Click { get; init; }
 
 		[JsonPropertyName("color")]
 		public object? Color { get; init; }
@@ -3038,9 +3070,6 @@ namespace HomeAssistantGenerated
 		[JsonPropertyName("last_snapshot")]
 		public string? LastSnapshot { get; init; }
 
-		[JsonPropertyName("Latitude")]
-		public double? Latitude { get; init; }
-
 		[JsonPropertyName("led_indication")]
 		public object? LedIndication { get; init; }
 
@@ -3055,9 +3084,6 @@ namespace HomeAssistantGenerated
 
 		[JsonPropertyName("Location")]
 		public object? Location { get; init; }
-
-		[JsonPropertyName("Longitude")]
-		public double? Longitude { get; init; }
 
 		[JsonPropertyName("Low Power Mode")]
 		public bool? LowPowerMode { get; init; }
@@ -3285,6 +3311,30 @@ namespace HomeAssistantGenerated
 		public string? FriendlyName { get; init; }
 	}
 
+	public record VacuumAttributes
+	{
+		[JsonPropertyName("battery_icon")]
+		public string? BatteryIcon { get; init; }
+
+		[JsonPropertyName("battery_level")]
+		public double? BatteryLevel { get; init; }
+
+		[JsonPropertyName("fan_speed")]
+		public string? FanSpeed { get; init; }
+
+		[JsonPropertyName("fan_speed_list")]
+		public object? FanSpeedList { get; init; }
+
+		[JsonPropertyName("friendly_name")]
+		public string? FriendlyName { get; init; }
+
+		[JsonPropertyName("status")]
+		public string? Status { get; init; }
+
+		[JsonPropertyName("supported_features")]
+		public double? SupportedFeatures { get; init; }
+	}
+
 	public record WeatherAttributes
 	{
 		[JsonPropertyName("attribution")]
@@ -3402,8 +3452,6 @@ namespace HomeAssistantGenerated
 
 		LocaltuyaServices Localtuya { get; }
 
-		LockServices Lock { get; }
-
 		LogbookServices Logbook { get; }
 
 		LoggerServices Logger { get; }
@@ -3450,6 +3498,12 @@ namespace HomeAssistantGenerated
 
 		UnifiServices Unifi { get; }
 
+		VacuumServices Vacuum { get; }
+
+		XiaomiCloudMapExtractorServices XiaomiCloudMapExtractor { get; }
+
+		XiaomiMiioServices XiaomiMiio { get; }
+
 		ZoneServices Zone { get; }
 	}
 
@@ -3487,7 +3541,6 @@ namespace HomeAssistantGenerated
 		public InputTextServices InputText => new(_haContext);
 		public LightServices Light => new(_haContext);
 		public LocaltuyaServices Localtuya => new(_haContext);
-		public LockServices Lock => new(_haContext);
 		public LogbookServices Logbook => new(_haContext);
 		public LoggerServices Logger => new(_haContext);
 		public LovelaceServices Lovelace => new(_haContext);
@@ -3511,6 +3564,9 @@ namespace HomeAssistantGenerated
 		public TimerServices Timer => new(_haContext);
 		public TtsServices Tts => new(_haContext);
 		public UnifiServices Unifi => new(_haContext);
+		public VacuumServices Vacuum => new(_haContext);
+		public XiaomiCloudMapExtractorServices XiaomiCloudMapExtractor => new(_haContext);
+		public XiaomiMiioServices XiaomiMiio => new(_haContext);
 		public ZoneServices Zone => new(_haContext);
 	}
 
@@ -5769,81 +5825,6 @@ namespace HomeAssistantGenerated
 		public object? Value { get; init; }
 	}
 
-	public class LockServices
-	{
-		private readonly IHaContext _haContext;
-		public LockServices(IHaContext haContext)
-		{
-			_haContext = haContext;
-		}
-
-		///<summary>Lock all or specified locks.</summary>
-		///<param name="target">The target for this service call</param>
-		public void Lock(ServiceTarget target, LockLockParameters data)
-		{
-			_haContext.CallService("lock", "lock", target, data);
-		}
-
-		///<summary>Lock all or specified locks.</summary>
-		///<param name="target">The target for this service call</param>
-		///<param name="code">An optional code to lock the lock with. eg: 1234</param>
-		public void Lock(ServiceTarget target, string? @code = null)
-		{
-			_haContext.CallService("lock", "lock", target, new LockLockParameters{Code = @code});
-		}
-
-		///<summary>Open all or specified locks.</summary>
-		///<param name="target">The target for this service call</param>
-		public void Open(ServiceTarget target, LockOpenParameters data)
-		{
-			_haContext.CallService("lock", "open", target, data);
-		}
-
-		///<summary>Open all or specified locks.</summary>
-		///<param name="target">The target for this service call</param>
-		///<param name="code">An optional code to open the lock with. eg: 1234</param>
-		public void Open(ServiceTarget target, string? @code = null)
-		{
-			_haContext.CallService("lock", "open", target, new LockOpenParameters{Code = @code});
-		}
-
-		///<summary>Unlock all or specified locks.</summary>
-		///<param name="target">The target for this service call</param>
-		public void Unlock(ServiceTarget target, LockUnlockParameters data)
-		{
-			_haContext.CallService("lock", "unlock", target, data);
-		}
-
-		///<summary>Unlock all or specified locks.</summary>
-		///<param name="target">The target for this service call</param>
-		///<param name="code">An optional code to unlock the lock with. eg: 1234</param>
-		public void Unlock(ServiceTarget target, string? @code = null)
-		{
-			_haContext.CallService("lock", "unlock", target, new LockUnlockParameters{Code = @code});
-		}
-	}
-
-	public record LockLockParameters
-	{
-		///<summary>An optional code to lock the lock with. eg: 1234</summary>
-		[JsonPropertyName("code")]
-		public string? Code { get; init; }
-	}
-
-	public record LockOpenParameters
-	{
-		///<summary>An optional code to open the lock with. eg: 1234</summary>
-		[JsonPropertyName("code")]
-		public string? Code { get; init; }
-	}
-
-	public record LockUnlockParameters
-	{
-		///<summary>An optional code to unlock the lock with. eg: 1234</summary>
-		[JsonPropertyName("code")]
-		public string? Code { get; init; }
-	}
-
 	public class LogbookServices
 	{
 		private readonly IHaContext _haContext;
@@ -7581,6 +7562,310 @@ namespace HomeAssistantGenerated
 		///<summary>Try reconnect client to wireless network</summary>
 		[JsonPropertyName("device_id")]
 		public string? DeviceId { get; init; }
+	}
+
+	public class VacuumServices
+	{
+		private readonly IHaContext _haContext;
+		public VacuumServices(IHaContext haContext)
+		{
+			_haContext = haContext;
+		}
+
+		///<summary>Tell the vacuum cleaner to do a spot clean-up.</summary>
+		///<param name="target">The target for this service call</param>
+		public void CleanSpot(ServiceTarget target)
+		{
+			_haContext.CallService("vacuum", "clean_spot", target);
+		}
+
+		///<summary>Locate the vacuum cleaner robot.</summary>
+		///<param name="target">The target for this service call</param>
+		public void Locate(ServiceTarget target)
+		{
+			_haContext.CallService("vacuum", "locate", target);
+		}
+
+		///<summary>Pause the cleaning task.</summary>
+		///<param name="target">The target for this service call</param>
+		public void Pause(ServiceTarget target)
+		{
+			_haContext.CallService("vacuum", "pause", target);
+		}
+
+		///<summary>Tell the vacuum cleaner to return to its dock.</summary>
+		///<param name="target">The target for this service call</param>
+		public void ReturnToBase(ServiceTarget target)
+		{
+			_haContext.CallService("vacuum", "return_to_base", target);
+		}
+
+		///<summary>Send a raw command to the vacuum cleaner.</summary>
+		///<param name="target">The target for this service call</param>
+		public void SendCommand(ServiceTarget target, VacuumSendCommandParameters data)
+		{
+			_haContext.CallService("vacuum", "send_command", target, data);
+		}
+
+		///<summary>Send a raw command to the vacuum cleaner.</summary>
+		///<param name="target">The target for this service call</param>
+		///<param name="command">Command to execute. eg: set_dnd_timer</param>
+		///<param name="params">Parameters for the command. eg: { "key": "value" }</param>
+		public void SendCommand(ServiceTarget target, string @command, object? @params = null)
+		{
+			_haContext.CallService("vacuum", "send_command", target, new VacuumSendCommandParameters{Command = @command, Params = @params});
+		}
+
+		///<summary>Set the fan speed of the vacuum cleaner.</summary>
+		///<param name="target">The target for this service call</param>
+		public void SetFanSpeed(ServiceTarget target, VacuumSetFanSpeedParameters data)
+		{
+			_haContext.CallService("vacuum", "set_fan_speed", target, data);
+		}
+
+		///<summary>Set the fan speed of the vacuum cleaner.</summary>
+		///<param name="target">The target for this service call</param>
+		///<param name="fanSpeed">Platform dependent vacuum cleaner fan speed, with speed steps, like 'medium' or by percentage, between 0 and 100. eg: low</param>
+		public void SetFanSpeed(ServiceTarget target, string @fanSpeed)
+		{
+			_haContext.CallService("vacuum", "set_fan_speed", target, new VacuumSetFanSpeedParameters{FanSpeed = @fanSpeed});
+		}
+
+		///<summary>Start or resume the cleaning task.</summary>
+		///<param name="target">The target for this service call</param>
+		public void Start(ServiceTarget target)
+		{
+			_haContext.CallService("vacuum", "start", target);
+		}
+
+		///<summary>Start, pause, or resume the cleaning task.</summary>
+		///<param name="target">The target for this service call</param>
+		public void StartPause(ServiceTarget target)
+		{
+			_haContext.CallService("vacuum", "start_pause", target);
+		}
+
+		///<summary>Stop the current cleaning task.</summary>
+		///<param name="target">The target for this service call</param>
+		public void Stop(ServiceTarget target)
+		{
+			_haContext.CallService("vacuum", "stop", target);
+		}
+
+		public void Toggle()
+		{
+			_haContext.CallService("vacuum", "toggle", null);
+		}
+
+		///<summary>Stop the current cleaning task and return to home.</summary>
+		///<param name="target">The target for this service call</param>
+		public void TurnOff(ServiceTarget target)
+		{
+			_haContext.CallService("vacuum", "turn_off", target);
+		}
+
+		///<summary>Start a new cleaning task.</summary>
+		///<param name="target">The target for this service call</param>
+		public void TurnOn(ServiceTarget target)
+		{
+			_haContext.CallService("vacuum", "turn_on", target);
+		}
+	}
+
+	public record VacuumSendCommandParameters
+	{
+		///<summary>Command to execute. eg: set_dnd_timer</summary>
+		[JsonPropertyName("command")]
+		public string? Command { get; init; }
+
+		///<summary>Parameters for the command. eg: { "key": "value" }</summary>
+		[JsonPropertyName("params")]
+		public object? Params { get; init; }
+	}
+
+	public record VacuumSetFanSpeedParameters
+	{
+		///<summary>Platform dependent vacuum cleaner fan speed, with speed steps, like 'medium' or by percentage, between 0 and 100. eg: low</summary>
+		[JsonPropertyName("fan_speed")]
+		public string? FanSpeed { get; init; }
+	}
+
+	public class XiaomiCloudMapExtractorServices
+	{
+		private readonly IHaContext _haContext;
+		public XiaomiCloudMapExtractorServices(IHaContext haContext)
+		{
+			_haContext = haContext;
+		}
+
+		///<summary>Reload all entities of Xiaomi Cloud Map Extractor platform</summary>
+		public void Reload()
+		{
+			_haContext.CallService("xiaomi_cloud_map_extractor", "reload", null);
+		}
+	}
+
+	public class XiaomiMiioServices
+	{
+		private readonly IHaContext _haContext;
+		public XiaomiMiioServices(IHaContext haContext)
+		{
+			_haContext = haContext;
+		}
+
+		///<summary>Start cleaning of the specified segment(s).</summary>
+		///<param name="target">The target for this service call</param>
+		public void VacuumCleanSegment(ServiceTarget target, XiaomiMiioVacuumCleanSegmentParameters data)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_clean_segment", target, data);
+		}
+
+		///<summary>Start cleaning of the specified segment(s).</summary>
+		///<param name="target">The target for this service call</param>
+		///<param name="segments">Segments. eg: [1,2]</param>
+		public void VacuumCleanSegment(ServiceTarget target, object? @segments = null)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_clean_segment", target, new XiaomiMiioVacuumCleanSegmentParameters{Segments = @segments});
+		}
+
+		///<summary>Start the cleaning operation in the selected areas for the number of repeats indicated.</summary>
+		///<param name="target">The target for this service call</param>
+		public void VacuumCleanZone(ServiceTarget target, XiaomiMiioVacuumCleanZoneParameters data)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_clean_zone", target, data);
+		}
+
+		///<summary>Start the cleaning operation in the selected areas for the number of repeats indicated.</summary>
+		///<param name="target">The target for this service call</param>
+		///<param name="zone">Array of zones. Each zone is an array of 4 integer values. eg: [[23510,25311,25110,26362]]</param>
+		///<param name="repeats">Number of cleaning repeats for each zone.</param>
+		public void VacuumCleanZone(ServiceTarget target, object? @zone = null, long? @repeats = null)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_clean_zone", target, new XiaomiMiioVacuumCleanZoneParameters{Zone = @zone, Repeats = @repeats});
+		}
+
+		///<summary>Go to the specified coordinates.</summary>
+		///<param name="target">The target for this service call</param>
+		public void VacuumGoto(ServiceTarget target, XiaomiMiioVacuumGotoParameters data)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_goto", target, data);
+		}
+
+		///<summary>Go to the specified coordinates.</summary>
+		///<param name="target">The target for this service call</param>
+		///<param name="xCoord">x-coordinate. eg: 27500</param>
+		///<param name="yCoord">y-coordinate. eg: 32000</param>
+		public void VacuumGoto(ServiceTarget target, string? @xCoord = null, string? @yCoord = null)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_goto", target, new XiaomiMiioVacuumGotoParameters{XCoord = @xCoord, YCoord = @yCoord});
+		}
+
+		///<summary>Remote control the vacuum cleaner, make sure you first set it in remote control mode with `remote_control_start`.</summary>
+		///<param name="target">The target for this service call</param>
+		public void VacuumRemoteControlMove(ServiceTarget target, XiaomiMiioVacuumRemoteControlMoveParameters data)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_remote_control_move", target, data);
+		}
+
+		///<summary>Remote control the vacuum cleaner, make sure you first set it in remote control mode with `remote_control_start`.</summary>
+		///<param name="target">The target for this service call</param>
+		///<param name="velocity">Speed.</param>
+		///<param name="rotation">Rotation, between -179 degrees and 179 degrees.</param>
+		///<param name="duration">Duration of the movement.</param>
+		public void VacuumRemoteControlMove(ServiceTarget target, double? @velocity = null, long? @rotation = null, long? @duration = null)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_remote_control_move", target, new XiaomiMiioVacuumRemoteControlMoveParameters{Velocity = @velocity, Rotation = @rotation, Duration = @duration});
+		}
+
+		///<summary>Remote control the vacuum cleaner, only makes one move and then stops.</summary>
+		///<param name="target">The target for this service call</param>
+		public void VacuumRemoteControlMoveStep(ServiceTarget target, XiaomiMiioVacuumRemoteControlMoveStepParameters data)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_remote_control_move_step", target, data);
+		}
+
+		///<summary>Remote control the vacuum cleaner, only makes one move and then stops.</summary>
+		///<param name="target">The target for this service call</param>
+		///<param name="velocity">Speed.</param>
+		///<param name="rotation">Rotation.</param>
+		///<param name="duration">Duration of the movement.</param>
+		public void VacuumRemoteControlMoveStep(ServiceTarget target, double? @velocity = null, long? @rotation = null, long? @duration = null)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_remote_control_move_step", target, new XiaomiMiioVacuumRemoteControlMoveStepParameters{Velocity = @velocity, Rotation = @rotation, Duration = @duration});
+		}
+
+		///<summary>Start remote control of the vacuum cleaner. You can then move it with `remote_control_move`, when done call `remote_control_stop`.</summary>
+		///<param name="target">The target for this service call</param>
+		public void VacuumRemoteControlStart(ServiceTarget target)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_remote_control_start", target);
+		}
+
+		///<summary>Stop remote control mode of the vacuum cleaner.</summary>
+		///<param name="target">The target for this service call</param>
+		public void VacuumRemoteControlStop(ServiceTarget target)
+		{
+			_haContext.CallService("xiaomi_miio", "vacuum_remote_control_stop", target);
+		}
+	}
+
+	public record XiaomiMiioVacuumCleanSegmentParameters
+	{
+		///<summary>Segments. eg: [1,2]</summary>
+		[JsonPropertyName("segments")]
+		public object? Segments { get; init; }
+	}
+
+	public record XiaomiMiioVacuumCleanZoneParameters
+	{
+		///<summary>Array of zones. Each zone is an array of 4 integer values. eg: [[23510,25311,25110,26362]]</summary>
+		[JsonPropertyName("zone")]
+		public object? Zone { get; init; }
+
+		///<summary>Number of cleaning repeats for each zone.</summary>
+		[JsonPropertyName("repeats")]
+		public long? Repeats { get; init; }
+	}
+
+	public record XiaomiMiioVacuumGotoParameters
+	{
+		///<summary>x-coordinate. eg: 27500</summary>
+		[JsonPropertyName("x_coord")]
+		public string? XCoord { get; init; }
+
+		///<summary>y-coordinate. eg: 32000</summary>
+		[JsonPropertyName("y_coord")]
+		public string? YCoord { get; init; }
+	}
+
+	public record XiaomiMiioVacuumRemoteControlMoveParameters
+	{
+		///<summary>Speed.</summary>
+		[JsonPropertyName("velocity")]
+		public double? Velocity { get; init; }
+
+		///<summary>Rotation, between -179 degrees and 179 degrees.</summary>
+		[JsonPropertyName("rotation")]
+		public long? Rotation { get; init; }
+
+		///<summary>Duration of the movement.</summary>
+		[JsonPropertyName("duration")]
+		public long? Duration { get; init; }
+	}
+
+	public record XiaomiMiioVacuumRemoteControlMoveStepParameters
+	{
+		///<summary>Speed.</summary>
+		[JsonPropertyName("velocity")]
+		public double? Velocity { get; init; }
+
+		///<summary>Rotation.</summary>
+		[JsonPropertyName("rotation")]
+		public long? Rotation { get; init; }
+
+		///<summary>Duration of the movement.</summary>
+		[JsonPropertyName("duration")]
+		public long? Duration { get; init; }
 	}
 
 	public class ZoneServices
@@ -9367,6 +9652,354 @@ namespace HomeAssistantGenerated
 		public static void Start(this IEnumerable<TimerEntity> target, string? @duration = null)
 		{
 			target.CallService("start", new TimerStartParameters{Duration = @duration});
+		}
+	}
+
+	public static class VacuumEntityExtensionMethods
+	{
+		///<summary>Tell the vacuum cleaner to do a spot clean-up.</summary>
+		public static void CleanSpot(this VacuumEntity target)
+		{
+			target.CallService("clean_spot");
+		}
+
+		///<summary>Tell the vacuum cleaner to do a spot clean-up.</summary>
+		public static void CleanSpot(this IEnumerable<VacuumEntity> target)
+		{
+			target.CallService("clean_spot");
+		}
+
+		///<summary>Locate the vacuum cleaner robot.</summary>
+		public static void Locate(this VacuumEntity target)
+		{
+			target.CallService("locate");
+		}
+
+		///<summary>Locate the vacuum cleaner robot.</summary>
+		public static void Locate(this IEnumerable<VacuumEntity> target)
+		{
+			target.CallService("locate");
+		}
+
+		///<summary>Pause the cleaning task.</summary>
+		public static void Pause(this VacuumEntity target)
+		{
+			target.CallService("pause");
+		}
+
+		///<summary>Pause the cleaning task.</summary>
+		public static void Pause(this IEnumerable<VacuumEntity> target)
+		{
+			target.CallService("pause");
+		}
+
+		///<summary>Tell the vacuum cleaner to return to its dock.</summary>
+		public static void ReturnToBase(this VacuumEntity target)
+		{
+			target.CallService("return_to_base");
+		}
+
+		///<summary>Tell the vacuum cleaner to return to its dock.</summary>
+		public static void ReturnToBase(this IEnumerable<VacuumEntity> target)
+		{
+			target.CallService("return_to_base");
+		}
+
+		///<summary>Send a raw command to the vacuum cleaner.</summary>
+		public static void SendCommand(this VacuumEntity target, VacuumSendCommandParameters data)
+		{
+			target.CallService("send_command", data);
+		}
+
+		///<summary>Send a raw command to the vacuum cleaner.</summary>
+		public static void SendCommand(this IEnumerable<VacuumEntity> target, VacuumSendCommandParameters data)
+		{
+			target.CallService("send_command", data);
+		}
+
+		///<summary>Send a raw command to the vacuum cleaner.</summary>
+		///<param name="target">The VacuumEntity to call this service for</param>
+		///<param name="command">Command to execute. eg: set_dnd_timer</param>
+		///<param name="params">Parameters for the command. eg: { "key": "value" }</param>
+		public static void SendCommand(this VacuumEntity target, string @command, object? @params = null)
+		{
+			target.CallService("send_command", new VacuumSendCommandParameters{Command = @command, Params = @params});
+		}
+
+		///<summary>Send a raw command to the vacuum cleaner.</summary>
+		///<param name="target">The IEnumerable<VacuumEntity> to call this service for</param>
+		///<param name="command">Command to execute. eg: set_dnd_timer</param>
+		///<param name="params">Parameters for the command. eg: { "key": "value" }</param>
+		public static void SendCommand(this IEnumerable<VacuumEntity> target, string @command, object? @params = null)
+		{
+			target.CallService("send_command", new VacuumSendCommandParameters{Command = @command, Params = @params});
+		}
+
+		///<summary>Set the fan speed of the vacuum cleaner.</summary>
+		public static void SetFanSpeed(this VacuumEntity target, VacuumSetFanSpeedParameters data)
+		{
+			target.CallService("set_fan_speed", data);
+		}
+
+		///<summary>Set the fan speed of the vacuum cleaner.</summary>
+		public static void SetFanSpeed(this IEnumerable<VacuumEntity> target, VacuumSetFanSpeedParameters data)
+		{
+			target.CallService("set_fan_speed", data);
+		}
+
+		///<summary>Set the fan speed of the vacuum cleaner.</summary>
+		///<param name="target">The VacuumEntity to call this service for</param>
+		///<param name="fanSpeed">Platform dependent vacuum cleaner fan speed, with speed steps, like 'medium' or by percentage, between 0 and 100. eg: low</param>
+		public static void SetFanSpeed(this VacuumEntity target, string @fanSpeed)
+		{
+			target.CallService("set_fan_speed", new VacuumSetFanSpeedParameters{FanSpeed = @fanSpeed});
+		}
+
+		///<summary>Set the fan speed of the vacuum cleaner.</summary>
+		///<param name="target">The IEnumerable<VacuumEntity> to call this service for</param>
+		///<param name="fanSpeed">Platform dependent vacuum cleaner fan speed, with speed steps, like 'medium' or by percentage, between 0 and 100. eg: low</param>
+		public static void SetFanSpeed(this IEnumerable<VacuumEntity> target, string @fanSpeed)
+		{
+			target.CallService("set_fan_speed", new VacuumSetFanSpeedParameters{FanSpeed = @fanSpeed});
+		}
+
+		///<summary>Start or resume the cleaning task.</summary>
+		public static void Start(this VacuumEntity target)
+		{
+			target.CallService("start");
+		}
+
+		///<summary>Start or resume the cleaning task.</summary>
+		public static void Start(this IEnumerable<VacuumEntity> target)
+		{
+			target.CallService("start");
+		}
+
+		///<summary>Start, pause, or resume the cleaning task.</summary>
+		public static void StartPause(this VacuumEntity target)
+		{
+			target.CallService("start_pause");
+		}
+
+		///<summary>Start, pause, or resume the cleaning task.</summary>
+		public static void StartPause(this IEnumerable<VacuumEntity> target)
+		{
+			target.CallService("start_pause");
+		}
+
+		///<summary>Stop the current cleaning task.</summary>
+		public static void Stop(this VacuumEntity target)
+		{
+			target.CallService("stop");
+		}
+
+		///<summary>Stop the current cleaning task.</summary>
+		public static void Stop(this IEnumerable<VacuumEntity> target)
+		{
+			target.CallService("stop");
+		}
+
+		///<summary>Stop the current cleaning task and return to home.</summary>
+		public static void TurnOff(this VacuumEntity target)
+		{
+			target.CallService("turn_off");
+		}
+
+		///<summary>Stop the current cleaning task and return to home.</summary>
+		public static void TurnOff(this IEnumerable<VacuumEntity> target)
+		{
+			target.CallService("turn_off");
+		}
+
+		///<summary>Start a new cleaning task.</summary>
+		public static void TurnOn(this VacuumEntity target)
+		{
+			target.CallService("turn_on");
+		}
+
+		///<summary>Start a new cleaning task.</summary>
+		public static void TurnOn(this IEnumerable<VacuumEntity> target)
+		{
+			target.CallService("turn_on");
+		}
+	}
+
+	public static class XiaomiMiioEntityExtensionMethods
+	{
+		///<summary>Start cleaning of the specified segment(s).</summary>
+		public static void VacuumCleanSegment(this VacuumEntity target, XiaomiMiioVacuumCleanSegmentParameters data)
+		{
+			target.CallService("vacuum_clean_segment", data);
+		}
+
+		///<summary>Start cleaning of the specified segment(s).</summary>
+		public static void VacuumCleanSegment(this IEnumerable<VacuumEntity> target, XiaomiMiioVacuumCleanSegmentParameters data)
+		{
+			target.CallService("vacuum_clean_segment", data);
+		}
+
+		///<summary>Start cleaning of the specified segment(s).</summary>
+		///<param name="target">The VacuumEntity to call this service for</param>
+		///<param name="segments">Segments. eg: [1,2]</param>
+		public static void VacuumCleanSegment(this VacuumEntity target, object? @segments = null)
+		{
+			target.CallService("vacuum_clean_segment", new XiaomiMiioVacuumCleanSegmentParameters{Segments = @segments});
+		}
+
+		///<summary>Start cleaning of the specified segment(s).</summary>
+		///<param name="target">The IEnumerable<VacuumEntity> to call this service for</param>
+		///<param name="segments">Segments. eg: [1,2]</param>
+		public static void VacuumCleanSegment(this IEnumerable<VacuumEntity> target, object? @segments = null)
+		{
+			target.CallService("vacuum_clean_segment", new XiaomiMiioVacuumCleanSegmentParameters{Segments = @segments});
+		}
+
+		///<summary>Start the cleaning operation in the selected areas for the number of repeats indicated.</summary>
+		public static void VacuumCleanZone(this VacuumEntity target, XiaomiMiioVacuumCleanZoneParameters data)
+		{
+			target.CallService("vacuum_clean_zone", data);
+		}
+
+		///<summary>Start the cleaning operation in the selected areas for the number of repeats indicated.</summary>
+		public static void VacuumCleanZone(this IEnumerable<VacuumEntity> target, XiaomiMiioVacuumCleanZoneParameters data)
+		{
+			target.CallService("vacuum_clean_zone", data);
+		}
+
+		///<summary>Start the cleaning operation in the selected areas for the number of repeats indicated.</summary>
+		///<param name="target">The VacuumEntity to call this service for</param>
+		///<param name="zone">Array of zones. Each zone is an array of 4 integer values. eg: [[23510,25311,25110,26362]]</param>
+		///<param name="repeats">Number of cleaning repeats for each zone.</param>
+		public static void VacuumCleanZone(this VacuumEntity target, object? @zone = null, long? @repeats = null)
+		{
+			target.CallService("vacuum_clean_zone", new XiaomiMiioVacuumCleanZoneParameters{Zone = @zone, Repeats = @repeats});
+		}
+
+		///<summary>Start the cleaning operation in the selected areas for the number of repeats indicated.</summary>
+		///<param name="target">The IEnumerable<VacuumEntity> to call this service for</param>
+		///<param name="zone">Array of zones. Each zone is an array of 4 integer values. eg: [[23510,25311,25110,26362]]</param>
+		///<param name="repeats">Number of cleaning repeats for each zone.</param>
+		public static void VacuumCleanZone(this IEnumerable<VacuumEntity> target, object? @zone = null, long? @repeats = null)
+		{
+			target.CallService("vacuum_clean_zone", new XiaomiMiioVacuumCleanZoneParameters{Zone = @zone, Repeats = @repeats});
+		}
+
+		///<summary>Go to the specified coordinates.</summary>
+		public static void VacuumGoto(this VacuumEntity target, XiaomiMiioVacuumGotoParameters data)
+		{
+			target.CallService("vacuum_goto", data);
+		}
+
+		///<summary>Go to the specified coordinates.</summary>
+		public static void VacuumGoto(this IEnumerable<VacuumEntity> target, XiaomiMiioVacuumGotoParameters data)
+		{
+			target.CallService("vacuum_goto", data);
+		}
+
+		///<summary>Go to the specified coordinates.</summary>
+		///<param name="target">The VacuumEntity to call this service for</param>
+		///<param name="xCoord">x-coordinate. eg: 27500</param>
+		///<param name="yCoord">y-coordinate. eg: 32000</param>
+		public static void VacuumGoto(this VacuumEntity target, string? @xCoord = null, string? @yCoord = null)
+		{
+			target.CallService("vacuum_goto", new XiaomiMiioVacuumGotoParameters{XCoord = @xCoord, YCoord = @yCoord});
+		}
+
+		///<summary>Go to the specified coordinates.</summary>
+		///<param name="target">The IEnumerable<VacuumEntity> to call this service for</param>
+		///<param name="xCoord">x-coordinate. eg: 27500</param>
+		///<param name="yCoord">y-coordinate. eg: 32000</param>
+		public static void VacuumGoto(this IEnumerable<VacuumEntity> target, string? @xCoord = null, string? @yCoord = null)
+		{
+			target.CallService("vacuum_goto", new XiaomiMiioVacuumGotoParameters{XCoord = @xCoord, YCoord = @yCoord});
+		}
+
+		///<summary>Remote control the vacuum cleaner, make sure you first set it in remote control mode with `remote_control_start`.</summary>
+		public static void VacuumRemoteControlMove(this VacuumEntity target, XiaomiMiioVacuumRemoteControlMoveParameters data)
+		{
+			target.CallService("vacuum_remote_control_move", data);
+		}
+
+		///<summary>Remote control the vacuum cleaner, make sure you first set it in remote control mode with `remote_control_start`.</summary>
+		public static void VacuumRemoteControlMove(this IEnumerable<VacuumEntity> target, XiaomiMiioVacuumRemoteControlMoveParameters data)
+		{
+			target.CallService("vacuum_remote_control_move", data);
+		}
+
+		///<summary>Remote control the vacuum cleaner, make sure you first set it in remote control mode with `remote_control_start`.</summary>
+		///<param name="target">The VacuumEntity to call this service for</param>
+		///<param name="velocity">Speed.</param>
+		///<param name="rotation">Rotation, between -179 degrees and 179 degrees.</param>
+		///<param name="duration">Duration of the movement.</param>
+		public static void VacuumRemoteControlMove(this VacuumEntity target, double? @velocity = null, long? @rotation = null, long? @duration = null)
+		{
+			target.CallService("vacuum_remote_control_move", new XiaomiMiioVacuumRemoteControlMoveParameters{Velocity = @velocity, Rotation = @rotation, Duration = @duration});
+		}
+
+		///<summary>Remote control the vacuum cleaner, make sure you first set it in remote control mode with `remote_control_start`.</summary>
+		///<param name="target">The IEnumerable<VacuumEntity> to call this service for</param>
+		///<param name="velocity">Speed.</param>
+		///<param name="rotation">Rotation, between -179 degrees and 179 degrees.</param>
+		///<param name="duration">Duration of the movement.</param>
+		public static void VacuumRemoteControlMove(this IEnumerable<VacuumEntity> target, double? @velocity = null, long? @rotation = null, long? @duration = null)
+		{
+			target.CallService("vacuum_remote_control_move", new XiaomiMiioVacuumRemoteControlMoveParameters{Velocity = @velocity, Rotation = @rotation, Duration = @duration});
+		}
+
+		///<summary>Remote control the vacuum cleaner, only makes one move and then stops.</summary>
+		public static void VacuumRemoteControlMoveStep(this VacuumEntity target, XiaomiMiioVacuumRemoteControlMoveStepParameters data)
+		{
+			target.CallService("vacuum_remote_control_move_step", data);
+		}
+
+		///<summary>Remote control the vacuum cleaner, only makes one move and then stops.</summary>
+		public static void VacuumRemoteControlMoveStep(this IEnumerable<VacuumEntity> target, XiaomiMiioVacuumRemoteControlMoveStepParameters data)
+		{
+			target.CallService("vacuum_remote_control_move_step", data);
+		}
+
+		///<summary>Remote control the vacuum cleaner, only makes one move and then stops.</summary>
+		///<param name="target">The VacuumEntity to call this service for</param>
+		///<param name="velocity">Speed.</param>
+		///<param name="rotation">Rotation.</param>
+		///<param name="duration">Duration of the movement.</param>
+		public static void VacuumRemoteControlMoveStep(this VacuumEntity target, double? @velocity = null, long? @rotation = null, long? @duration = null)
+		{
+			target.CallService("vacuum_remote_control_move_step", new XiaomiMiioVacuumRemoteControlMoveStepParameters{Velocity = @velocity, Rotation = @rotation, Duration = @duration});
+		}
+
+		///<summary>Remote control the vacuum cleaner, only makes one move and then stops.</summary>
+		///<param name="target">The IEnumerable<VacuumEntity> to call this service for</param>
+		///<param name="velocity">Speed.</param>
+		///<param name="rotation">Rotation.</param>
+		///<param name="duration">Duration of the movement.</param>
+		public static void VacuumRemoteControlMoveStep(this IEnumerable<VacuumEntity> target, double? @velocity = null, long? @rotation = null, long? @duration = null)
+		{
+			target.CallService("vacuum_remote_control_move_step", new XiaomiMiioVacuumRemoteControlMoveStepParameters{Velocity = @velocity, Rotation = @rotation, Duration = @duration});
+		}
+
+		///<summary>Start remote control of the vacuum cleaner. You can then move it with `remote_control_move`, when done call `remote_control_stop`.</summary>
+		public static void VacuumRemoteControlStart(this VacuumEntity target)
+		{
+			target.CallService("vacuum_remote_control_start");
+		}
+
+		///<summary>Start remote control of the vacuum cleaner. You can then move it with `remote_control_move`, when done call `remote_control_stop`.</summary>
+		public static void VacuumRemoteControlStart(this IEnumerable<VacuumEntity> target)
+		{
+			target.CallService("vacuum_remote_control_start");
+		}
+
+		///<summary>Stop remote control mode of the vacuum cleaner.</summary>
+		public static void VacuumRemoteControlStop(this VacuumEntity target)
+		{
+			target.CallService("vacuum_remote_control_stop");
+		}
+
+		///<summary>Stop remote control mode of the vacuum cleaner.</summary>
+		public static void VacuumRemoteControlStop(this IEnumerable<VacuumEntity> target)
+		{
+			target.CallService("vacuum_remote_control_stop");
 		}
 	}
 }

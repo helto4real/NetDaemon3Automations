@@ -3,13 +3,14 @@ namespace NetDaemon.Extensions.Observables;
 
 public static class ObservableExtensions
 {
-    public static IObservable<StateChange> SameStateFor(this IObservable<StateChange> observable, Func<EntityState?, bool> predicate, TimeSpan timeSpan)
-    {
-        return observable
-            .Where(e => predicate(e.New)!=predicate(e.Old))
-            .Throttle(timeSpan).Where(e=>predicate(e.New));
-    }
-    public static IObservable<NumericStateChange> SameStateFor(this IObservable<NumericStateChange> observable, Func<NumericEntityState?, bool> predicate, TimeSpan timeSpan)
+    // IObservable<StateChange<TEntity,TEntityState>>
+    // public static IObservable<StateChange> SameStateFor(this IObservable<StateChange> observable, Func<EntityState?, bool> predicate, TimeSpan timeSpan)
+    // {
+    //     return observable
+    //         .Where(e => predicate(e.New)!=predicate(e.Old))
+    //         .Throttle(timeSpan).Where(e=>predicate(e.New));
+    // }
+    public static IObservable<NumericStateChange> SameStateForNumeric(this IObservable<NumericStateChange> observable, Func<NumericEntityState?, bool> predicate, TimeSpan timeSpan)
     {
         return observable
             .Where(e => predicate(e.New)!=predicate(e.Old))
