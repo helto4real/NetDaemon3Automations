@@ -42,7 +42,7 @@ public class CarHeaterManager
     private readonly INetDaemonScheduler _scheduler;
 
     private readonly Services _services;
-    private readonly IDataRepository _storage;
+    private readonly IStateRepository _storage;
 
     // True if the script just turn on the heater,
     // used to prohibit logic being run on state change
@@ -52,7 +52,7 @@ public class CarHeaterManager
     private bool _appJustStarted = true;
 
     public CarHeaterManager(IHaContext ha, INetDaemonScheduler scheduler, ILogger<CarHeaterManager> logger,
-        IDataRepository storage, IAppConfig<CarHeaterConfig> config)
+        IStateRepository storage, IAppConfig<CarHeaterConfig> config)
     {
         _entities = new Entities(ha);
         _services = new Services(ha);
@@ -63,7 +63,7 @@ public class CarHeaterManager
         Initialize();
     }
 
-    private bool IsManualState => (_storage.Get<string>("Car_IsManualState") ?? "false") == "true";
+    private bool IsManualState => (_storage.GetState<string>("Car_IsManualState") ?? "false") == "true";
 
     /// <summary>
     ///     Initialize the automations
@@ -82,9 +82,9 @@ public class CarHeaterManager
             {
                 if (_appChangedState == false)
                     // It is manually turned on
-                    _storage.Save<string>("Car_IsManualState", "true");
+                    _storage.SetState<string>("Car_IsManualState", "true");
                 else
-                    _storage.Save<string>("Car_IsManualState", "false");
+                    _storage.SetState<string>("Car_IsManualState", "false");
                 _appChangedState = false;
             });
     }

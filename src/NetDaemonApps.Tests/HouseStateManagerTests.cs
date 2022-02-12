@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using FluentAssertions;
+using HomeAssistantGenerated;
 using Microsoft.Extensions.Logging;
 using NetDaemonApps.Tests.Helpers;
 using NSubstitute;
@@ -247,7 +248,7 @@ public static class HouseManagerAppTestContextInstanceExtensions
     {
         var loggerMock = Substitute.For<ILogger<HouseStateManager>>();
         return (
-            new HouseStateManager(ctx.HaContext, ctx.Scheduler, loggerMock,
+            new HouseStateManager(new Entities(ctx.HaContext), ctx.Scheduler, loggerMock,
                 new FakeAppConfig<GlobalConfig>(ctx.TestConfig)), loggerMock);
     }
 

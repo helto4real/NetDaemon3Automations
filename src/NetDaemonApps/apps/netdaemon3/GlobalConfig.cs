@@ -8,8 +8,8 @@
 }
 
 
-[NetDaemonApp]
-[Focus]
+// [NetDaemonApp]
+// [Focus]
 public class ConfigTestApp
 {
     public ConfigTestApp(IAppConfig<GlobalConfig> config)

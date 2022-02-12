@@ -10,15 +10,18 @@ using NetDaemon.Extensions.Observables;
 // [Focus]
 public class HouseStateManager
 {
-    private readonly Entities _entities;
+    private readonly IEntities _entities;
     private readonly ILogger<HouseStateManager> _log;
     private readonly GlobalConfig _gc;
     private readonly IScheduler _scheduler;
 
-    public HouseStateManager(IHaContext ha, IScheduler scheduler, ILogger<HouseStateManager> logger,
+    public HouseStateManager(
+        IEntities entities,
+        IScheduler scheduler,
+        ILogger<HouseStateManager> logger,
         IAppConfig<GlobalConfig> config)
     {
-        _entities = new Entities(ha);
+        _entities = entities;
         _scheduler = scheduler;
         _log = logger;
         _gc = config.Value;

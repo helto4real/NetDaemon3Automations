@@ -1,6 +1,7 @@
 //
 
 using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 ///     Manage the media in the tv room
@@ -27,7 +28,7 @@ public class TVManager
     private MediaPlayerEntity? _currentlyPausedMediaPlayer;
 
     // True if we are in the process of turning on the TV
-    private bool _isTurningOnTV;
+    private bool _isTurningOnTv;
 
     // The time when we stopped play media for any of the media players
     private DateTime? _timeStoppedPlaying;
@@ -57,16 +58,21 @@ public class TVManager
         _entities.Remote.Tvrummet
             .StateChanges()
             .Where(e =>
-                e.Old.IsOff() &&
                 e.New.IsOn())
-            .Subscribe(s => { OnTVTurnedOn(); });
+            .SubscribeAsync(async s => { await OnTVTurnedOn().ConfigureAwait(false); });
+
+        _entities.Remote.Tvrummet
+            .StateChanges()
+            .Where(e =>
+                e.New.IsOff())
+            .SubscribeAsync(async s => { await HandleOnTvOff().ConfigureAwait(false); });
 
 
         // When ever TV remote activity changes, ie TV, Film, Poweroff call OnTvActivityChange
         _entities.Remote.Tvrummet
             .StateAllChanges()
             .Where(e => e.New?.Attributes?.CurrentActivity != e.Old?.Attributes?.CurrentActivity)
-            .Subscribe(s =>
+            .SubscribeAsync(async s =>
             {
                 _log.LogDebug("TV remote activity change from {From} to {To}", s.Old?.Attributes?.CurrentActivity,
                     s.New?.Attributes?.CurrentActivity);
@@ -74,10 +80,10 @@ public class TVManager
                 {
                     case "TV":
                     case "Film":
-                        HandleOnTvOn();
+                        await HandleOnTvOn().ConfigureAwait(false);
                         break;
                     case "PowerOff":
-                        HandleOnTvOff();
+                        await HandleOnTvOff().ConfigureAwait(false);
                         break;
                 }
             });
@@ -86,23 +92,28 @@ public class TVManager
     /// <summary>
     ///     Returns true if it is currently night
     /// </summary>
-    public bool IsNight => _entities.InputSelect.HouseModeSelect?.State == "Natt";
+    private bool IsNight => _entities.InputSelect.HouseModeSelect?.State == "Natt";
+
+    /// <summary>
+    ///     Returns true if it is currently evening
+    /// </summary>
+    private bool IsEvening => _entities.InputSelect.HouseModeSelect?.State == "Kväll";
 
     /// <summary>
     ///     Returns true if TV is currently on
     /// </summary>
-    public bool TvIsOn => _entities.Remote.Tvrummet.IsOn();
+    private bool TvIsOn => _entities.Remote.Tvrummet.IsOn();
 
     /// <summary>
     ///     Returns true if any of the media players is playing
     /// </summary>
     /// <returns></returns>
-    public bool MediaIsPlaying => _entities.MediaPlayer.ShieldTv?.State == "playing";
+    private bool MediaIsPlaying => _entities.MediaPlayer.ShieldTv?.State == "playing";
 
     /// <summary>
     ///     Called when ever state change for the media_players playing on the TV
     /// </summary>
-    public void OnMediaStateChanged(EntityState? to, EntityState? from)
+    private void OnMediaStateChanged(EntityState? to, EntityState? from)
     {
         if (to?.State == "playing")
         {
@@ -134,63 +145,65 @@ public class TVManager
     /// </summary>
     private void TurnOnTvIfOff(string entityId)
     {
-        if (!TvIsOn && !_isTurningOnTV)
+        if (!TvIsOn && !_isTurningOnTv)
         {
             // Tv is of and there are not an operation turning it on
-            _isTurningOnTV = true;
+            _isTurningOnTv = true;
             _log.LogInformation("TV is not on, pause media {EntityId} and turn on tv!", entityId);
 
             // Tv and light etc is managed through a RunScript
-            _services.Script.TvScene();
+            _entities.Remote.Tvrummet.TurnOn("TV");
         }
 
-        if (_isTurningOnTV) // Always pause media if TV is turning on
-        {
-            _currentlyPausedMediaPlayer = new MediaPlayerEntity(_ha, entityId);
-            _currentlyPausedMediaPlayer.MediaPause();
-        }
+        if (!_isTurningOnTv) return;
+
+        _currentlyPausedMediaPlayer = new MediaPlayerEntity(_ha, entityId);
+        _currentlyPausedMediaPlayer.MediaPause();
     }
 
     /// <summary>
     ///     When TV is on and we have paused media, play it
     /// </summary>
-    public void OnTVTurnedOn()
+    public async Task OnTVTurnedOn()
     {
-        if (_isTurningOnTV && _currentlyPausedMediaPlayer is not null)
+        if (_isTurningOnTv && _currentlyPausedMediaPlayer is not null)
         {
             // We had just turned on tv with this RunScript and have a media player paused
             // First delay and wait for the TV to get ready
             _log.LogDebug("TV is turning on.. Wait 9 seconds to complete...");
             _scheduler.RunIn(TimeSpan.FromSeconds(9), () =>
             {
-                _isTurningOnTV = false;
+                _isTurningOnTv = false;
                 if (!MediaIsPlaying) _currentlyPausedMediaPlayer.MediaPlay();
             });
         }
+
+        await HandleOnTvOn().ConfigureAwait(false);
     }
 
-    private void HandleOnTvOn()
+    private async Task HandleOnTvOn()
     {
         _entities.Light.TvrumBakgrundTv.TurnOn(0, xyColor: new[] {0.136, 0.04});
-        Thread.Sleep(200);
+        await Task.Delay(200).ConfigureAwait(false);
         _entities.Light.TvrumVagg.TurnOff(0);
-        Thread.Sleep(200);
+        await Task.Delay(200).ConfigureAwait(false);
         // _entities.Switch.JulbelysningTvrummet.TurnOff();
         _entities.Light.Tvrummet.TurnOff(0);
-        Thread.Sleep(200);
+        await Task.Delay(200).ConfigureAwait(false);
         if (_entities.Cover.TvrumRullgardinHoger?.Attributes?.Position < 100)
             _entities.Cover.TvrumRullgardinHoger.CloseCover();
+        await Task.Delay(200).ConfigureAwait(false);
         if (_entities.Cover.TvrumRullgardinVanster?.Attributes?.Position < 100)
             _entities.Cover.TvrumRullgardinVanster.CloseCover();
-        Thread.Sleep(200);
     }
 
-    private void HandleOnTvOff()
+    private async Task HandleOnTvOff()
     {
         _entities.Light.TvrumBakgrundTv.TurnOff(0);
-        Thread.Sleep(200);
+        await Task.Delay(200).ConfigureAwait(false);
         _entities.MediaPlayer.ShieldTv.TurnOff();
-        if (IsNight)
+        await Task.Delay(200).ConfigureAwait(false);
+        if (IsNight || IsEvening)
             _entities.Light.Tvrummet.TurnOn(0);
     }
 }

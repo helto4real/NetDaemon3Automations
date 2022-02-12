@@ -22,4 +22,14 @@ public static class EntityExtensions
         return entity.StateChanges().Where(c => (c.Old?.IsOn() ?? false) && (c.New?.IsOff() ?? false))
             .Subscribe(observer);
     }
+    public static bool ButtonIsClicked(this StateChange<SensorEntity, EntityState<SensorAttributes>> stateChage)
+    {
+        return stateChage.New?.State switch
+        {
+            "open" => true,
+            "close" => true,
+            "stop" => true,
+            _ => false
+        };
+    }
 }

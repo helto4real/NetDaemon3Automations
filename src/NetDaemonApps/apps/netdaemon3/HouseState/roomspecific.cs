@@ -1,18 +1,18 @@
+using System.Reactive.Concurrency;
+
 /// <summary>
 ///     Room specific automations.
 /// </summary>
 [NetDaemonApp]
 public class RoomSpecificManager
 {
-    private readonly Entities _entities;
-    private readonly IHaContext _ha;
-    private readonly INetDaemonScheduler _scheduler;
+    private readonly IEntities _entities;
+    private readonly IScheduler _scheduler;
 
-    public RoomSpecificManager(IHaContext ha, INetDaemonScheduler scheduler)
+    public RoomSpecificManager(IEntities entities, IScheduler scheduler)
     {
-        _entities = new Entities(ha);
+        _entities = entities;
         _scheduler = scheduler;
-        _ha = ha;
 
         SetupTomasComputerAutoStart();
         SetupManageMelkersChromecast();
@@ -23,21 +23,26 @@ public class RoomSpecificManager
 
     private void SetupTurnOffKidsLightsEarly()
     {
-        _scheduler.RunDaily(TimeSpan.Parse("22:00:00"), () => TurnOffKidsLight());
+        _scheduler.ScheduleCron("0 22 * * *", TurnOffKidsLight);
     }
 
     private void TurnOffKidsLight()
     {
-        _ha.TurnOff("light.melkers_rum", "light.sallys_rum");
+        var kidsRoomLights = new Entity[]
+        {
+            _entities.Light.MelkersRum,
+            _entities.Light.SallysRum
+        };
+        kidsRoomLights.CallService("turn_off", new {transition = 0});
     }
 
     private void SetupManageMelkersChromecast()
     {
-        _scheduler.RunDaily(TimeSpan.Parse("01:30:00"), () =>
+        _scheduler.ScheduleCron("30 1 * * *", () =>
         {
             // Every night reset Melkers chromecast so the TV will auto shut off
             _entities.Switch.Switch8MelkersTv.TurnOff();
-            _scheduler.RunIn(TimeSpan.FromMinutes(5), () => _entities.Switch.Switch8MelkersTv.TurnOn());
+            _scheduler.Schedule(TimeSpan.FromMinutes(5), () => _entities.Switch.Switch8MelkersTv.TurnOn());
         });
     }
 

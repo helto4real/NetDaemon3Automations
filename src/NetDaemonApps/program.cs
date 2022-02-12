@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.Extensions.Hosting;
 using NetDaemon.Extensions.Logging;
 using NetDaemon.Extensions.MqttEntityManager;
+using NetDaemon.Extensions.Persistance;
 using NetDaemon.Extensions.Tts;
 using NetDaemon.Runtime;
 
@@ -20,6 +21,8 @@ try
                 .AddAppsFromAssembly(Assembly.GetExecutingAssembly())
                 .AddNetDaemonStateManager()
                 .AddNetDaemonScheduler()
+                .AddStateRepository()
+                .AddHeltoServices()
         )
         .Build()
         .RunAsync()

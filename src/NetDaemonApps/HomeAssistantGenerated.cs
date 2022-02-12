@@ -34,8 +34,6 @@ namespace HomeAssistantGenerated
 
 		LightEntities Light { get; }
 
-		LockEntities Lock { get; }
-
 		MediaPlayerEntities MediaPlayer { get; }
 
 		NumberEntities Number { get; }
@@ -86,7 +84,6 @@ namespace HomeAssistantGenerated
 		public InputSelectEntities InputSelect => new(_haContext);
 		public InputTextEntities InputText => new(_haContext);
 		public LightEntities Light => new(_haContext);
-		public LockEntities Lock => new(_haContext);
 		public MediaPlayerEntities MediaPlayer => new(_haContext);
 		public NumberEntities Number => new(_haContext);
 		public PersonEntities Person => new(_haContext);
@@ -197,6 +194,8 @@ namespace HomeAssistantGenerated
 		public BinarySensorEntity JulbelysningVardagsrumVUpdateAvailable => new(_haContext, "binary_sensor.julbelysning_vardagsrum_v_update_available");
 		///<summary>kamera_3 Motion Detected</summary>
 		public BinarySensorEntity Kamera3MotionDetected => new(_haContext, "binary_sensor.kamera_3_motion_detected");
+		///<summary>knapp_kok_update_available</summary>
+		public BinarySensorEntity KnappKokUpdateAvailable => new(_haContext, "binary_sensor.knapp_kok_update_available");
 		///<summary>kok_lilla_fonster_update_available</summary>
 		public BinarySensorEntity KokFonsterLillaUpdateAvailable => new(_haContext, "binary_sensor.kok_fonster_lilla_update_available");
 		///<summary>kok_fonster_update_available</summary>
@@ -609,34 +608,22 @@ namespace HomeAssistantGenerated
 
 		///<summary>Good night house</summary>
 		public InputBooleanEntity GoodNightHouse => new(_haContext, "input_boolean.good_night_house");
-		///<summary>netdaemon_appsconcurrencytestapp</summary>
-		public InputBooleanEntity NetdaemonAppsconcurrencytestapp => new(_haContext, "input_boolean.netdaemon_appsconcurrencytestapp");
-		///<summary>netdaemon_appsconcurrencytestapp2</summary>
-		public InputBooleanEntity NetdaemonAppsconcurrencytestapp2 => new(_haContext, "input_boolean.netdaemon_appsconcurrencytestapp2");
-		///<summary>netdaemon_appshelloapp</summary>
-		public InputBooleanEntity NetdaemonAppshelloapp => new(_haContext, "input_boolean.netdaemon_appshelloapp");
-		///<summary>netdaemon_appshelloapp2</summary>
-		public InputBooleanEntity NetdaemonAppshelloapp2 => new(_haContext, "input_boolean.netdaemon_appshelloapp2");
-		///<summary>netdaemon_appsyamlapp</summary>
-		public InputBooleanEntity NetdaemonAppsyamlapp => new(_haContext, "input_boolean.netdaemon_appsyamlapp");
-		///<summary>netdaemon_carheatermanager</summary>
-		public InputBooleanEntity NetdaemonCarheatermanager => new(_haContext, "input_boolean.netdaemon_carheatermanager");
-		///<summary>netdaemon_googlecalendarmanager</summary>
-		public InputBooleanEntity NetdaemonGooglecalendarmanager => new(_haContext, "input_boolean.netdaemon_googlecalendarmanager");
-		///<summary>netdaemon_housestatemanager</summary>
-		public InputBooleanEntity NetdaemonHousestatemanager => new(_haContext, "input_boolean.netdaemon_housestatemanager");
-		///<summary>netdaemon_lightmanager</summary>
-		public InputBooleanEntity NetdaemonLightmanager => new(_haContext, "input_boolean.netdaemon_lightmanager");
-		///<summary>netdaemon_magiccuberemotecontrolmanager</summary>
-		public InputBooleanEntity NetdaemonMagiccuberemotecontrolmanager => new(_haContext, "input_boolean.netdaemon_magiccuberemotecontrolmanager");
-		///<summary>netdaemon_notifyonfail</summary>
-		public InputBooleanEntity NetdaemonNotifyonfail => new(_haContext, "input_boolean.netdaemon_notifyonfail");
-		///<summary>netdaemon_roomspecificmanager</summary>
-		public InputBooleanEntity NetdaemonRoomspecificmanager => new(_haContext, "input_boolean.netdaemon_roomspecificmanager");
+		///<summary>netdaemon_google_calendar_manager</summary>
+		public InputBooleanEntity NetdaemonGoogleCalendarManager => new(_haContext, "input_boolean.netdaemon_google_calendar_manager");
+		///<summary>netdaemon_house_state_manager</summary>
+		public InputBooleanEntity NetdaemonHouseStateManager => new(_haContext, "input_boolean.netdaemon_house_state_manager");
+		///<summary>netdaemon_light_manager</summary>
+		public InputBooleanEntity NetdaemonLightManager => new(_haContext, "input_boolean.netdaemon_light_manager");
+		///<summary>netdaemon_magic_cube_remote_control_manager</summary>
+		public InputBooleanEntity NetdaemonMagicCubeRemoteControlManager => new(_haContext, "input_boolean.netdaemon_magic_cube_remote_control_manager");
+		///<summary>netdaemon_notify_on_fail</summary>
+		public InputBooleanEntity NetdaemonNotifyOnFail => new(_haContext, "input_boolean.netdaemon_notify_on_fail");
+		///<summary>netdaemon_room_specific_manager</summary>
+		public InputBooleanEntity NetdaemonRoomSpecificManager => new(_haContext, "input_boolean.netdaemon_room_specific_manager");
 		///<summary>netdaemon_tvmanager</summary>
 		public InputBooleanEntity NetdaemonTvmanager => new(_haContext, "input_boolean.netdaemon_tvmanager");
-		///<summary>netdaemon_welcomehomemanager</summary>
-		public InputBooleanEntity NetdaemonWelcomehomemanager => new(_haContext, "input_boolean.netdaemon_welcomehomemanager");
+		///<summary>netdaemon_welcome_home_manager</summary>
+		public InputBooleanEntity NetdaemonWelcomeHomeManager => new(_haContext, "input_boolean.netdaemon_welcome_home_manager");
 		///<summary>Kör på helger</summary>
 		public InputBooleanEntity ScheduleOnWeekends => new(_haContext, "input_boolean.schedule_on_weekends");
 	}
@@ -773,18 +760,6 @@ namespace HomeAssistantGenerated
 		public LightEntity VardagsrumFonsterMitten => new(_haContext, "light.vardagsrum_fonster_mitten");
 		///<summary>vardagsrum_fonster_vanster</summary>
 		public LightEntity VardagsrumFonsterVanster => new(_haContext, "light.vardagsrum_fonster_vanster");
-	}
-
-	public class LockEntities
-	{
-		private readonly IHaContext _haContext;
-		public LockEntities(IHaContext haContext)
-		{
-			_haContext = haContext;
-		}
-
-		///<summary>las_uppe</summary>
-		public LockEntity LasUppe => new(_haContext, "lock.las_uppe");
 	}
 
 	public class MediaPlayerEntities
@@ -1102,6 +1077,8 @@ namespace HomeAssistantGenerated
 		public NumericSensorEntity JulbelysningTvrummetVoltage => new(_haContext, "sensor.julbelysning_tvrummet_voltage");
 		///<summary>julbelysning_vardagsrum_v_linkquality</summary>
 		public NumericSensorEntity JulbelysningVardagsrumVLinkquality => new(_haContext, "sensor.julbelysning_vardagsrum_v_linkquality");
+		///<summary>knapp_kok_battery</summary>
+		public NumericSensorEntity KnappKokBattery => new(_haContext, "sensor.knapp_kok_battery");
 		///<summary>kok_lilla_fonster_linkquality</summary>
 		public NumericSensorEntity KokFonsterLillaLinkquality => new(_haContext, "sensor.kok_fonster_lilla_linkquality");
 		///<summary>kok_fonster_linkquality</summary>
@@ -1128,10 +1105,6 @@ namespace HomeAssistantGenerated
 		public NumericSensorEntity KokPirTemperature => new(_haContext, "sensor.kok_pir_temperature");
 		///<summary>kok_pir_voltage</summary>
 		public NumericSensorEntity KokPirVoltage => new(_haContext, "sensor.kok_pir_voltage");
-		///<summary>las_uppe_battery</summary>
-		public NumericSensorEntity LasUppeBattery => new(_haContext, "sensor.las_uppe_battery");
-		///<summary>las_uppe_linkquality</summary>
-		public NumericSensorEntity LasUppeLinkquality => new(_haContext, "sensor.las_uppe_linkquality");
 		///<summary>light_outside_illuminance_lux</summary>
 		public NumericSensorEntity LightOutside => new(_haContext, "sensor.light_outside");
 		///<summary>light_outside_battery</summary>
@@ -1398,6 +1371,10 @@ namespace HomeAssistantGenerated
 		public SensorEntity JulbelysningVardagsrumVPowerOnBehavior => new(_haContext, "sensor.julbelysning_vardagsrum_v_power_on_behavior");
 		///<summary>sensor.julbelysning_vardagsrum_v_update_state</summary>
 		public SensorEntity JulbelysningVardagsrumVUpdateState => new(_haContext, "sensor.julbelysning_vardagsrum_v_update_state");
+		///<summary>knapp_kok_action</summary>
+		public SensorEntity KnappKokAction => new(_haContext, "sensor.knapp_kok_action");
+		///<summary>knapp_kok_click</summary>
+		public SensorEntity KnappKokClick => new(_haContext, "sensor.knapp_kok_click");
 		///<summary>Kök alarms</summary>
 		public SensorEntity KokAlarms => new(_haContext, "sensor.kok_alarms");
 		///<summary>Kök device</summary>
@@ -1518,6 +1495,8 @@ namespace HomeAssistantGenerated
 		public SensorEntity Ssid => new(_haContext, "sensor.ssid");
 		///<summary>Temperature outside</summary>
 		public SensorEntity TempOutside => new(_haContext, "sensor.temp_outside");
+		///<summary>testar_mqtt</summary>
+		public SensorEntity TestarMqtt => new(_haContext, "sensor.testar_mqtt");
 		///<summary>Tomas iPad Activity</summary>
 		public SensorEntity TomasIpadActivity => new(_haContext, "sensor.tomas_ipad_activity");
 		///<summary>Tomas iPad Battery State</summary>
@@ -1929,17 +1908,6 @@ namespace HomeAssistantGenerated
 		}
 	}
 
-	public record LockEntity : Entity<LockEntity, EntityState<LockAttributes>, LockAttributes>
-	{
-		public LockEntity(IHaContext haContext, string entityId) : base(haContext, entityId)
-		{
-		}
-
-		public LockEntity(Entity entity) : base(entity)
-		{
-		}
-	}
-
 	public record MediaPlayerEntity : Entity<MediaPlayerEntity, EntityState<MediaPlayerAttributes>, MediaPlayerAttributes>
 	{
 		public MediaPlayerEntity(IHaContext haContext, string entityId) : base(haContext, entityId)
@@ -2125,6 +2093,9 @@ namespace HomeAssistantGenerated
 
 	public record BinarySensorAttributes
 	{
+		[JsonPropertyName("action")]
+		public object? Action { get; init; }
+
 		[JsonPropertyName("assumed_state")]
 		public bool? AssumedState { get; init; }
 
@@ -2133,6 +2104,9 @@ namespace HomeAssistantGenerated
 
 		[JsonPropertyName("brightness")]
 		public double? Brightness { get; init; }
+
+		[JsonPropertyName("click")]
+		public string? Click { get; init; }
 
 		[JsonPropertyName("color")]
 		public object? Color { get; init; }
@@ -2582,15 +2556,6 @@ namespace HomeAssistantGenerated
 		public object? XyColor { get; init; }
 	}
 
-	public record LockAttributes
-	{
-		[JsonPropertyName("friendly_name")]
-		public string? FriendlyName { get; init; }
-
-		[JsonPropertyName("supported_features")]
-		public double? SupportedFeatures { get; init; }
-	}
-
 	public record MediaPlayerAttributes
 	{
 		[JsonPropertyName("adb_response")]
@@ -2605,11 +2570,8 @@ namespace HomeAssistantGenerated
 		[JsonPropertyName("device_class")]
 		public string? DeviceClass { get; init; }
 
-		[JsonPropertyName("entity_picture")]
-		public string? EntityPicture { get; init; }
-
 		[JsonPropertyName("entity_picture_local")]
-		public string? EntityPictureLocal { get; init; }
+		public object? EntityPictureLocal { get; init; }
 
 		[JsonPropertyName("friendly_name")]
 		public string? FriendlyName { get; init; }
@@ -2623,29 +2585,11 @@ namespace HomeAssistantGenerated
 		[JsonPropertyName("is_volume_muted")]
 		public bool? IsVolumeMuted { get; init; }
 
-		[JsonPropertyName("media_album_name")]
-		public string? MediaAlbumName { get; init; }
-
-		[JsonPropertyName("media_artist")]
-		public string? MediaArtist { get; init; }
-
-		[JsonPropertyName("media_content_id")]
-		public string? MediaContentId { get; init; }
-
-		[JsonPropertyName("media_content_type")]
-		public string? MediaContentType { get; init; }
-
-		[JsonPropertyName("media_duration")]
-		public double? MediaDuration { get; init; }
-
-		[JsonPropertyName("media_position")]
-		public double? MediaPosition { get; init; }
-
 		[JsonPropertyName("media_position_updated_at")]
 		public string? MediaPositionUpdatedAt { get; init; }
 
-		[JsonPropertyName("media_title")]
-		public string? MediaTitle { get; init; }
+		[JsonPropertyName("player_source")]
+		public string? PlayerSource { get; init; }
 
 		[JsonPropertyName("restored")]
 		public bool? Restored { get; init; }
@@ -2818,6 +2762,9 @@ namespace HomeAssistantGenerated
 
 	public record NumericSensorAttributes
 	{
+		[JsonPropertyName("action")]
+		public object? Action { get; init; }
+
 		[JsonPropertyName("assumed_state")]
 		public bool? AssumedState { get; init; }
 
@@ -2850,6 +2797,9 @@ namespace HomeAssistantGenerated
 
 		[JsonPropertyName("cardio_calories_burned")]
 		public double? CardioCaloriesBurned { get; init; }
+
+		[JsonPropertyName("click")]
+		public string? Click { get; init; }
 
 		[JsonPropertyName("color")]
 		public object? Color { get; init; }
@@ -3016,6 +2966,9 @@ namespace HomeAssistantGenerated
 
 	public record SensorAttributes
 	{
+		[JsonPropertyName("action")]
+		public object? Action { get; init; }
+
 		[JsonPropertyName("Administrative Area")]
 		public string? AdministrativeArea { get; init; }
 
@@ -3030,6 +2983,9 @@ namespace HomeAssistantGenerated
 
 		[JsonPropertyName("brightness")]
 		public double? Brightness { get; init; }
+
+		[JsonPropertyName("click")]
+		public string? Click { get; init; }
 
 		[JsonPropertyName("color")]
 		public object? Color { get; init; }
@@ -3255,6 +3211,9 @@ namespace HomeAssistantGenerated
 
 		[JsonPropertyName("current")]
 		public double? Current { get; init; }
+
+		[JsonPropertyName("current_consumption")]
+		public double? CurrentConsumption { get; init; }
 
 		[JsonPropertyName("energy")]
 		public double? Energy { get; init; }
@@ -7642,439 +7601,838 @@ namespace HomeAssistantGenerated
 	public static class AndroidtvEntityExtensionMethods
 	{
 		///<summary>Send an ADB command to an Android TV / Fire TV device.</summary>
-		public static void AdbCommand(this MediaPlayerEntity entity, AndroidtvAdbCommandParameters data)
+		public static void AdbCommand(this MediaPlayerEntity target, AndroidtvAdbCommandParameters data)
 		{
-			entity.CallService("adb_command", data);
+			target.CallService("adb_command", data);
 		}
 
 		///<summary>Send an ADB command to an Android TV / Fire TV device.</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void AdbCommand(this IEnumerable<MediaPlayerEntity> target, AndroidtvAdbCommandParameters data)
+		{
+			target.CallService("adb_command", data);
+		}
+
+		///<summary>Send an ADB command to an Android TV / Fire TV device.</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="command">Either a key command or an ADB shell command. eg: HOME</param>
-		public static void AdbCommand(this MediaPlayerEntity entity, string @command)
+		public static void AdbCommand(this MediaPlayerEntity target, string @command)
 		{
-			entity.CallService("adb_command", new AndroidtvAdbCommandParameters{Command = @command});
+			target.CallService("adb_command", new AndroidtvAdbCommandParameters{Command = @command});
+		}
+
+		///<summary>Send an ADB command to an Android TV / Fire TV device.</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="command">Either a key command or an ADB shell command. eg: HOME</param>
+		public static void AdbCommand(this IEnumerable<MediaPlayerEntity> target, string @command)
+		{
+			target.CallService("adb_command", new AndroidtvAdbCommandParameters{Command = @command});
 		}
 
 		///<summary>Download a file from your Android TV / Fire TV device to your Home Assistant instance.</summary>
-		public static void Download(this MediaPlayerEntity entity, AndroidtvDownloadParameters data)
+		public static void Download(this MediaPlayerEntity target, AndroidtvDownloadParameters data)
 		{
-			entity.CallService("download", data);
+			target.CallService("download", data);
 		}
 
 		///<summary>Download a file from your Android TV / Fire TV device to your Home Assistant instance.</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void Download(this IEnumerable<MediaPlayerEntity> target, AndroidtvDownloadParameters data)
+		{
+			target.CallService("download", data);
+		}
+
+		///<summary>Download a file from your Android TV / Fire TV device to your Home Assistant instance.</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="devicePath">The filepath on the Android TV / Fire TV device. eg: /storage/emulated/0/Download/example.txt</param>
 		///<param name="localPath">The filepath on your Home Assistant instance. eg: /config/www/example.txt</param>
-		public static void Download(this MediaPlayerEntity entity, string @devicePath, string @localPath)
+		public static void Download(this MediaPlayerEntity target, string @devicePath, string @localPath)
 		{
-			entity.CallService("download", new AndroidtvDownloadParameters{DevicePath = @devicePath, LocalPath = @localPath});
+			target.CallService("download", new AndroidtvDownloadParameters{DevicePath = @devicePath, LocalPath = @localPath});
+		}
+
+		///<summary>Download a file from your Android TV / Fire TV device to your Home Assistant instance.</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="devicePath">The filepath on the Android TV / Fire TV device. eg: /storage/emulated/0/Download/example.txt</param>
+		///<param name="localPath">The filepath on your Home Assistant instance. eg: /config/www/example.txt</param>
+		public static void Download(this IEnumerable<MediaPlayerEntity> target, string @devicePath, string @localPath)
+		{
+			target.CallService("download", new AndroidtvDownloadParameters{DevicePath = @devicePath, LocalPath = @localPath});
 		}
 
 		///<summary>Translate a key press on a remote into ADB 'sendevent' commands.  You must press one button on the remote within 8 seconds of calling this service.</summary>
-		public static void LearnSendevent(this MediaPlayerEntity entity)
+		public static void LearnSendevent(this MediaPlayerEntity target)
 		{
-			entity.CallService("learn_sendevent");
+			target.CallService("learn_sendevent");
+		}
+
+		///<summary>Translate a key press on a remote into ADB 'sendevent' commands.  You must press one button on the remote within 8 seconds of calling this service.</summary>
+		public static void LearnSendevent(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("learn_sendevent");
 		}
 
 		///<summary>Upload a file from your Home Assistant instance to an Android TV / Fire TV device.</summary>
-		public static void Upload(this MediaPlayerEntity entity, AndroidtvUploadParameters data)
+		public static void Upload(this MediaPlayerEntity target, AndroidtvUploadParameters data)
 		{
-			entity.CallService("upload", data);
+			target.CallService("upload", data);
 		}
 
 		///<summary>Upload a file from your Home Assistant instance to an Android TV / Fire TV device.</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void Upload(this IEnumerable<MediaPlayerEntity> target, AndroidtvUploadParameters data)
+		{
+			target.CallService("upload", data);
+		}
+
+		///<summary>Upload a file from your Home Assistant instance to an Android TV / Fire TV device.</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="devicePath">The filepath on the Android TV / Fire TV device. eg: /storage/emulated/0/Download/example.txt</param>
 		///<param name="localPath">The filepath on your Home Assistant instance. eg: /config/www/example.txt</param>
-		public static void Upload(this MediaPlayerEntity entity, string @devicePath, string @localPath)
+		public static void Upload(this MediaPlayerEntity target, string @devicePath, string @localPath)
 		{
-			entity.CallService("upload", new AndroidtvUploadParameters{DevicePath = @devicePath, LocalPath = @localPath});
+			target.CallService("upload", new AndroidtvUploadParameters{DevicePath = @devicePath, LocalPath = @localPath});
+		}
+
+		///<summary>Upload a file from your Home Assistant instance to an Android TV / Fire TV device.</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="devicePath">The filepath on the Android TV / Fire TV device. eg: /storage/emulated/0/Download/example.txt</param>
+		///<param name="localPath">The filepath on your Home Assistant instance. eg: /config/www/example.txt</param>
+		public static void Upload(this IEnumerable<MediaPlayerEntity> target, string @devicePath, string @localPath)
+		{
+			target.CallService("upload", new AndroidtvUploadParameters{DevicePath = @devicePath, LocalPath = @localPath});
 		}
 	}
 
 	public static class AutomationEntityExtensionMethods
 	{
 		///<summary>Toggle (enable / disable) an automation.</summary>
-		public static void Toggle(this AutomationEntity entity)
+		public static void Toggle(this AutomationEntity target)
 		{
-			entity.CallService("toggle");
+			target.CallService("toggle");
+		}
+
+		///<summary>Toggle (enable / disable) an automation.</summary>
+		public static void Toggle(this IEnumerable<AutomationEntity> target)
+		{
+			target.CallService("toggle");
 		}
 
 		///<summary>Trigger the actions of an automation.</summary>
-		public static void Trigger(this AutomationEntity entity, AutomationTriggerParameters data)
+		public static void Trigger(this AutomationEntity target, AutomationTriggerParameters data)
 		{
-			entity.CallService("trigger", data);
+			target.CallService("trigger", data);
 		}
 
 		///<summary>Trigger the actions of an automation.</summary>
-		///<param name="entity">The AutomationEntity to call this service for</param>
+		public static void Trigger(this IEnumerable<AutomationEntity> target, AutomationTriggerParameters data)
+		{
+			target.CallService("trigger", data);
+		}
+
+		///<summary>Trigger the actions of an automation.</summary>
+		///<param name="target">The AutomationEntity to call this service for</param>
 		///<param name="skipCondition">Whether or not the conditions will be skipped.</param>
-		public static void Trigger(this AutomationEntity entity, bool? @skipCondition = null)
+		public static void Trigger(this AutomationEntity target, bool? @skipCondition = null)
 		{
-			entity.CallService("trigger", new AutomationTriggerParameters{SkipCondition = @skipCondition});
+			target.CallService("trigger", new AutomationTriggerParameters{SkipCondition = @skipCondition});
+		}
+
+		///<summary>Trigger the actions of an automation.</summary>
+		///<param name="target">The IEnumerable<AutomationEntity> to call this service for</param>
+		///<param name="skipCondition">Whether or not the conditions will be skipped.</param>
+		public static void Trigger(this IEnumerable<AutomationEntity> target, bool? @skipCondition = null)
+		{
+			target.CallService("trigger", new AutomationTriggerParameters{SkipCondition = @skipCondition});
 		}
 
 		///<summary>Disable an automation.</summary>
-		public static void TurnOff(this AutomationEntity entity, AutomationTurnOffParameters data)
+		public static void TurnOff(this AutomationEntity target, AutomationTurnOffParameters data)
 		{
-			entity.CallService("turn_off", data);
+			target.CallService("turn_off", data);
 		}
 
 		///<summary>Disable an automation.</summary>
-		///<param name="entity">The AutomationEntity to call this service for</param>
+		public static void TurnOff(this IEnumerable<AutomationEntity> target, AutomationTurnOffParameters data)
+		{
+			target.CallService("turn_off", data);
+		}
+
+		///<summary>Disable an automation.</summary>
+		///<param name="target">The AutomationEntity to call this service for</param>
 		///<param name="stopActions">Stop currently running actions.</param>
-		public static void TurnOff(this AutomationEntity entity, bool? @stopActions = null)
+		public static void TurnOff(this AutomationEntity target, bool? @stopActions = null)
 		{
-			entity.CallService("turn_off", new AutomationTurnOffParameters{StopActions = @stopActions});
+			target.CallService("turn_off", new AutomationTurnOffParameters{StopActions = @stopActions});
+		}
+
+		///<summary>Disable an automation.</summary>
+		///<param name="target">The IEnumerable<AutomationEntity> to call this service for</param>
+		///<param name="stopActions">Stop currently running actions.</param>
+		public static void TurnOff(this IEnumerable<AutomationEntity> target, bool? @stopActions = null)
+		{
+			target.CallService("turn_off", new AutomationTurnOffParameters{StopActions = @stopActions});
 		}
 
 		///<summary>Enable an automation.</summary>
-		public static void TurnOn(this AutomationEntity entity)
+		public static void TurnOn(this AutomationEntity target)
 		{
-			entity.CallService("turn_on");
+			target.CallService("turn_on");
+		}
+
+		///<summary>Enable an automation.</summary>
+		public static void TurnOn(this IEnumerable<AutomationEntity> target)
+		{
+			target.CallService("turn_on");
 		}
 	}
 
 	public static class ButtonEntityExtensionMethods
 	{
 		///<summary>Press the button entity.</summary>
-		public static void Press(this ButtonEntity entity)
+		public static void Press(this ButtonEntity target)
 		{
-			entity.CallService("press");
+			target.CallService("press");
+		}
+
+		///<summary>Press the button entity.</summary>
+		public static void Press(this IEnumerable<ButtonEntity> target)
+		{
+			target.CallService("press");
 		}
 	}
 
 	public static class CameraEntityExtensionMethods
 	{
 		///<summary>Disable the motion detection in a camera.</summary>
-		public static void DisableMotionDetection(this CameraEntity entity)
+		public static void DisableMotionDetection(this CameraEntity target)
 		{
-			entity.CallService("disable_motion_detection");
+			target.CallService("disable_motion_detection");
+		}
+
+		///<summary>Disable the motion detection in a camera.</summary>
+		public static void DisableMotionDetection(this IEnumerable<CameraEntity> target)
+		{
+			target.CallService("disable_motion_detection");
 		}
 
 		///<summary>Enable the motion detection in a camera.</summary>
-		public static void EnableMotionDetection(this CameraEntity entity)
+		public static void EnableMotionDetection(this CameraEntity target)
 		{
-			entity.CallService("enable_motion_detection");
+			target.CallService("enable_motion_detection");
+		}
+
+		///<summary>Enable the motion detection in a camera.</summary>
+		public static void EnableMotionDetection(this IEnumerable<CameraEntity> target)
+		{
+			target.CallService("enable_motion_detection");
 		}
 
 		///<summary>Play camera stream on supported media player.</summary>
-		public static void PlayStream(this CameraEntity entity, CameraPlayStreamParameters data)
+		public static void PlayStream(this CameraEntity target, CameraPlayStreamParameters data)
 		{
-			entity.CallService("play_stream", data);
+			target.CallService("play_stream", data);
 		}
 
 		///<summary>Play camera stream on supported media player.</summary>
-		///<param name="entity">The CameraEntity to call this service for</param>
+		public static void PlayStream(this IEnumerable<CameraEntity> target, CameraPlayStreamParameters data)
+		{
+			target.CallService("play_stream", data);
+		}
+
+		///<summary>Play camera stream on supported media player.</summary>
+		///<param name="target">The CameraEntity to call this service for</param>
 		///<param name="mediaPlayer">Name(s) of media player to stream to.</param>
 		///<param name="format">Stream format supported by media player.</param>
-		public static void PlayStream(this CameraEntity entity, string @mediaPlayer, string? @format = null)
+		public static void PlayStream(this CameraEntity target, string @mediaPlayer, string? @format = null)
 		{
-			entity.CallService("play_stream", new CameraPlayStreamParameters{MediaPlayer = @mediaPlayer, Format = @format});
+			target.CallService("play_stream", new CameraPlayStreamParameters{MediaPlayer = @mediaPlayer, Format = @format});
+		}
+
+		///<summary>Play camera stream on supported media player.</summary>
+		///<param name="target">The IEnumerable<CameraEntity> to call this service for</param>
+		///<param name="mediaPlayer">Name(s) of media player to stream to.</param>
+		///<param name="format">Stream format supported by media player.</param>
+		public static void PlayStream(this IEnumerable<CameraEntity> target, string @mediaPlayer, string? @format = null)
+		{
+			target.CallService("play_stream", new CameraPlayStreamParameters{MediaPlayer = @mediaPlayer, Format = @format});
 		}
 
 		///<summary>Record live camera feed.</summary>
-		public static void Record(this CameraEntity entity, CameraRecordParameters data)
+		public static void Record(this CameraEntity target, CameraRecordParameters data)
 		{
-			entity.CallService("record", data);
+			target.CallService("record", data);
 		}
 
 		///<summary>Record live camera feed.</summary>
-		///<param name="entity">The CameraEntity to call this service for</param>
+		public static void Record(this IEnumerable<CameraEntity> target, CameraRecordParameters data)
+		{
+			target.CallService("record", data);
+		}
+
+		///<summary>Record live camera feed.</summary>
+		///<param name="target">The CameraEntity to call this service for</param>
 		///<param name="filename">Template of a Filename. Variable is entity_id. Must be mp4. eg: /tmp/snapshot_{{ entity_id.name }}.mp4</param>
 		///<param name="duration">Target recording length.</param>
 		///<param name="lookback">Target lookback period to include in addition to duration. Only available if there is currently an active HLS stream.</param>
-		public static void Record(this CameraEntity entity, string @filename, long? @duration = null, long? @lookback = null)
+		public static void Record(this CameraEntity target, string @filename, long? @duration = null, long? @lookback = null)
 		{
-			entity.CallService("record", new CameraRecordParameters{Filename = @filename, Duration = @duration, Lookback = @lookback});
+			target.CallService("record", new CameraRecordParameters{Filename = @filename, Duration = @duration, Lookback = @lookback});
+		}
+
+		///<summary>Record live camera feed.</summary>
+		///<param name="target">The IEnumerable<CameraEntity> to call this service for</param>
+		///<param name="filename">Template of a Filename. Variable is entity_id. Must be mp4. eg: /tmp/snapshot_{{ entity_id.name }}.mp4</param>
+		///<param name="duration">Target recording length.</param>
+		///<param name="lookback">Target lookback period to include in addition to duration. Only available if there is currently an active HLS stream.</param>
+		public static void Record(this IEnumerable<CameraEntity> target, string @filename, long? @duration = null, long? @lookback = null)
+		{
+			target.CallService("record", new CameraRecordParameters{Filename = @filename, Duration = @duration, Lookback = @lookback});
 		}
 
 		///<summary>Take a snapshot from a camera.</summary>
-		public static void Snapshot(this CameraEntity entity, CameraSnapshotParameters data)
+		public static void Snapshot(this CameraEntity target, CameraSnapshotParameters data)
 		{
-			entity.CallService("snapshot", data);
+			target.CallService("snapshot", data);
 		}
 
 		///<summary>Take a snapshot from a camera.</summary>
-		///<param name="entity">The CameraEntity to call this service for</param>
+		public static void Snapshot(this IEnumerable<CameraEntity> target, CameraSnapshotParameters data)
+		{
+			target.CallService("snapshot", data);
+		}
+
+		///<summary>Take a snapshot from a camera.</summary>
+		///<param name="target">The CameraEntity to call this service for</param>
 		///<param name="filename">Template of a Filename. Variable is entity_id. eg: /tmp/snapshot_{{ entity_id.name }}.jpg</param>
-		public static void Snapshot(this CameraEntity entity, string @filename)
+		public static void Snapshot(this CameraEntity target, string @filename)
 		{
-			entity.CallService("snapshot", new CameraSnapshotParameters{Filename = @filename});
+			target.CallService("snapshot", new CameraSnapshotParameters{Filename = @filename});
+		}
+
+		///<summary>Take a snapshot from a camera.</summary>
+		///<param name="target">The IEnumerable<CameraEntity> to call this service for</param>
+		///<param name="filename">Template of a Filename. Variable is entity_id. eg: /tmp/snapshot_{{ entity_id.name }}.jpg</param>
+		public static void Snapshot(this IEnumerable<CameraEntity> target, string @filename)
+		{
+			target.CallService("snapshot", new CameraSnapshotParameters{Filename = @filename});
 		}
 
 		///<summary>Turn off camera.</summary>
-		public static void TurnOff(this CameraEntity entity)
+		public static void TurnOff(this CameraEntity target)
 		{
-			entity.CallService("turn_off");
+			target.CallService("turn_off");
+		}
+
+		///<summary>Turn off camera.</summary>
+		public static void TurnOff(this IEnumerable<CameraEntity> target)
+		{
+			target.CallService("turn_off");
 		}
 
 		///<summary>Turn on camera.</summary>
-		public static void TurnOn(this CameraEntity entity)
+		public static void TurnOn(this CameraEntity target)
 		{
-			entity.CallService("turn_on");
+			target.CallService("turn_on");
+		}
+
+		///<summary>Turn on camera.</summary>
+		public static void TurnOn(this IEnumerable<CameraEntity> target)
+		{
+			target.CallService("turn_on");
 		}
 	}
 
 	public static class CoverEntityExtensionMethods
 	{
 		///<summary>Close all or specified cover.</summary>
-		public static void CloseCover(this CoverEntity entity)
+		public static void CloseCover(this CoverEntity target)
 		{
-			entity.CallService("close_cover");
+			target.CallService("close_cover");
+		}
+
+		///<summary>Close all or specified cover.</summary>
+		public static void CloseCover(this IEnumerable<CoverEntity> target)
+		{
+			target.CallService("close_cover");
 		}
 
 		///<summary>Close all or specified cover tilt.</summary>
-		public static void CloseCoverTilt(this CoverEntity entity)
+		public static void CloseCoverTilt(this CoverEntity target)
 		{
-			entity.CallService("close_cover_tilt");
+			target.CallService("close_cover_tilt");
+		}
+
+		///<summary>Close all or specified cover tilt.</summary>
+		public static void CloseCoverTilt(this IEnumerable<CoverEntity> target)
+		{
+			target.CallService("close_cover_tilt");
 		}
 
 		///<summary>Open all or specified cover.</summary>
-		public static void OpenCover(this CoverEntity entity)
+		public static void OpenCover(this CoverEntity target)
 		{
-			entity.CallService("open_cover");
+			target.CallService("open_cover");
+		}
+
+		///<summary>Open all or specified cover.</summary>
+		public static void OpenCover(this IEnumerable<CoverEntity> target)
+		{
+			target.CallService("open_cover");
 		}
 
 		///<summary>Open all or specified cover tilt.</summary>
-		public static void OpenCoverTilt(this CoverEntity entity)
+		public static void OpenCoverTilt(this CoverEntity target)
 		{
-			entity.CallService("open_cover_tilt");
+			target.CallService("open_cover_tilt");
+		}
+
+		///<summary>Open all or specified cover tilt.</summary>
+		public static void OpenCoverTilt(this IEnumerable<CoverEntity> target)
+		{
+			target.CallService("open_cover_tilt");
 		}
 
 		///<summary>Move to specific position all or specified cover.</summary>
-		public static void SetCoverPosition(this CoverEntity entity, CoverSetCoverPositionParameters data)
+		public static void SetCoverPosition(this CoverEntity target, CoverSetCoverPositionParameters data)
 		{
-			entity.CallService("set_cover_position", data);
+			target.CallService("set_cover_position", data);
 		}
 
 		///<summary>Move to specific position all or specified cover.</summary>
-		///<param name="entity">The CoverEntity to call this service for</param>
+		public static void SetCoverPosition(this IEnumerable<CoverEntity> target, CoverSetCoverPositionParameters data)
+		{
+			target.CallService("set_cover_position", data);
+		}
+
+		///<summary>Move to specific position all or specified cover.</summary>
+		///<param name="target">The CoverEntity to call this service for</param>
 		///<param name="position">Position of the cover</param>
-		public static void SetCoverPosition(this CoverEntity entity, long @position)
+		public static void SetCoverPosition(this CoverEntity target, long @position)
 		{
-			entity.CallService("set_cover_position", new CoverSetCoverPositionParameters{Position = @position});
+			target.CallService("set_cover_position", new CoverSetCoverPositionParameters{Position = @position});
+		}
+
+		///<summary>Move to specific position all or specified cover.</summary>
+		///<param name="target">The IEnumerable<CoverEntity> to call this service for</param>
+		///<param name="position">Position of the cover</param>
+		public static void SetCoverPosition(this IEnumerable<CoverEntity> target, long @position)
+		{
+			target.CallService("set_cover_position", new CoverSetCoverPositionParameters{Position = @position});
 		}
 
 		///<summary>Move to specific position all or specified cover tilt.</summary>
-		public static void SetCoverTiltPosition(this CoverEntity entity, CoverSetCoverTiltPositionParameters data)
+		public static void SetCoverTiltPosition(this CoverEntity target, CoverSetCoverTiltPositionParameters data)
 		{
-			entity.CallService("set_cover_tilt_position", data);
+			target.CallService("set_cover_tilt_position", data);
 		}
 
 		///<summary>Move to specific position all or specified cover tilt.</summary>
-		///<param name="entity">The CoverEntity to call this service for</param>
+		public static void SetCoverTiltPosition(this IEnumerable<CoverEntity> target, CoverSetCoverTiltPositionParameters data)
+		{
+			target.CallService("set_cover_tilt_position", data);
+		}
+
+		///<summary>Move to specific position all or specified cover tilt.</summary>
+		///<param name="target">The CoverEntity to call this service for</param>
 		///<param name="tiltPosition">Tilt position of the cover.</param>
-		public static void SetCoverTiltPosition(this CoverEntity entity, long @tiltPosition)
+		public static void SetCoverTiltPosition(this CoverEntity target, long @tiltPosition)
 		{
-			entity.CallService("set_cover_tilt_position", new CoverSetCoverTiltPositionParameters{TiltPosition = @tiltPosition});
+			target.CallService("set_cover_tilt_position", new CoverSetCoverTiltPositionParameters{TiltPosition = @tiltPosition});
+		}
+
+		///<summary>Move to specific position all or specified cover tilt.</summary>
+		///<param name="target">The IEnumerable<CoverEntity> to call this service for</param>
+		///<param name="tiltPosition">Tilt position of the cover.</param>
+		public static void SetCoverTiltPosition(this IEnumerable<CoverEntity> target, long @tiltPosition)
+		{
+			target.CallService("set_cover_tilt_position", new CoverSetCoverTiltPositionParameters{TiltPosition = @tiltPosition});
 		}
 
 		///<summary>Stop all or specified cover.</summary>
-		public static void StopCover(this CoverEntity entity)
+		public static void StopCover(this CoverEntity target)
 		{
-			entity.CallService("stop_cover");
+			target.CallService("stop_cover");
 		}
 
 		///<summary>Stop all or specified cover.</summary>
-		public static void StopCoverTilt(this CoverEntity entity)
+		public static void StopCover(this IEnumerable<CoverEntity> target)
 		{
-			entity.CallService("stop_cover_tilt");
+			target.CallService("stop_cover");
+		}
+
+		///<summary>Stop all or specified cover.</summary>
+		public static void StopCoverTilt(this CoverEntity target)
+		{
+			target.CallService("stop_cover_tilt");
+		}
+
+		///<summary>Stop all or specified cover.</summary>
+		public static void StopCoverTilt(this IEnumerable<CoverEntity> target)
+		{
+			target.CallService("stop_cover_tilt");
 		}
 
 		///<summary>Toggle a cover open/closed.</summary>
-		public static void Toggle(this CoverEntity entity)
+		public static void Toggle(this CoverEntity target)
 		{
-			entity.CallService("toggle");
+			target.CallService("toggle");
+		}
+
+		///<summary>Toggle a cover open/closed.</summary>
+		public static void Toggle(this IEnumerable<CoverEntity> target)
+		{
+			target.CallService("toggle");
 		}
 
 		///<summary>Toggle a cover tilt open/closed.</summary>
-		public static void ToggleCoverTilt(this CoverEntity entity)
+		public static void ToggleCoverTilt(this CoverEntity target)
 		{
-			entity.CallService("toggle_cover_tilt");
+			target.CallService("toggle_cover_tilt");
+		}
+
+		///<summary>Toggle a cover tilt open/closed.</summary>
+		public static void ToggleCoverTilt(this IEnumerable<CoverEntity> target)
+		{
+			target.CallService("toggle_cover_tilt");
 		}
 	}
 
 	public static class ElgatoEntityExtensionMethods
 	{
 		///<summary>Identify an Elgato Light. Blinks the light, which can be useful for, e.g., a visual notification.</summary>
-		public static void Identify(this LightEntity entity)
+		public static void Identify(this LightEntity target)
 		{
-			entity.CallService("identify");
+			target.CallService("identify");
+		}
+
+		///<summary>Identify an Elgato Light. Blinks the light, which can be useful for, e.g., a visual notification.</summary>
+		public static void Identify(this IEnumerable<LightEntity> target)
+		{
+			target.CallService("identify");
 		}
 	}
 
 	public static class HarmonyEntityExtensionMethods
 	{
 		///<summary>Sends change channel command to the Harmony HUB</summary>
-		public static void ChangeChannel(this RemoteEntity entity, HarmonyChangeChannelParameters data)
+		public static void ChangeChannel(this RemoteEntity target, HarmonyChangeChannelParameters data)
 		{
-			entity.CallService("change_channel", data);
+			target.CallService("change_channel", data);
 		}
 
 		///<summary>Sends change channel command to the Harmony HUB</summary>
-		///<param name="entity">The RemoteEntity to call this service for</param>
-		///<param name="channel">Channel number to change to</param>
-		public static void ChangeChannel(this RemoteEntity entity, long @channel)
+		public static void ChangeChannel(this IEnumerable<RemoteEntity> target, HarmonyChangeChannelParameters data)
 		{
-			entity.CallService("change_channel", new HarmonyChangeChannelParameters{Channel = @channel});
+			target.CallService("change_channel", data);
+		}
+
+		///<summary>Sends change channel command to the Harmony HUB</summary>
+		///<param name="target">The RemoteEntity to call this service for</param>
+		///<param name="channel">Channel number to change to</param>
+		public static void ChangeChannel(this RemoteEntity target, long @channel)
+		{
+			target.CallService("change_channel", new HarmonyChangeChannelParameters{Channel = @channel});
+		}
+
+		///<summary>Sends change channel command to the Harmony HUB</summary>
+		///<param name="target">The IEnumerable<RemoteEntity> to call this service for</param>
+		///<param name="channel">Channel number to change to</param>
+		public static void ChangeChannel(this IEnumerable<RemoteEntity> target, long @channel)
+		{
+			target.CallService("change_channel", new HarmonyChangeChannelParameters{Channel = @channel});
 		}
 
 		///<summary>Syncs the remote's configuration.</summary>
-		public static void Sync(this RemoteEntity entity)
+		public static void Sync(this RemoteEntity target)
 		{
-			entity.CallService("sync");
+			target.CallService("sync");
+		}
+
+		///<summary>Syncs the remote's configuration.</summary>
+		public static void Sync(this IEnumerable<RemoteEntity> target)
+		{
+			target.CallService("sync");
 		}
 	}
 
 	public static class InputBooleanEntityExtensionMethods
 	{
 		///<summary>Toggle an input boolean</summary>
-		public static void Toggle(this InputBooleanEntity entity)
+		public static void Toggle(this InputBooleanEntity target)
 		{
-			entity.CallService("toggle");
+			target.CallService("toggle");
+		}
+
+		///<summary>Toggle an input boolean</summary>
+		public static void Toggle(this IEnumerable<InputBooleanEntity> target)
+		{
+			target.CallService("toggle");
 		}
 
 		///<summary>Turn off an input boolean</summary>
-		public static void TurnOff(this InputBooleanEntity entity)
+		public static void TurnOff(this InputBooleanEntity target)
 		{
-			entity.CallService("turn_off");
+			target.CallService("turn_off");
+		}
+
+		///<summary>Turn off an input boolean</summary>
+		public static void TurnOff(this IEnumerable<InputBooleanEntity> target)
+		{
+			target.CallService("turn_off");
 		}
 
 		///<summary>Turn on an input boolean</summary>
-		public static void TurnOn(this InputBooleanEntity entity)
+		public static void TurnOn(this InputBooleanEntity target)
 		{
-			entity.CallService("turn_on");
+			target.CallService("turn_on");
+		}
+
+		///<summary>Turn on an input boolean</summary>
+		public static void TurnOn(this IEnumerable<InputBooleanEntity> target)
+		{
+			target.CallService("turn_on");
 		}
 	}
 
 	public static class InputNumberEntityExtensionMethods
 	{
 		///<summary>Decrement the value of an input number entity by its stepping.</summary>
-		public static void Decrement(this InputNumberEntity entity)
+		public static void Decrement(this InputNumberEntity target)
 		{
-			entity.CallService("decrement");
+			target.CallService("decrement");
+		}
+
+		///<summary>Decrement the value of an input number entity by its stepping.</summary>
+		public static void Decrement(this IEnumerable<InputNumberEntity> target)
+		{
+			target.CallService("decrement");
 		}
 
 		///<summary>Increment the value of an input number entity by its stepping.</summary>
-		public static void Increment(this InputNumberEntity entity)
+		public static void Increment(this InputNumberEntity target)
 		{
-			entity.CallService("increment");
+			target.CallService("increment");
+		}
+
+		///<summary>Increment the value of an input number entity by its stepping.</summary>
+		public static void Increment(this IEnumerable<InputNumberEntity> target)
+		{
+			target.CallService("increment");
 		}
 
 		///<summary>Set the value of an input number entity.</summary>
-		public static void SetValue(this InputNumberEntity entity, InputNumberSetValueParameters data)
+		public static void SetValue(this InputNumberEntity target, InputNumberSetValueParameters data)
 		{
-			entity.CallService("set_value", data);
+			target.CallService("set_value", data);
 		}
 
 		///<summary>Set the value of an input number entity.</summary>
-		///<param name="entity">The InputNumberEntity to call this service for</param>
+		public static void SetValue(this IEnumerable<InputNumberEntity> target, InputNumberSetValueParameters data)
+		{
+			target.CallService("set_value", data);
+		}
+
+		///<summary>Set the value of an input number entity.</summary>
+		///<param name="target">The InputNumberEntity to call this service for</param>
 		///<param name="value">The target value the entity should be set to.</param>
-		public static void SetValue(this InputNumberEntity entity, double @value)
+		public static void SetValue(this InputNumberEntity target, double @value)
 		{
-			entity.CallService("set_value", new InputNumberSetValueParameters{Value = @value});
+			target.CallService("set_value", new InputNumberSetValueParameters{Value = @value});
+		}
+
+		///<summary>Set the value of an input number entity.</summary>
+		///<param name="target">The IEnumerable<InputNumberEntity> to call this service for</param>
+		///<param name="value">The target value the entity should be set to.</param>
+		public static void SetValue(this IEnumerable<InputNumberEntity> target, double @value)
+		{
+			target.CallService("set_value", new InputNumberSetValueParameters{Value = @value});
 		}
 	}
 
 	public static class InputSelectEntityExtensionMethods
 	{
 		///<summary>Select the first option of an input select entity.</summary>
-		public static void SelectFirst(this InputSelectEntity entity)
+		public static void SelectFirst(this InputSelectEntity target)
 		{
-			entity.CallService("select_first");
+			target.CallService("select_first");
+		}
+
+		///<summary>Select the first option of an input select entity.</summary>
+		public static void SelectFirst(this IEnumerable<InputSelectEntity> target)
+		{
+			target.CallService("select_first");
 		}
 
 		///<summary>Select the last option of an input select entity.</summary>
-		public static void SelectLast(this InputSelectEntity entity)
+		public static void SelectLast(this InputSelectEntity target)
 		{
-			entity.CallService("select_last");
+			target.CallService("select_last");
+		}
+
+		///<summary>Select the last option of an input select entity.</summary>
+		public static void SelectLast(this IEnumerable<InputSelectEntity> target)
+		{
+			target.CallService("select_last");
 		}
 
 		///<summary>Select the next options of an input select entity.</summary>
-		public static void SelectNext(this InputSelectEntity entity, InputSelectSelectNextParameters data)
+		public static void SelectNext(this InputSelectEntity target, InputSelectSelectNextParameters data)
 		{
-			entity.CallService("select_next", data);
+			target.CallService("select_next", data);
 		}
 
 		///<summary>Select the next options of an input select entity.</summary>
-		///<param name="entity">The InputSelectEntity to call this service for</param>
+		public static void SelectNext(this IEnumerable<InputSelectEntity> target, InputSelectSelectNextParameters data)
+		{
+			target.CallService("select_next", data);
+		}
+
+		///<summary>Select the next options of an input select entity.</summary>
+		///<param name="target">The InputSelectEntity to call this service for</param>
 		///<param name="cycle">If the option should cycle from the last to the first.</param>
-		public static void SelectNext(this InputSelectEntity entity, bool? @cycle = null)
+		public static void SelectNext(this InputSelectEntity target, bool? @cycle = null)
 		{
-			entity.CallService("select_next", new InputSelectSelectNextParameters{Cycle = @cycle});
+			target.CallService("select_next", new InputSelectSelectNextParameters{Cycle = @cycle});
+		}
+
+		///<summary>Select the next options of an input select entity.</summary>
+		///<param name="target">The IEnumerable<InputSelectEntity> to call this service for</param>
+		///<param name="cycle">If the option should cycle from the last to the first.</param>
+		public static void SelectNext(this IEnumerable<InputSelectEntity> target, bool? @cycle = null)
+		{
+			target.CallService("select_next", new InputSelectSelectNextParameters{Cycle = @cycle});
 		}
 
 		///<summary>Select an option of an input select entity.</summary>
-		public static void SelectOption(this InputSelectEntity entity, InputSelectSelectOptionParameters data)
+		public static void SelectOption(this InputSelectEntity target, InputSelectSelectOptionParameters data)
 		{
-			entity.CallService("select_option", data);
+			target.CallService("select_option", data);
 		}
 
 		///<summary>Select an option of an input select entity.</summary>
-		///<param name="entity">The InputSelectEntity to call this service for</param>
+		public static void SelectOption(this IEnumerable<InputSelectEntity> target, InputSelectSelectOptionParameters data)
+		{
+			target.CallService("select_option", data);
+		}
+
+		///<summary>Select an option of an input select entity.</summary>
+		///<param name="target">The InputSelectEntity to call this service for</param>
 		///<param name="option">Option to be selected. eg: "Item A"</param>
-		public static void SelectOption(this InputSelectEntity entity, string @option)
+		public static void SelectOption(this InputSelectEntity target, string @option)
 		{
-			entity.CallService("select_option", new InputSelectSelectOptionParameters{Option = @option});
+			target.CallService("select_option", new InputSelectSelectOptionParameters{Option = @option});
+		}
+
+		///<summary>Select an option of an input select entity.</summary>
+		///<param name="target">The IEnumerable<InputSelectEntity> to call this service for</param>
+		///<param name="option">Option to be selected. eg: "Item A"</param>
+		public static void SelectOption(this IEnumerable<InputSelectEntity> target, string @option)
+		{
+			target.CallService("select_option", new InputSelectSelectOptionParameters{Option = @option});
 		}
 
 		///<summary>Select the previous options of an input select entity.</summary>
-		public static void SelectPrevious(this InputSelectEntity entity, InputSelectSelectPreviousParameters data)
+		public static void SelectPrevious(this InputSelectEntity target, InputSelectSelectPreviousParameters data)
 		{
-			entity.CallService("select_previous", data);
+			target.CallService("select_previous", data);
 		}
 
 		///<summary>Select the previous options of an input select entity.</summary>
-		///<param name="entity">The InputSelectEntity to call this service for</param>
+		public static void SelectPrevious(this IEnumerable<InputSelectEntity> target, InputSelectSelectPreviousParameters data)
+		{
+			target.CallService("select_previous", data);
+		}
+
+		///<summary>Select the previous options of an input select entity.</summary>
+		///<param name="target">The InputSelectEntity to call this service for</param>
 		///<param name="cycle">If the option should cycle from the first to the last.</param>
-		public static void SelectPrevious(this InputSelectEntity entity, bool? @cycle = null)
+		public static void SelectPrevious(this InputSelectEntity target, bool? @cycle = null)
 		{
-			entity.CallService("select_previous", new InputSelectSelectPreviousParameters{Cycle = @cycle});
+			target.CallService("select_previous", new InputSelectSelectPreviousParameters{Cycle = @cycle});
+		}
+
+		///<summary>Select the previous options of an input select entity.</summary>
+		///<param name="target">The IEnumerable<InputSelectEntity> to call this service for</param>
+		///<param name="cycle">If the option should cycle from the first to the last.</param>
+		public static void SelectPrevious(this IEnumerable<InputSelectEntity> target, bool? @cycle = null)
+		{
+			target.CallService("select_previous", new InputSelectSelectPreviousParameters{Cycle = @cycle});
 		}
 
 		///<summary>Set the options of an input select entity.</summary>
-		public static void SetOptions(this InputSelectEntity entity, InputSelectSetOptionsParameters data)
+		public static void SetOptions(this InputSelectEntity target, InputSelectSetOptionsParameters data)
 		{
-			entity.CallService("set_options", data);
+			target.CallService("set_options", data);
 		}
 
 		///<summary>Set the options of an input select entity.</summary>
-		///<param name="entity">The InputSelectEntity to call this service for</param>
+		public static void SetOptions(this IEnumerable<InputSelectEntity> target, InputSelectSetOptionsParameters data)
+		{
+			target.CallService("set_options", data);
+		}
+
+		///<summary>Set the options of an input select entity.</summary>
+		///<param name="target">The InputSelectEntity to call this service for</param>
 		///<param name="options">Options for the input select entity. eg: ["Item A", "Item B", "Item C"]</param>
-		public static void SetOptions(this InputSelectEntity entity, object @options)
+		public static void SetOptions(this InputSelectEntity target, object @options)
 		{
-			entity.CallService("set_options", new InputSelectSetOptionsParameters{Options = @options});
+			target.CallService("set_options", new InputSelectSetOptionsParameters{Options = @options});
+		}
+
+		///<summary>Set the options of an input select entity.</summary>
+		///<param name="target">The IEnumerable<InputSelectEntity> to call this service for</param>
+		///<param name="options">Options for the input select entity. eg: ["Item A", "Item B", "Item C"]</param>
+		public static void SetOptions(this IEnumerable<InputSelectEntity> target, object @options)
+		{
+			target.CallService("set_options", new InputSelectSetOptionsParameters{Options = @options});
 		}
 	}
 
 	public static class InputTextEntityExtensionMethods
 	{
 		///<summary>Set the value of an input text entity.</summary>
-		public static void SetValue(this InputTextEntity entity, InputTextSetValueParameters data)
+		public static void SetValue(this InputTextEntity target, InputTextSetValueParameters data)
 		{
-			entity.CallService("set_value", data);
+			target.CallService("set_value", data);
 		}
 
 		///<summary>Set the value of an input text entity.</summary>
-		///<param name="entity">The InputTextEntity to call this service for</param>
-		///<param name="value">The target value the entity should be set to. eg: This is an example text</param>
-		public static void SetValue(this InputTextEntity entity, string @value)
+		public static void SetValue(this IEnumerable<InputTextEntity> target, InputTextSetValueParameters data)
 		{
-			entity.CallService("set_value", new InputTextSetValueParameters{Value = @value});
+			target.CallService("set_value", data);
+		}
+
+		///<summary>Set the value of an input text entity.</summary>
+		///<param name="target">The InputTextEntity to call this service for</param>
+		///<param name="value">The target value the entity should be set to. eg: This is an example text</param>
+		public static void SetValue(this InputTextEntity target, string @value)
+		{
+			target.CallService("set_value", new InputTextSetValueParameters{Value = @value});
+		}
+
+		///<summary>Set the value of an input text entity.</summary>
+		///<param name="target">The IEnumerable<InputTextEntity> to call this service for</param>
+		///<param name="value">The target value the entity should be set to. eg: This is an example text</param>
+		public static void SetValue(this IEnumerable<InputTextEntity> target, string @value)
+		{
+			target.CallService("set_value", new InputTextSetValueParameters{Value = @value});
 		}
 	}
 
 	public static class LightEntityExtensionMethods
 	{
 		///<summary>Toggles one or more lights, from on to off, or, off to on, based on their current state. </summary>
-		public static void Toggle(this LightEntity entity, LightToggleParameters data)
+		public static void Toggle(this LightEntity target, LightToggleParameters data)
 		{
-			entity.CallService("toggle", data);
+			target.CallService("toggle", data);
 		}
 
 		///<summary>Toggles one or more lights, from on to off, or, off to on, based on their current state. </summary>
-		///<param name="entity">The LightEntity to call this service for</param>
+		public static void Toggle(this IEnumerable<LightEntity> target, LightToggleParameters data)
+		{
+			target.CallService("toggle", data);
+		}
+
+		///<summary>Toggles one or more lights, from on to off, or, off to on, based on their current state. </summary>
+		///<param name="target">The LightEntity to call this service for</param>
 		///<param name="transition">Duration it takes to get to next state.</param>
 		///<param name="rgbColor">Color for the light in RGB-format. eg: [255, 100, 100]</param>
 		///<param name="colorName">A human readable color name.</param>
@@ -8088,34 +8446,75 @@ namespace HomeAssistantGenerated
 		///<param name="profile">Name of a light profile to use. eg: relax</param>
 		///<param name="flash">If the light should flash.</param>
 		///<param name="effect">Light effect.</param>
-		public static void Toggle(this LightEntity entity, long? @transition = null, object? @rgbColor = null, string? @colorName = null, object? @hsColor = null, object? @xyColor = null, long? @colorTemp = null, long? @kelvin = null, long? @whiteValue = null, long? @brightness = null, long? @brightnessPct = null, string? @profile = null, string? @flash = null, string? @effect = null)
+		public static void Toggle(this LightEntity target, long? @transition = null, object? @rgbColor = null, string? @colorName = null, object? @hsColor = null, object? @xyColor = null, long? @colorTemp = null, long? @kelvin = null, long? @whiteValue = null, long? @brightness = null, long? @brightnessPct = null, string? @profile = null, string? @flash = null, string? @effect = null)
 		{
-			entity.CallService("toggle", new LightToggleParameters{Transition = @transition, RgbColor = @rgbColor, ColorName = @colorName, HsColor = @hsColor, XyColor = @xyColor, ColorTemp = @colorTemp, Kelvin = @kelvin, WhiteValue = @whiteValue, Brightness = @brightness, BrightnessPct = @brightnessPct, Profile = @profile, Flash = @flash, Effect = @effect});
+			target.CallService("toggle", new LightToggleParameters{Transition = @transition, RgbColor = @rgbColor, ColorName = @colorName, HsColor = @hsColor, XyColor = @xyColor, ColorTemp = @colorTemp, Kelvin = @kelvin, WhiteValue = @whiteValue, Brightness = @brightness, BrightnessPct = @brightnessPct, Profile = @profile, Flash = @flash, Effect = @effect});
+		}
+
+		///<summary>Toggles one or more lights, from on to off, or, off to on, based on their current state. </summary>
+		///<param name="target">The IEnumerable<LightEntity> to call this service for</param>
+		///<param name="transition">Duration it takes to get to next state.</param>
+		///<param name="rgbColor">Color for the light in RGB-format. eg: [255, 100, 100]</param>
+		///<param name="colorName">A human readable color name.</param>
+		///<param name="hsColor">Color for the light in hue/sat format. Hue is 0-360 and Sat is 0-100. eg: [300, 70]</param>
+		///<param name="xyColor">Color for the light in XY-format. eg: [0.52, 0.43]</param>
+		///<param name="colorTemp">Color temperature for the light in mireds.</param>
+		///<param name="kelvin">Color temperature for the light in Kelvin.</param>
+		///<param name="whiteValue">Number indicating level of white.</param>
+		///<param name="brightness">Number indicating brightness, where 0 turns the light off, 1 is the minimum brightness and 255 is the maximum brightness supported by the light.</param>
+		///<param name="brightnessPct">Number indicating percentage of full brightness, where 0 turns the light off, 1 is the minimum brightness and 100 is the maximum brightness supported by the light.</param>
+		///<param name="profile">Name of a light profile to use. eg: relax</param>
+		///<param name="flash">If the light should flash.</param>
+		///<param name="effect">Light effect.</param>
+		public static void Toggle(this IEnumerable<LightEntity> target, long? @transition = null, object? @rgbColor = null, string? @colorName = null, object? @hsColor = null, object? @xyColor = null, long? @colorTemp = null, long? @kelvin = null, long? @whiteValue = null, long? @brightness = null, long? @brightnessPct = null, string? @profile = null, string? @flash = null, string? @effect = null)
+		{
+			target.CallService("toggle", new LightToggleParameters{Transition = @transition, RgbColor = @rgbColor, ColorName = @colorName, HsColor = @hsColor, XyColor = @xyColor, ColorTemp = @colorTemp, Kelvin = @kelvin, WhiteValue = @whiteValue, Brightness = @brightness, BrightnessPct = @brightnessPct, Profile = @profile, Flash = @flash, Effect = @effect});
 		}
 
 		///<summary>Turns off one or more lights.</summary>
-		public static void TurnOff(this LightEntity entity, LightTurnOffParameters data)
+		public static void TurnOff(this LightEntity target, LightTurnOffParameters data)
 		{
-			entity.CallService("turn_off", data);
+			target.CallService("turn_off", data);
 		}
 
 		///<summary>Turns off one or more lights.</summary>
-		///<param name="entity">The LightEntity to call this service for</param>
+		public static void TurnOff(this IEnumerable<LightEntity> target, LightTurnOffParameters data)
+		{
+			target.CallService("turn_off", data);
+		}
+
+		///<summary>Turns off one or more lights.</summary>
+		///<param name="target">The LightEntity to call this service for</param>
 		///<param name="transition">Duration it takes to get to next state.</param>
 		///<param name="flash">If the light should flash.</param>
-		public static void TurnOff(this LightEntity entity, long? @transition = null, string? @flash = null)
+		public static void TurnOff(this LightEntity target, long? @transition = null, string? @flash = null)
 		{
-			entity.CallService("turn_off", new LightTurnOffParameters{Transition = @transition, Flash = @flash});
+			target.CallService("turn_off", new LightTurnOffParameters{Transition = @transition, Flash = @flash});
+		}
+
+		///<summary>Turns off one or more lights.</summary>
+		///<param name="target">The IEnumerable<LightEntity> to call this service for</param>
+		///<param name="transition">Duration it takes to get to next state.</param>
+		///<param name="flash">If the light should flash.</param>
+		public static void TurnOff(this IEnumerable<LightEntity> target, long? @transition = null, string? @flash = null)
+		{
+			target.CallService("turn_off", new LightTurnOffParameters{Transition = @transition, Flash = @flash});
 		}
 
 		///<summary>Turn on one or more lights and adjust properties of the light, even when they are turned on already. </summary>
-		public static void TurnOn(this LightEntity entity, LightTurnOnParameters data)
+		public static void TurnOn(this LightEntity target, LightTurnOnParameters data)
 		{
-			entity.CallService("turn_on", data);
+			target.CallService("turn_on", data);
 		}
 
 		///<summary>Turn on one or more lights and adjust properties of the light, even when they are turned on already. </summary>
-		///<param name="entity">The LightEntity to call this service for</param>
+		public static void TurnOn(this IEnumerable<LightEntity> target, LightTurnOnParameters data)
+		{
+			target.CallService("turn_on", data);
+		}
+
+		///<summary>Turn on one or more lights and adjust properties of the light, even when they are turned on already. </summary>
+		///<param name="target">The LightEntity to call this service for</param>
 		///<param name="transition">Duration it takes to get to next state.</param>
 		///<param name="rgbColor">A list containing three integers between 0 and 255 representing the RGB (red, green, blue) color for the light. eg: [255, 100, 100]</param>
 		///<param name="rgbwColor">A list containing four integers between 0 and 255 representing the RGBW (red, green, blue, white) color for the light. eg: [255, 100, 100, 50]</param>
@@ -8133,470 +8532,841 @@ namespace HomeAssistantGenerated
 		///<param name="profile">Name of a light profile to use. eg: relax</param>
 		///<param name="flash">If the light should flash.</param>
 		///<param name="effect">Light effect.</param>
-		public static void TurnOn(this LightEntity entity, long? @transition = null, object? @rgbColor = null, object? @rgbwColor = null, object? @rgbwwColor = null, string? @colorName = null, object? @hsColor = null, object? @xyColor = null, long? @colorTemp = null, long? @kelvin = null, long? @brightness = null, long? @brightnessPct = null, long? @brightnessStep = null, long? @brightnessStepPct = null, long? @white = null, string? @profile = null, string? @flash = null, string? @effect = null)
+		public static void TurnOn(this LightEntity target, long? @transition = null, object? @rgbColor = null, object? @rgbwColor = null, object? @rgbwwColor = null, string? @colorName = null, object? @hsColor = null, object? @xyColor = null, long? @colorTemp = null, long? @kelvin = null, long? @brightness = null, long? @brightnessPct = null, long? @brightnessStep = null, long? @brightnessStepPct = null, long? @white = null, string? @profile = null, string? @flash = null, string? @effect = null)
 		{
-			entity.CallService("turn_on", new LightTurnOnParameters{Transition = @transition, RgbColor = @rgbColor, RgbwColor = @rgbwColor, RgbwwColor = @rgbwwColor, ColorName = @colorName, HsColor = @hsColor, XyColor = @xyColor, ColorTemp = @colorTemp, Kelvin = @kelvin, Brightness = @brightness, BrightnessPct = @brightnessPct, BrightnessStep = @brightnessStep, BrightnessStepPct = @brightnessStepPct, White = @white, Profile = @profile, Flash = @flash, Effect = @effect});
-		}
-	}
-
-	public static class LockEntityExtensionMethods
-	{
-		///<summary>Lock all or specified locks.</summary>
-		public static void Lock(this LockEntity entity, LockLockParameters data)
-		{
-			entity.CallService("lock", data);
+			target.CallService("turn_on", new LightTurnOnParameters{Transition = @transition, RgbColor = @rgbColor, RgbwColor = @rgbwColor, RgbwwColor = @rgbwwColor, ColorName = @colorName, HsColor = @hsColor, XyColor = @xyColor, ColorTemp = @colorTemp, Kelvin = @kelvin, Brightness = @brightness, BrightnessPct = @brightnessPct, BrightnessStep = @brightnessStep, BrightnessStepPct = @brightnessStepPct, White = @white, Profile = @profile, Flash = @flash, Effect = @effect});
 		}
 
-		///<summary>Lock all or specified locks.</summary>
-		///<param name="entity">The LockEntity to call this service for</param>
-		///<param name="code">An optional code to lock the lock with. eg: 1234</param>
-		public static void Lock(this LockEntity entity, string? @code = null)
+		///<summary>Turn on one or more lights and adjust properties of the light, even when they are turned on already. </summary>
+		///<param name="target">The IEnumerable<LightEntity> to call this service for</param>
+		///<param name="transition">Duration it takes to get to next state.</param>
+		///<param name="rgbColor">A list containing three integers between 0 and 255 representing the RGB (red, green, blue) color for the light. eg: [255, 100, 100]</param>
+		///<param name="rgbwColor">A list containing four integers between 0 and 255 representing the RGBW (red, green, blue, white) color for the light. eg: [255, 100, 100, 50]</param>
+		///<param name="rgbwwColor">A list containing five integers between 0 and 255 representing the RGBWW (red, green, blue, cold white, warm white) color for the light. eg: [255, 100, 100, 50, 70]</param>
+		///<param name="colorName">A human readable color name.</param>
+		///<param name="hsColor">Color for the light in hue/sat format. Hue is 0-360 and Sat is 0-100. eg: [300, 70]</param>
+		///<param name="xyColor">Color for the light in XY-format. eg: [0.52, 0.43]</param>
+		///<param name="colorTemp">Color temperature for the light in mireds.</param>
+		///<param name="kelvin">Color temperature for the light in Kelvin.</param>
+		///<param name="brightness">Number indicating brightness, where 0 turns the light off, 1 is the minimum brightness and 255 is the maximum brightness supported by the light.</param>
+		///<param name="brightnessPct">Number indicating percentage of full brightness, where 0 turns the light off, 1 is the minimum brightness and 100 is the maximum brightness supported by the light.</param>
+		///<param name="brightnessStep">Change brightness by an amount.</param>
+		///<param name="brightnessStepPct">Change brightness by a percentage.</param>
+		///<param name="white">Set the light to white mode and change its brightness, where 0 turns the light off, 1 is the minimum brightness and 255 is the maximum brightness supported by the light.</param>
+		///<param name="profile">Name of a light profile to use. eg: relax</param>
+		///<param name="flash">If the light should flash.</param>
+		///<param name="effect">Light effect.</param>
+		public static void TurnOn(this IEnumerable<LightEntity> target, long? @transition = null, object? @rgbColor = null, object? @rgbwColor = null, object? @rgbwwColor = null, string? @colorName = null, object? @hsColor = null, object? @xyColor = null, long? @colorTemp = null, long? @kelvin = null, long? @brightness = null, long? @brightnessPct = null, long? @brightnessStep = null, long? @brightnessStepPct = null, long? @white = null, string? @profile = null, string? @flash = null, string? @effect = null)
 		{
-			entity.CallService("lock", new LockLockParameters{Code = @code});
-		}
-
-		///<summary>Open all or specified locks.</summary>
-		public static void Open(this LockEntity entity, LockOpenParameters data)
-		{
-			entity.CallService("open", data);
-		}
-
-		///<summary>Open all or specified locks.</summary>
-		///<param name="entity">The LockEntity to call this service for</param>
-		///<param name="code">An optional code to open the lock with. eg: 1234</param>
-		public static void Open(this LockEntity entity, string? @code = null)
-		{
-			entity.CallService("open", new LockOpenParameters{Code = @code});
-		}
-
-		///<summary>Unlock all or specified locks.</summary>
-		public static void Unlock(this LockEntity entity, LockUnlockParameters data)
-		{
-			entity.CallService("unlock", data);
-		}
-
-		///<summary>Unlock all or specified locks.</summary>
-		///<param name="entity">The LockEntity to call this service for</param>
-		///<param name="code">An optional code to unlock the lock with. eg: 1234</param>
-		public static void Unlock(this LockEntity entity, string? @code = null)
-		{
-			entity.CallService("unlock", new LockUnlockParameters{Code = @code});
+			target.CallService("turn_on", new LightTurnOnParameters{Transition = @transition, RgbColor = @rgbColor, RgbwColor = @rgbwColor, RgbwwColor = @rgbwwColor, ColorName = @colorName, HsColor = @hsColor, XyColor = @xyColor, ColorTemp = @colorTemp, Kelvin = @kelvin, Brightness = @brightness, BrightnessPct = @brightnessPct, BrightnessStep = @brightnessStep, BrightnessStepPct = @brightnessStepPct, White = @white, Profile = @profile, Flash = @flash, Effect = @effect});
 		}
 	}
 
 	public static class MediaPlayerEntityExtensionMethods
 	{
 		///<summary>Send the media player the command to clear players playlist.</summary>
-		public static void ClearPlaylist(this MediaPlayerEntity entity)
+		public static void ClearPlaylist(this MediaPlayerEntity target)
 		{
-			entity.CallService("clear_playlist");
+			target.CallService("clear_playlist");
+		}
+
+		///<summary>Send the media player the command to clear players playlist.</summary>
+		public static void ClearPlaylist(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("clear_playlist");
 		}
 
 		///<summary>Group players together. Only works on platforms with support for player groups.</summary>
-		public static void Join(this MediaPlayerEntity entity, MediaPlayerJoinParameters data)
+		public static void Join(this MediaPlayerEntity target, MediaPlayerJoinParameters data)
 		{
-			entity.CallService("join", data);
+			target.CallService("join", data);
 		}
 
 		///<summary>Group players together. Only works on platforms with support for player groups.</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void Join(this IEnumerable<MediaPlayerEntity> target, MediaPlayerJoinParameters data)
+		{
+			target.CallService("join", data);
+		}
+
+		///<summary>Group players together. Only works on platforms with support for player groups.</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="groupMembers">The players which will be synced with the target player. eg: ["media_player.multiroom_player2", "media_player.multiroom_player3"]</param>
-		public static void Join(this MediaPlayerEntity entity, object? @groupMembers = null)
+		public static void Join(this MediaPlayerEntity target, object? @groupMembers = null)
 		{
-			entity.CallService("join", new MediaPlayerJoinParameters{GroupMembers = @groupMembers});
+			target.CallService("join", new MediaPlayerJoinParameters{GroupMembers = @groupMembers});
+		}
+
+		///<summary>Group players together. Only works on platforms with support for player groups.</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="groupMembers">The players which will be synced with the target player. eg: ["media_player.multiroom_player2", "media_player.multiroom_player3"]</param>
+		public static void Join(this IEnumerable<MediaPlayerEntity> target, object? @groupMembers = null)
+		{
+			target.CallService("join", new MediaPlayerJoinParameters{GroupMembers = @groupMembers});
 		}
 
 		///<summary>Send the media player the command for next track.</summary>
-		public static void MediaNextTrack(this MediaPlayerEntity entity)
+		public static void MediaNextTrack(this MediaPlayerEntity target)
 		{
-			entity.CallService("media_next_track");
+			target.CallService("media_next_track");
+		}
+
+		///<summary>Send the media player the command for next track.</summary>
+		public static void MediaNextTrack(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("media_next_track");
 		}
 
 		///<summary>Send the media player the command for pause.</summary>
-		public static void MediaPause(this MediaPlayerEntity entity)
+		public static void MediaPause(this MediaPlayerEntity target)
 		{
-			entity.CallService("media_pause");
+			target.CallService("media_pause");
+		}
+
+		///<summary>Send the media player the command for pause.</summary>
+		public static void MediaPause(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("media_pause");
 		}
 
 		///<summary>Send the media player the command for play.</summary>
-		public static void MediaPlay(this MediaPlayerEntity entity)
+		public static void MediaPlay(this MediaPlayerEntity target)
 		{
-			entity.CallService("media_play");
+			target.CallService("media_play");
+		}
+
+		///<summary>Send the media player the command for play.</summary>
+		public static void MediaPlay(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("media_play");
 		}
 
 		///<summary>Toggle media player play/pause state.</summary>
-		public static void MediaPlayPause(this MediaPlayerEntity entity)
+		public static void MediaPlayPause(this MediaPlayerEntity target)
 		{
-			entity.CallService("media_play_pause");
+			target.CallService("media_play_pause");
+		}
+
+		///<summary>Toggle media player play/pause state.</summary>
+		public static void MediaPlayPause(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("media_play_pause");
 		}
 
 		///<summary>Send the media player the command for previous track.</summary>
-		public static void MediaPreviousTrack(this MediaPlayerEntity entity)
+		public static void MediaPreviousTrack(this MediaPlayerEntity target)
 		{
-			entity.CallService("media_previous_track");
+			target.CallService("media_previous_track");
+		}
+
+		///<summary>Send the media player the command for previous track.</summary>
+		public static void MediaPreviousTrack(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("media_previous_track");
 		}
 
 		///<summary>Send the media player the command to seek in current playing media.</summary>
-		public static void MediaSeek(this MediaPlayerEntity entity, MediaPlayerMediaSeekParameters data)
+		public static void MediaSeek(this MediaPlayerEntity target, MediaPlayerMediaSeekParameters data)
 		{
-			entity.CallService("media_seek", data);
+			target.CallService("media_seek", data);
 		}
 
 		///<summary>Send the media player the command to seek in current playing media.</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void MediaSeek(this IEnumerable<MediaPlayerEntity> target, MediaPlayerMediaSeekParameters data)
+		{
+			target.CallService("media_seek", data);
+		}
+
+		///<summary>Send the media player the command to seek in current playing media.</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="seekPosition">Position to seek to. The format is platform dependent.</param>
-		public static void MediaSeek(this MediaPlayerEntity entity, double @seekPosition)
+		public static void MediaSeek(this MediaPlayerEntity target, double @seekPosition)
 		{
-			entity.CallService("media_seek", new MediaPlayerMediaSeekParameters{SeekPosition = @seekPosition});
+			target.CallService("media_seek", new MediaPlayerMediaSeekParameters{SeekPosition = @seekPosition});
+		}
+
+		///<summary>Send the media player the command to seek in current playing media.</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="seekPosition">Position to seek to. The format is platform dependent.</param>
+		public static void MediaSeek(this IEnumerable<MediaPlayerEntity> target, double @seekPosition)
+		{
+			target.CallService("media_seek", new MediaPlayerMediaSeekParameters{SeekPosition = @seekPosition});
 		}
 
 		///<summary>Send the media player the stop command.</summary>
-		public static void MediaStop(this MediaPlayerEntity entity)
+		public static void MediaStop(this MediaPlayerEntity target)
 		{
-			entity.CallService("media_stop");
+			target.CallService("media_stop");
+		}
+
+		///<summary>Send the media player the stop command.</summary>
+		public static void MediaStop(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("media_stop");
 		}
 
 		///<summary>Send the media player the command for playing media.</summary>
-		public static void PlayMedia(this MediaPlayerEntity entity, MediaPlayerPlayMediaParameters data)
+		public static void PlayMedia(this MediaPlayerEntity target, MediaPlayerPlayMediaParameters data)
 		{
-			entity.CallService("play_media", data);
+			target.CallService("play_media", data);
 		}
 
 		///<summary>Send the media player the command for playing media.</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void PlayMedia(this IEnumerable<MediaPlayerEntity> target, MediaPlayerPlayMediaParameters data)
+		{
+			target.CallService("play_media", data);
+		}
+
+		///<summary>Send the media player the command for playing media.</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="mediaContentId">The ID of the content to play. Platform dependent. eg: https://home-assistant.io/images/cast/splash.png</param>
 		///<param name="mediaContentType">The type of the content to play. Like image, music, tvshow, video, episode, channel or playlist. eg: music</param>
-		public static void PlayMedia(this MediaPlayerEntity entity, string @mediaContentId, string @mediaContentType)
+		public static void PlayMedia(this MediaPlayerEntity target, string @mediaContentId, string @mediaContentType)
 		{
-			entity.CallService("play_media", new MediaPlayerPlayMediaParameters{MediaContentId = @mediaContentId, MediaContentType = @mediaContentType});
+			target.CallService("play_media", new MediaPlayerPlayMediaParameters{MediaContentId = @mediaContentId, MediaContentType = @mediaContentType});
+		}
+
+		///<summary>Send the media player the command for playing media.</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="mediaContentId">The ID of the content to play. Platform dependent. eg: https://home-assistant.io/images/cast/splash.png</param>
+		///<param name="mediaContentType">The type of the content to play. Like image, music, tvshow, video, episode, channel or playlist. eg: music</param>
+		public static void PlayMedia(this IEnumerable<MediaPlayerEntity> target, string @mediaContentId, string @mediaContentType)
+		{
+			target.CallService("play_media", new MediaPlayerPlayMediaParameters{MediaContentId = @mediaContentId, MediaContentType = @mediaContentType});
 		}
 
 		///<summary>Set repeat mode</summary>
-		public static void RepeatSet(this MediaPlayerEntity entity, MediaPlayerRepeatSetParameters data)
+		public static void RepeatSet(this MediaPlayerEntity target, MediaPlayerRepeatSetParameters data)
 		{
-			entity.CallService("repeat_set", data);
+			target.CallService("repeat_set", data);
 		}
 
 		///<summary>Set repeat mode</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void RepeatSet(this IEnumerable<MediaPlayerEntity> target, MediaPlayerRepeatSetParameters data)
+		{
+			target.CallService("repeat_set", data);
+		}
+
+		///<summary>Set repeat mode</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="repeat">Repeat mode to set.</param>
-		public static void RepeatSet(this MediaPlayerEntity entity, string @repeat)
+		public static void RepeatSet(this MediaPlayerEntity target, string @repeat)
 		{
-			entity.CallService("repeat_set", new MediaPlayerRepeatSetParameters{Repeat = @repeat});
+			target.CallService("repeat_set", new MediaPlayerRepeatSetParameters{Repeat = @repeat});
+		}
+
+		///<summary>Set repeat mode</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="repeat">Repeat mode to set.</param>
+		public static void RepeatSet(this IEnumerable<MediaPlayerEntity> target, string @repeat)
+		{
+			target.CallService("repeat_set", new MediaPlayerRepeatSetParameters{Repeat = @repeat});
 		}
 
 		///<summary>Send the media player the command to change sound mode.</summary>
-		public static void SelectSoundMode(this MediaPlayerEntity entity, MediaPlayerSelectSoundModeParameters data)
+		public static void SelectSoundMode(this MediaPlayerEntity target, MediaPlayerSelectSoundModeParameters data)
 		{
-			entity.CallService("select_sound_mode", data);
+			target.CallService("select_sound_mode", data);
 		}
 
 		///<summary>Send the media player the command to change sound mode.</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void SelectSoundMode(this IEnumerable<MediaPlayerEntity> target, MediaPlayerSelectSoundModeParameters data)
+		{
+			target.CallService("select_sound_mode", data);
+		}
+
+		///<summary>Send the media player the command to change sound mode.</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="soundMode">Name of the sound mode to switch to. eg: Music</param>
-		public static void SelectSoundMode(this MediaPlayerEntity entity, string? @soundMode = null)
+		public static void SelectSoundMode(this MediaPlayerEntity target, string? @soundMode = null)
 		{
-			entity.CallService("select_sound_mode", new MediaPlayerSelectSoundModeParameters{SoundMode = @soundMode});
+			target.CallService("select_sound_mode", new MediaPlayerSelectSoundModeParameters{SoundMode = @soundMode});
+		}
+
+		///<summary>Send the media player the command to change sound mode.</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="soundMode">Name of the sound mode to switch to. eg: Music</param>
+		public static void SelectSoundMode(this IEnumerable<MediaPlayerEntity> target, string? @soundMode = null)
+		{
+			target.CallService("select_sound_mode", new MediaPlayerSelectSoundModeParameters{SoundMode = @soundMode});
 		}
 
 		///<summary>Send the media player the command to change input source.</summary>
-		public static void SelectSource(this MediaPlayerEntity entity, MediaPlayerSelectSourceParameters data)
+		public static void SelectSource(this MediaPlayerEntity target, MediaPlayerSelectSourceParameters data)
 		{
-			entity.CallService("select_source", data);
+			target.CallService("select_source", data);
 		}
 
 		///<summary>Send the media player the command to change input source.</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void SelectSource(this IEnumerable<MediaPlayerEntity> target, MediaPlayerSelectSourceParameters data)
+		{
+			target.CallService("select_source", data);
+		}
+
+		///<summary>Send the media player the command to change input source.</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="source">Name of the source to switch to. Platform dependent. eg: video1</param>
-		public static void SelectSource(this MediaPlayerEntity entity, string @source)
+		public static void SelectSource(this MediaPlayerEntity target, string @source)
 		{
-			entity.CallService("select_source", new MediaPlayerSelectSourceParameters{Source = @source});
+			target.CallService("select_source", new MediaPlayerSelectSourceParameters{Source = @source});
+		}
+
+		///<summary>Send the media player the command to change input source.</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="source">Name of the source to switch to. Platform dependent. eg: video1</param>
+		public static void SelectSource(this IEnumerable<MediaPlayerEntity> target, string @source)
+		{
+			target.CallService("select_source", new MediaPlayerSelectSourceParameters{Source = @source});
 		}
 
 		///<summary>Set shuffling state.</summary>
-		public static void ShuffleSet(this MediaPlayerEntity entity, MediaPlayerShuffleSetParameters data)
+		public static void ShuffleSet(this MediaPlayerEntity target, MediaPlayerShuffleSetParameters data)
 		{
-			entity.CallService("shuffle_set", data);
+			target.CallService("shuffle_set", data);
 		}
 
 		///<summary>Set shuffling state.</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void ShuffleSet(this IEnumerable<MediaPlayerEntity> target, MediaPlayerShuffleSetParameters data)
+		{
+			target.CallService("shuffle_set", data);
+		}
+
+		///<summary>Set shuffling state.</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="shuffle">True/false for enabling/disabling shuffle.</param>
-		public static void ShuffleSet(this MediaPlayerEntity entity, bool @shuffle)
+		public static void ShuffleSet(this MediaPlayerEntity target, bool @shuffle)
 		{
-			entity.CallService("shuffle_set", new MediaPlayerShuffleSetParameters{Shuffle = @shuffle});
+			target.CallService("shuffle_set", new MediaPlayerShuffleSetParameters{Shuffle = @shuffle});
+		}
+
+		///<summary>Set shuffling state.</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="shuffle">True/false for enabling/disabling shuffle.</param>
+		public static void ShuffleSet(this IEnumerable<MediaPlayerEntity> target, bool @shuffle)
+		{
+			target.CallService("shuffle_set", new MediaPlayerShuffleSetParameters{Shuffle = @shuffle});
 		}
 
 		///<summary>Toggles a media player power state.</summary>
-		public static void Toggle(this MediaPlayerEntity entity)
+		public static void Toggle(this MediaPlayerEntity target)
 		{
-			entity.CallService("toggle");
+			target.CallService("toggle");
+		}
+
+		///<summary>Toggles a media player power state.</summary>
+		public static void Toggle(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("toggle");
 		}
 
 		///<summary>Turn a media player power off.</summary>
-		public static void TurnOff(this MediaPlayerEntity entity)
+		public static void TurnOff(this MediaPlayerEntity target)
 		{
-			entity.CallService("turn_off");
+			target.CallService("turn_off");
+		}
+
+		///<summary>Turn a media player power off.</summary>
+		public static void TurnOff(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("turn_off");
 		}
 
 		///<summary>Turn a media player power on.</summary>
-		public static void TurnOn(this MediaPlayerEntity entity)
+		public static void TurnOn(this MediaPlayerEntity target)
 		{
-			entity.CallService("turn_on");
+			target.CallService("turn_on");
+		}
+
+		///<summary>Turn a media player power on.</summary>
+		public static void TurnOn(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("turn_on");
 		}
 
 		///<summary>Unjoin the player from a group. Only works on platforms with support for player groups.</summary>
-		public static void Unjoin(this MediaPlayerEntity entity)
+		public static void Unjoin(this MediaPlayerEntity target)
 		{
-			entity.CallService("unjoin");
+			target.CallService("unjoin");
+		}
+
+		///<summary>Unjoin the player from a group. Only works on platforms with support for player groups.</summary>
+		public static void Unjoin(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("unjoin");
 		}
 
 		///<summary>Turn a media player volume down.</summary>
-		public static void VolumeDown(this MediaPlayerEntity entity)
+		public static void VolumeDown(this MediaPlayerEntity target)
 		{
-			entity.CallService("volume_down");
+			target.CallService("volume_down");
+		}
+
+		///<summary>Turn a media player volume down.</summary>
+		public static void VolumeDown(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("volume_down");
 		}
 
 		///<summary>Mute a media player's volume.</summary>
-		public static void VolumeMute(this MediaPlayerEntity entity, MediaPlayerVolumeMuteParameters data)
+		public static void VolumeMute(this MediaPlayerEntity target, MediaPlayerVolumeMuteParameters data)
 		{
-			entity.CallService("volume_mute", data);
+			target.CallService("volume_mute", data);
 		}
 
 		///<summary>Mute a media player's volume.</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void VolumeMute(this IEnumerable<MediaPlayerEntity> target, MediaPlayerVolumeMuteParameters data)
+		{
+			target.CallService("volume_mute", data);
+		}
+
+		///<summary>Mute a media player's volume.</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="isVolumeMuted">True/false for mute/unmute.</param>
-		public static void VolumeMute(this MediaPlayerEntity entity, bool @isVolumeMuted)
+		public static void VolumeMute(this MediaPlayerEntity target, bool @isVolumeMuted)
 		{
-			entity.CallService("volume_mute", new MediaPlayerVolumeMuteParameters{IsVolumeMuted = @isVolumeMuted});
+			target.CallService("volume_mute", new MediaPlayerVolumeMuteParameters{IsVolumeMuted = @isVolumeMuted});
+		}
+
+		///<summary>Mute a media player's volume.</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="isVolumeMuted">True/false for mute/unmute.</param>
+		public static void VolumeMute(this IEnumerable<MediaPlayerEntity> target, bool @isVolumeMuted)
+		{
+			target.CallService("volume_mute", new MediaPlayerVolumeMuteParameters{IsVolumeMuted = @isVolumeMuted});
 		}
 
 		///<summary>Set a media player's volume level.</summary>
-		public static void VolumeSet(this MediaPlayerEntity entity, MediaPlayerVolumeSetParameters data)
+		public static void VolumeSet(this MediaPlayerEntity target, MediaPlayerVolumeSetParameters data)
 		{
-			entity.CallService("volume_set", data);
+			target.CallService("volume_set", data);
 		}
 
 		///<summary>Set a media player's volume level.</summary>
-		///<param name="entity">The MediaPlayerEntity to call this service for</param>
+		public static void VolumeSet(this IEnumerable<MediaPlayerEntity> target, MediaPlayerVolumeSetParameters data)
+		{
+			target.CallService("volume_set", data);
+		}
+
+		///<summary>Set a media player's volume level.</summary>
+		///<param name="target">The MediaPlayerEntity to call this service for</param>
 		///<param name="volumeLevel">Volume level to set as float.</param>
-		public static void VolumeSet(this MediaPlayerEntity entity, double @volumeLevel)
+		public static void VolumeSet(this MediaPlayerEntity target, double @volumeLevel)
 		{
-			entity.CallService("volume_set", new MediaPlayerVolumeSetParameters{VolumeLevel = @volumeLevel});
+			target.CallService("volume_set", new MediaPlayerVolumeSetParameters{VolumeLevel = @volumeLevel});
+		}
+
+		///<summary>Set a media player's volume level.</summary>
+		///<param name="target">The IEnumerable<MediaPlayerEntity> to call this service for</param>
+		///<param name="volumeLevel">Volume level to set as float.</param>
+		public static void VolumeSet(this IEnumerable<MediaPlayerEntity> target, double @volumeLevel)
+		{
+			target.CallService("volume_set", new MediaPlayerVolumeSetParameters{VolumeLevel = @volumeLevel});
 		}
 
 		///<summary>Turn a media player volume up.</summary>
-		public static void VolumeUp(this MediaPlayerEntity entity)
+		public static void VolumeUp(this MediaPlayerEntity target)
 		{
-			entity.CallService("volume_up");
+			target.CallService("volume_up");
+		}
+
+		///<summary>Turn a media player volume up.</summary>
+		public static void VolumeUp(this IEnumerable<MediaPlayerEntity> target)
+		{
+			target.CallService("volume_up");
 		}
 	}
 
 	public static class NumberEntityExtensionMethods
 	{
 		///<summary>Set the value of a Number entity.</summary>
-		public static void SetValue(this NumberEntity entity, NumberSetValueParameters data)
+		public static void SetValue(this NumberEntity target, NumberSetValueParameters data)
 		{
-			entity.CallService("set_value", data);
+			target.CallService("set_value", data);
 		}
 
 		///<summary>Set the value of a Number entity.</summary>
-		///<param name="entity">The NumberEntity to call this service for</param>
-		///<param name="value">The target value the entity should be set to. eg: 42</param>
-		public static void SetValue(this NumberEntity entity, string? @value = null)
+		public static void SetValue(this IEnumerable<NumberEntity> target, NumberSetValueParameters data)
 		{
-			entity.CallService("set_value", new NumberSetValueParameters{Value = @value});
+			target.CallService("set_value", data);
+		}
+
+		///<summary>Set the value of a Number entity.</summary>
+		///<param name="target">The NumberEntity to call this service for</param>
+		///<param name="value">The target value the entity should be set to. eg: 42</param>
+		public static void SetValue(this NumberEntity target, string? @value = null)
+		{
+			target.CallService("set_value", new NumberSetValueParameters{Value = @value});
+		}
+
+		///<summary>Set the value of a Number entity.</summary>
+		///<param name="target">The IEnumerable<NumberEntity> to call this service for</param>
+		///<param name="value">The target value the entity should be set to. eg: 42</param>
+		public static void SetValue(this IEnumerable<NumberEntity> target, string? @value = null)
+		{
+			target.CallService("set_value", new NumberSetValueParameters{Value = @value});
 		}
 	}
 
 	public static class RemoteEntityExtensionMethods
 	{
 		///<summary>Deletes a command or a list of commands from the database.</summary>
-		public static void DeleteCommand(this RemoteEntity entity, RemoteDeleteCommandParameters data)
+		public static void DeleteCommand(this RemoteEntity target, RemoteDeleteCommandParameters data)
 		{
-			entity.CallService("delete_command", data);
+			target.CallService("delete_command", data);
 		}
 
 		///<summary>Deletes a command or a list of commands from the database.</summary>
-		///<param name="entity">The RemoteEntity to call this service for</param>
+		public static void DeleteCommand(this IEnumerable<RemoteEntity> target, RemoteDeleteCommandParameters data)
+		{
+			target.CallService("delete_command", data);
+		}
+
+		///<summary>Deletes a command or a list of commands from the database.</summary>
+		///<param name="target">The RemoteEntity to call this service for</param>
 		///<param name="device">Name of the device from which commands will be deleted. eg: television</param>
 		///<param name="command">A single command or a list of commands to delete. eg: Mute</param>
-		public static void DeleteCommand(this RemoteEntity entity, object @command, string? @device = null)
+		public static void DeleteCommand(this RemoteEntity target, object @command, string? @device = null)
 		{
-			entity.CallService("delete_command", new RemoteDeleteCommandParameters{Device = @device, Command = @command});
+			target.CallService("delete_command", new RemoteDeleteCommandParameters{Device = @device, Command = @command});
+		}
+
+		///<summary>Deletes a command or a list of commands from the database.</summary>
+		///<param name="target">The IEnumerable<RemoteEntity> to call this service for</param>
+		///<param name="device">Name of the device from which commands will be deleted. eg: television</param>
+		///<param name="command">A single command or a list of commands to delete. eg: Mute</param>
+		public static void DeleteCommand(this IEnumerable<RemoteEntity> target, object @command, string? @device = null)
+		{
+			target.CallService("delete_command", new RemoteDeleteCommandParameters{Device = @device, Command = @command});
 		}
 
 		///<summary>Learns a command or a list of commands from a device.</summary>
-		public static void LearnCommand(this RemoteEntity entity, RemoteLearnCommandParameters data)
+		public static void LearnCommand(this RemoteEntity target, RemoteLearnCommandParameters data)
 		{
-			entity.CallService("learn_command", data);
+			target.CallService("learn_command", data);
 		}
 
 		///<summary>Learns a command or a list of commands from a device.</summary>
-		///<param name="entity">The RemoteEntity to call this service for</param>
+		public static void LearnCommand(this IEnumerable<RemoteEntity> target, RemoteLearnCommandParameters data)
+		{
+			target.CallService("learn_command", data);
+		}
+
+		///<summary>Learns a command or a list of commands from a device.</summary>
+		///<param name="target">The RemoteEntity to call this service for</param>
 		///<param name="device">Device ID to learn command from. eg: television</param>
 		///<param name="command">A single command or a list of commands to learn. eg: Turn on</param>
 		///<param name="commandType">The type of command to be learned.</param>
 		///<param name="alternative">If code must be stored as alternative (useful for discrete remotes).</param>
 		///<param name="timeout">Timeout for the command to be learned.</param>
-		public static void LearnCommand(this RemoteEntity entity, string? @device = null, object? @command = null, string? @commandType = null, bool? @alternative = null, long? @timeout = null)
+		public static void LearnCommand(this RemoteEntity target, string? @device = null, object? @command = null, string? @commandType = null, bool? @alternative = null, long? @timeout = null)
 		{
-			entity.CallService("learn_command", new RemoteLearnCommandParameters{Device = @device, Command = @command, CommandType = @commandType, Alternative = @alternative, Timeout = @timeout});
+			target.CallService("learn_command", new RemoteLearnCommandParameters{Device = @device, Command = @command, CommandType = @commandType, Alternative = @alternative, Timeout = @timeout});
+		}
+
+		///<summary>Learns a command or a list of commands from a device.</summary>
+		///<param name="target">The IEnumerable<RemoteEntity> to call this service for</param>
+		///<param name="device">Device ID to learn command from. eg: television</param>
+		///<param name="command">A single command or a list of commands to learn. eg: Turn on</param>
+		///<param name="commandType">The type of command to be learned.</param>
+		///<param name="alternative">If code must be stored as alternative (useful for discrete remotes).</param>
+		///<param name="timeout">Timeout for the command to be learned.</param>
+		public static void LearnCommand(this IEnumerable<RemoteEntity> target, string? @device = null, object? @command = null, string? @commandType = null, bool? @alternative = null, long? @timeout = null)
+		{
+			target.CallService("learn_command", new RemoteLearnCommandParameters{Device = @device, Command = @command, CommandType = @commandType, Alternative = @alternative, Timeout = @timeout});
 		}
 
 		///<summary>Sends a command or a list of commands to a device.</summary>
-		public static void SendCommand(this RemoteEntity entity, RemoteSendCommandParameters data)
+		public static void SendCommand(this RemoteEntity target, RemoteSendCommandParameters data)
 		{
-			entity.CallService("send_command", data);
+			target.CallService("send_command", data);
 		}
 
 		///<summary>Sends a command or a list of commands to a device.</summary>
-		///<param name="entity">The RemoteEntity to call this service for</param>
+		public static void SendCommand(this IEnumerable<RemoteEntity> target, RemoteSendCommandParameters data)
+		{
+			target.CallService("send_command", data);
+		}
+
+		///<summary>Sends a command or a list of commands to a device.</summary>
+		///<param name="target">The RemoteEntity to call this service for</param>
 		///<param name="device">Device ID to send command to. eg: 32756745</param>
 		///<param name="command">A single command or a list of commands to send. eg: Play</param>
 		///<param name="numRepeats">The number of times you want to repeat the command(s).</param>
 		///<param name="delaySecs">The time you want to wait in between repeated commands.</param>
 		///<param name="holdSecs">The time you want to have it held before the release is send.</param>
-		public static void SendCommand(this RemoteEntity entity, string @command, string? @device = null, long? @numRepeats = null, double? @delaySecs = null, double? @holdSecs = null)
+		public static void SendCommand(this RemoteEntity target, string @command, string? @device = null, long? @numRepeats = null, double? @delaySecs = null, double? @holdSecs = null)
 		{
-			entity.CallService("send_command", new RemoteSendCommandParameters{Device = @device, Command = @command, NumRepeats = @numRepeats, DelaySecs = @delaySecs, HoldSecs = @holdSecs});
+			target.CallService("send_command", new RemoteSendCommandParameters{Device = @device, Command = @command, NumRepeats = @numRepeats, DelaySecs = @delaySecs, HoldSecs = @holdSecs});
+		}
+
+		///<summary>Sends a command or a list of commands to a device.</summary>
+		///<param name="target">The IEnumerable<RemoteEntity> to call this service for</param>
+		///<param name="device">Device ID to send command to. eg: 32756745</param>
+		///<param name="command">A single command or a list of commands to send. eg: Play</param>
+		///<param name="numRepeats">The number of times you want to repeat the command(s).</param>
+		///<param name="delaySecs">The time you want to wait in between repeated commands.</param>
+		///<param name="holdSecs">The time you want to have it held before the release is send.</param>
+		public static void SendCommand(this IEnumerable<RemoteEntity> target, string @command, string? @device = null, long? @numRepeats = null, double? @delaySecs = null, double? @holdSecs = null)
+		{
+			target.CallService("send_command", new RemoteSendCommandParameters{Device = @device, Command = @command, NumRepeats = @numRepeats, DelaySecs = @delaySecs, HoldSecs = @holdSecs});
 		}
 
 		///<summary>Toggles a device.</summary>
-		public static void Toggle(this RemoteEntity entity)
+		public static void Toggle(this RemoteEntity target)
 		{
-			entity.CallService("toggle");
+			target.CallService("toggle");
+		}
+
+		///<summary>Toggles a device.</summary>
+		public static void Toggle(this IEnumerable<RemoteEntity> target)
+		{
+			target.CallService("toggle");
 		}
 
 		///<summary>Sends the Power Off Command.</summary>
-		public static void TurnOff(this RemoteEntity entity)
+		public static void TurnOff(this RemoteEntity target)
 		{
-			entity.CallService("turn_off");
+			target.CallService("turn_off");
+		}
+
+		///<summary>Sends the Power Off Command.</summary>
+		public static void TurnOff(this IEnumerable<RemoteEntity> target)
+		{
+			target.CallService("turn_off");
 		}
 
 		///<summary>Sends the Power On Command.</summary>
-		public static void TurnOn(this RemoteEntity entity, RemoteTurnOnParameters data)
+		public static void TurnOn(this RemoteEntity target, RemoteTurnOnParameters data)
 		{
-			entity.CallService("turn_on", data);
+			target.CallService("turn_on", data);
 		}
 
 		///<summary>Sends the Power On Command.</summary>
-		///<param name="entity">The RemoteEntity to call this service for</param>
+		public static void TurnOn(this IEnumerable<RemoteEntity> target, RemoteTurnOnParameters data)
+		{
+			target.CallService("turn_on", data);
+		}
+
+		///<summary>Sends the Power On Command.</summary>
+		///<param name="target">The RemoteEntity to call this service for</param>
 		///<param name="activity">Activity ID or Activity Name to start. eg: BedroomTV</param>
-		public static void TurnOn(this RemoteEntity entity, string? @activity = null)
+		public static void TurnOn(this RemoteEntity target, string? @activity = null)
 		{
-			entity.CallService("turn_on", new RemoteTurnOnParameters{Activity = @activity});
+			target.CallService("turn_on", new RemoteTurnOnParameters{Activity = @activity});
+		}
+
+		///<summary>Sends the Power On Command.</summary>
+		///<param name="target">The IEnumerable<RemoteEntity> to call this service for</param>
+		///<param name="activity">Activity ID or Activity Name to start. eg: BedroomTV</param>
+		public static void TurnOn(this IEnumerable<RemoteEntity> target, string? @activity = null)
+		{
+			target.CallService("turn_on", new RemoteTurnOnParameters{Activity = @activity});
 		}
 	}
 
 	public static class SceneEntityExtensionMethods
 	{
 		///<summary>Activate a scene.</summary>
-		public static void TurnOn(this SceneEntity entity, SceneTurnOnParameters data)
+		public static void TurnOn(this SceneEntity target, SceneTurnOnParameters data)
 		{
-			entity.CallService("turn_on", data);
+			target.CallService("turn_on", data);
 		}
 
 		///<summary>Activate a scene.</summary>
-		///<param name="entity">The SceneEntity to call this service for</param>
-		///<param name="transition">Transition duration it takes to bring devices to the state defined in the scene.</param>
-		public static void TurnOn(this SceneEntity entity, long? @transition = null)
+		public static void TurnOn(this IEnumerable<SceneEntity> target, SceneTurnOnParameters data)
 		{
-			entity.CallService("turn_on", new SceneTurnOnParameters{Transition = @transition});
+			target.CallService("turn_on", data);
+		}
+
+		///<summary>Activate a scene.</summary>
+		///<param name="target">The SceneEntity to call this service for</param>
+		///<param name="transition">Transition duration it takes to bring devices to the state defined in the scene.</param>
+		public static void TurnOn(this SceneEntity target, long? @transition = null)
+		{
+			target.CallService("turn_on", new SceneTurnOnParameters{Transition = @transition});
+		}
+
+		///<summary>Activate a scene.</summary>
+		///<param name="target">The IEnumerable<SceneEntity> to call this service for</param>
+		///<param name="transition">Transition duration it takes to bring devices to the state defined in the scene.</param>
+		public static void TurnOn(this IEnumerable<SceneEntity> target, long? @transition = null)
+		{
+			target.CallService("turn_on", new SceneTurnOnParameters{Transition = @transition});
 		}
 	}
 
 	public static class ScriptEntityExtensionMethods
 	{
 		///<summary>Toggle script</summary>
-		public static void Toggle(this ScriptEntity entity)
+		public static void Toggle(this ScriptEntity target)
 		{
-			entity.CallService("toggle");
+			target.CallService("toggle");
+		}
+
+		///<summary>Toggle script</summary>
+		public static void Toggle(this IEnumerable<ScriptEntity> target)
+		{
+			target.CallService("toggle");
 		}
 
 		///<summary>Turn off script</summary>
-		public static void TurnOff(this ScriptEntity entity)
+		public static void TurnOff(this ScriptEntity target)
 		{
-			entity.CallService("turn_off");
+			target.CallService("turn_off");
+		}
+
+		///<summary>Turn off script</summary>
+		public static void TurnOff(this IEnumerable<ScriptEntity> target)
+		{
+			target.CallService("turn_off");
 		}
 
 		///<summary>Turn on script</summary>
-		public static void TurnOn(this ScriptEntity entity)
+		public static void TurnOn(this ScriptEntity target)
 		{
-			entity.CallService("turn_on");
+			target.CallService("turn_on");
+		}
+
+		///<summary>Turn on script</summary>
+		public static void TurnOn(this IEnumerable<ScriptEntity> target)
+		{
+			target.CallService("turn_on");
 		}
 	}
 
 	public static class SelectEntityExtensionMethods
 	{
 		///<summary>Select an option of an select entity.</summary>
-		public static void SelectOption(this SelectEntity entity, SelectSelectOptionParameters data)
+		public static void SelectOption(this SelectEntity target, SelectSelectOptionParameters data)
 		{
-			entity.CallService("select_option", data);
+			target.CallService("select_option", data);
 		}
 
 		///<summary>Select an option of an select entity.</summary>
-		///<param name="entity">The SelectEntity to call this service for</param>
-		///<param name="option">Option to be selected. eg: "Item A"</param>
-		public static void SelectOption(this SelectEntity entity, string @option)
+		public static void SelectOption(this IEnumerable<SelectEntity> target, SelectSelectOptionParameters data)
 		{
-			entity.CallService("select_option", new SelectSelectOptionParameters{Option = @option});
+			target.CallService("select_option", data);
+		}
+
+		///<summary>Select an option of an select entity.</summary>
+		///<param name="target">The SelectEntity to call this service for</param>
+		///<param name="option">Option to be selected. eg: "Item A"</param>
+		public static void SelectOption(this SelectEntity target, string @option)
+		{
+			target.CallService("select_option", new SelectSelectOptionParameters{Option = @option});
+		}
+
+		///<summary>Select an option of an select entity.</summary>
+		///<param name="target">The IEnumerable<SelectEntity> to call this service for</param>
+		///<param name="option">Option to be selected. eg: "Item A"</param>
+		public static void SelectOption(this IEnumerable<SelectEntity> target, string @option)
+		{
+			target.CallService("select_option", new SelectSelectOptionParameters{Option = @option});
 		}
 	}
 
 	public static class SwitchEntityExtensionMethods
 	{
 		///<summary>Toggles a switch state</summary>
-		public static void Toggle(this SwitchEntity entity)
+		public static void Toggle(this SwitchEntity target)
 		{
-			entity.CallService("toggle");
+			target.CallService("toggle");
+		}
+
+		///<summary>Toggles a switch state</summary>
+		public static void Toggle(this IEnumerable<SwitchEntity> target)
+		{
+			target.CallService("toggle");
 		}
 
 		///<summary>Turn a switch off</summary>
-		public static void TurnOff(this SwitchEntity entity)
+		public static void TurnOff(this SwitchEntity target)
 		{
-			entity.CallService("turn_off");
+			target.CallService("turn_off");
+		}
+
+		///<summary>Turn a switch off</summary>
+		public static void TurnOff(this IEnumerable<SwitchEntity> target)
+		{
+			target.CallService("turn_off");
 		}
 
 		///<summary>Turn a switch on</summary>
-		public static void TurnOn(this SwitchEntity entity)
+		public static void TurnOn(this SwitchEntity target)
 		{
-			entity.CallService("turn_on");
+			target.CallService("turn_on");
+		}
+
+		///<summary>Turn a switch on</summary>
+		public static void TurnOn(this IEnumerable<SwitchEntity> target)
+		{
+			target.CallService("turn_on");
 		}
 	}
 
 	public static class TimerEntityExtensionMethods
 	{
 		///<summary>Cancel a timer.</summary>
-		public static void Cancel(this TimerEntity entity)
+		public static void Cancel(this TimerEntity target)
 		{
-			entity.CallService("cancel");
+			target.CallService("cancel");
+		}
+
+		///<summary>Cancel a timer.</summary>
+		public static void Cancel(this IEnumerable<TimerEntity> target)
+		{
+			target.CallService("cancel");
 		}
 
 		///<summary>Finish a timer.</summary>
-		public static void Finish(this TimerEntity entity)
+		public static void Finish(this TimerEntity target)
 		{
-			entity.CallService("finish");
+			target.CallService("finish");
+		}
+
+		///<summary>Finish a timer.</summary>
+		public static void Finish(this IEnumerable<TimerEntity> target)
+		{
+			target.CallService("finish");
 		}
 
 		///<summary>Pause a timer.</summary>
-		public static void Pause(this TimerEntity entity)
+		public static void Pause(this TimerEntity target)
 		{
-			entity.CallService("pause");
+			target.CallService("pause");
+		}
+
+		///<summary>Pause a timer.</summary>
+		public static void Pause(this IEnumerable<TimerEntity> target)
+		{
+			target.CallService("pause");
 		}
 
 		///<summary>Start a timer</summary>
-		public static void Start(this TimerEntity entity, TimerStartParameters data)
+		public static void Start(this TimerEntity target, TimerStartParameters data)
 		{
-			entity.CallService("start", data);
+			target.CallService("start", data);
 		}
 
 		///<summary>Start a timer</summary>
-		///<param name="entity">The TimerEntity to call this service for</param>
+		public static void Start(this IEnumerable<TimerEntity> target, TimerStartParameters data)
+		{
+			target.CallService("start", data);
+		}
+
+		///<summary>Start a timer</summary>
+		///<param name="target">The TimerEntity to call this service for</param>
 		///<param name="duration">Duration the timer requires to finish. [optional] eg: 00:01:00 or 60</param>
-		public static void Start(this TimerEntity entity, string? @duration = null)
+		public static void Start(this TimerEntity target, string? @duration = null)
 		{
-			entity.CallService("start", new TimerStartParameters{Duration = @duration});
+			target.CallService("start", new TimerStartParameters{Duration = @duration});
+		}
+
+		///<summary>Start a timer</summary>
+		///<param name="target">The IEnumerable<TimerEntity> to call this service for</param>
+		///<param name="duration">Duration the timer requires to finish. [optional] eg: 00:01:00 or 60</param>
+		public static void Start(this IEnumerable<TimerEntity> target, string? @duration = null)
+		{
+			target.CallService("start", new TimerStartParameters{Duration = @duration});
 		}
 	}
 }
