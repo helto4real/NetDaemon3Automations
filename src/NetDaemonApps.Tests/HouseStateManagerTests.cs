@@ -142,7 +142,7 @@ public class HouseStateManagerTests
     public void HouseState_ShouldChangeToEvening_WhenLightIsDarkAndWithinTimeLimits()
     {
         // Arrange
-        var dayTime = new DateTime(2022, 1, 1, 15, 0, 0, DateTimeKind.Local).ToUniversalTime();
+        var dayTime = new DateTime(2022, 1, 1, 16, 0, 0, DateTimeKind.Local).ToUniversalTime();
         _ctx.SetCurrentTime(dayTime);
 
         _ctx.InitHouseManagerApp();
