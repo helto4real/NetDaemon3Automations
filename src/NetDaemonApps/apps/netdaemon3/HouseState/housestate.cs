@@ -106,7 +106,7 @@ public class HouseStateManager
             .SameStateFor(e => _entities.Sensor.LightOutside.State >= 35.0 &&
                                _scheduler.Now.Hour is >= 5 and < 10 && IsNighttime
                                , TimeSpan.FromMinutes(15)
-            )
+                               , _scheduler)
             .Subscribe(_ => SetHouseState(HouseState.Morning));
     }
 
