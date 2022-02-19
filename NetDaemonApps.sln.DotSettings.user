@@ -3,16 +3,12 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1b8d4be2_002D70dc_002D47ae_002D8603_002Dcfeca30e88d2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="HouseState_ShouldChangeToDay_WhenTimeIs9Am" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9686ac28_002D54fa_002D4ee1_002D994b_002D27bf91a0d34b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="HouseState_Should_ChangeToNight_When_DependingOnDayOfWeek" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9686ac28_002D54fa_002D4ee1_002D994b_002D27bf91a0d34b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="HouseState_Should_ChangeToNight_When_DependingOnDayOfWeek" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a96f9efd_002D0a9d_002D4a22_002D861e_002Da3a979ecff35/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="HouseState_Should_ChangeToDay_When_ItIsDaytime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a96f9efd_002D0a9d_002D4a22_002D861e_002Da3a979ecff35/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="HouseState_Should_ChangeToDay_When_ItIsDaytime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::04C1FBAC-98D9-42AD-B601-4927D33BC982::net6.0::NetDaemonApps.Tests.Helpers.HouseStateManagerTests.HouseState_Should_ChangeToNight_When_DependingOnDayOfWeek&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::04C1FBAC-98D9-42AD-B601-4927D33BC982::net6.0::NetDaemonApps.Tests.Helpers.HouseStateManagerTests.HouseState_Should_ChangeToDay_When_TimeIs9Am&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::04C1FBAC-98D9-42AD-B601-4927D33BC982::net6.0::NetDaemonApps.Tests.Helpers.HouseStateManagerTests.HouseState_ShouldChangeToNight_WhenDependingOnDayOfWeek&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::04C1FBAC-98D9-42AD-B601-4927D33BC982::net6.0::NetDaemonApps.Tests.Helpers.HouseStateManagerTests.HouseState_ShouldChangeToMorning_WhenLightIsBrightAndWithinTimeLimits&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::04C1FBAC-98D9-42AD-B601-4927D33BC982::net6.0::NetDaemonApps.Tests.Helpers.HouseStateManagerTests.HouseState_ShouldNotChangeToMorning_WhenLightIsBrightAndNotWithinTimeLimits&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::04C1FBAC-98D9-42AD-B601-4927D33BC982::net6.0::NetDaemonApps.Tests.Helpers.HouseStateManagerTests.HouseState_ShouldNotChangeToMorning_WhenLightIsBrightAndNotWithinHigherTimeLimits&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::04C1FBAC-98D9-42AD-B601-4927D33BC982::net6.0::NetDaemonApps.Tests.TestTest.TestStuff&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::04C1FBAC-98D9-42AD-B601-4927D33BC982::net6.0::NetDaemonApps.Tests.TestTestSubs.TestStuff&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
