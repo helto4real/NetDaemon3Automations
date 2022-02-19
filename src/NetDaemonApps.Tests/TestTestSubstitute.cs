@@ -31,6 +31,6 @@ public class TestTestSubs
         var app = new App(haMock);
         haMock.TriggerStateChange("some.entity", new EntityState{EntityId = "some.entity", State = "on"});
 
-        haMock.VerifyServiceCalled(new Entity(haMock, "some.entity2"), "domain", "service");
+        haMock.VerifyServiceCalled(new Entity(haMock, "some.entity"), "domain", "service");
     }
 }
