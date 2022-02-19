@@ -20,9 +20,6 @@ jobs:
         with:
           dotnet-version: "6.0.x" # SDK Version
 
-      - name: 🔍 Enable problem matchers
-        run: echo "::add-matcher::.github/matchers/dotnet.json"
-
       - name: 🛠️ Build code
         run: dotnet build ./NetDaemonApps.sln
 
