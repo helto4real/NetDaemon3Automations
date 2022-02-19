@@ -7,8 +7,5 @@
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a96f9efd_002D0a9d_002D4a22_002D861e_002Da3a979ecff35/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="HouseState_Should_ChangeToDay_When_ItIsDaytime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::04C1FBAC-98D9-42AD-B601-4927D33BC982::net6.0::NetDaemonApps.Tests.TestTest.TestStuff&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::04C1FBAC-98D9-42AD-B601-4927D33BC982::net6.0::NetDaemonApps.Tests.TestTestSubs.TestStuff&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
