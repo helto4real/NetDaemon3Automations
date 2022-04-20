@@ -19,7 +19,6 @@ public class MagicCubeRemoteControlManager
 {
     private readonly MagicCubeControlConfig _config;
 
-    // private readonly IHaContext _ha;
     private readonly Entities _entities;
 
     public MagicCubeRemoteControlManager(IHaContext ha, IAppConfig<MagicCubeControlConfig> config)

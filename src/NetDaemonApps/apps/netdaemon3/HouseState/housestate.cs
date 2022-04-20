@@ -97,13 +97,17 @@ public class HouseStateManager
     {
         _scheduler.ScheduleCron("15 5 * * *", () =>
         {
-            if (_entities.Sensor.LightOutside.State >= 35.0 && IsNighttime)
+            _log.LogInformation("It is 5:15 and light outside is {State}", _entities.Sensor.LightOutside?.State);
+            if (_entities.Sensor.LightOutside?.State >= 35.0 && IsNighttime)
+            {
+                _log.LogInformation("It is 5:15 and setting morning house state");
                 SetHouseState(HouseState.Morning);
+            }
         });
 
         _entities.Sensor.LightOutside
             .StateChanges()
-            .SameStateFor(e => _entities.Sensor.LightOutside.State >= 35.0 &&
+            .SameStateFor(n => n?.State >= 35.0 &&
                                _scheduler.Now.Hour is >= 5 and < 10 && IsNighttime
                                , TimeSpan.FromMinutes(15)
                                , _scheduler)
