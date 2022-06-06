@@ -86,6 +86,7 @@ public class HouseStateManager
                 n?.State <= 20.0 &&
                 _scheduler.Now.Hour is >= 15 and < 23 &&
                 IsDaytime, TimeSpan.FromMinutes(15), _scheduler)
+
             .Subscribe(s => SetHouseState(HouseState.Evening));
     }
 
@@ -107,8 +108,9 @@ public class HouseStateManager
 
         _entities.Sensor.LightOutside
             .StateChanges()
-            .SameStateFor(n => n?.State >= 35.0 &&
-                               _scheduler.Now.Hour is >= 5 and < 10 && IsNighttime
+            .SameStateFor(n =>
+                    n?.State >= 35.0 &&
+                    _scheduler.Now.Hour is >= 5 and < 10
                                , TimeSpan.FromMinutes(15)
                                , _scheduler)
             .Subscribe(_ => SetHouseState(HouseState.Morning));
@@ -120,7 +122,7 @@ public class HouseStateManager
     /// <param name="state">State to set</param>
     private void SetHouseState(HouseState state)
     {
-        _log.LogInformation($"Setting current house state to {state}", state);
+        _log.LogInformation("Setting current house state to {State}", state);
         var selectState = state switch
         {
             HouseState.Morning => "Morgon",
