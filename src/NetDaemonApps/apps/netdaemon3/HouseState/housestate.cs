@@ -82,7 +82,7 @@ public class HouseStateManager
         });
         _entities.Sensor.LightOutside
             .StateChanges()
-            .SameStateFor(n =>
+            .WhenStateIsFor(n =>
                 n?.State <= 20.0 &&
                 _scheduler.Now.Hour is >= 15 and < 23 &&
                 IsDaytime, TimeSpan.FromMinutes(15), _scheduler)
@@ -108,7 +108,7 @@ public class HouseStateManager
 
         _entities.Sensor.LightOutside
             .StateChanges()
-            .SameStateFor(n =>
+            .WhenStateIsFor(n =>
                     n?.State >= 35.0 &&
                     _scheduler.Now.Hour is >= 5 and < 10
                                , TimeSpan.FromMinutes(15)

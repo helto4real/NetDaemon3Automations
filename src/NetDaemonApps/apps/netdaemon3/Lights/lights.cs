@@ -52,7 +52,7 @@ public class LightManager
         // handle keylights
         _config.TomasRoomPir?
             .StateChanges()
-            .SameStateFor(n => n.IsOff(), TimeSpan.FromMinutes(30))
+            .WhenStateIsFor(n => n.IsOff(), TimeSpan.FromMinutes(30))
             .Where(_ =>
                 _config.ElgatoKeyLight.IsOn()
             )

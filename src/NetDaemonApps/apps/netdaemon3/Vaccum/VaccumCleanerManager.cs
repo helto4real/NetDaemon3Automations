@@ -10,7 +10,7 @@ public class VaccumCleanerManager
         ITextToSpeechService textToSpeechService)
     {
         entities.Vacuum.RoborockVacuumA15.StateChanges()
-            .SameStateFor(n => n?.State == "cleaning", TimeSpan.FromMinutes(15))
+            .WhenStateIsFor(n => n?.State == "cleaning", TimeSpan.FromMinutes(15))
             .Subscribe(s =>
             {
                 entities.Vacuum.RoborockVacuumA15.Pause();
