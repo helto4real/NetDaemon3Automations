@@ -3,6 +3,7 @@ using System.Globalization;
 using FluentAssertions;
 using HomeAssistantGenerated;
 using Microsoft.Extensions.Logging;
+using Microsoft.Reactive.Testing;
 using NetDaemonApps.Tests.Helpers;
 using NSubstitute;
 
@@ -12,16 +13,16 @@ public class HouseStateManagerTests
 {
     private readonly AppTestContext _ctx = AppTestContext.New();
 
-    private const double EveningBrightness = 20.0;
-    private const double DayBrightness = EveningBrightness + 0.1;
-    private const double MorningBrightness = 35.0;
-    private const double NightBrightness = MorningBrightness - 0.1;
+    private const string EveningBrightness = "20.0";
+    private const string DayBrightness = "20.1";
+    private const string MorningBrightness = "35.0";
+    private const string NightBrightness = "34.9";
     private const int ChangeWaitTime = 15; // 15 minutes
     [Fact]
     public void HouseState_ShouldChangeToDay_WhenTimeIsMorningTime()
     {
         // Arrange
-        var dayTime = DateTime.Parse("2022-01-01 08:00:00").ToUniversalTime();
+        var dayTime = new DateTime(2022, 1, 1, 8, 0, 0, DateTimeKind.Local).ToUniversalTime();
         _ctx.SetCurrentTime(dayTime);
 
         _ctx.InitHouseManagerApp();
@@ -42,7 +43,7 @@ public class HouseStateManagerTests
     public void HouseState_ShouldChangeToNight_WhenDependingOnDayOfWeek(string nightTime, DayOfWeek dayOfWeek)
     {
         // Arrange
-        var weekDayNightTime = DateTime.Parse(nightTime).ToUniversalTime();
+        var weekDayNightTime = DateTime.Parse(nightTime); //.ToUniversalTime();
 
         _ctx.SetCurrentTime(weekDayNightTime.Date);
         _ctx.InitHouseManagerApp();
@@ -59,21 +60,47 @@ public class HouseStateManagerTests
     public void HouseState_ShouldChangeToMorning_WhenLightIsBrightAndWithinTimeLimits()
     {
         // Arrange
-        var dayTime = new DateTime(2022, 1, 1, 5, 0, 0, DateTimeKind.Local).ToUniversalTime();
+        var dayTime = new DateTime(2022, 1, 1, 5, 0, 0, DateTimeKind.Local); //.ToUniversalTime();
         _ctx.SetCurrentTime(dayTime);
-
         _ctx.InitHouseManagerApp();
 
         // Act
         _ctx
             .WithEntityState("input_select.house_mode_select", "Natt")
             .ChangeStateFor("sensor.light_outside")
-                .FromState(34.9d)
-                .ToState(35.0d);
+                .FromState(NightBrightness )
+                .ToState(MorningBrightness);
 
         _ctx.AdvanceTimeBy(TimeSpan.FromMinutes(15).Ticks);
         // Assert
         _ctx.VerifyHouseState("Morgon");
+    }
+
+    [Fact]
+    public void HouseState_ShouldChangeToMorning_WhenLightIsBrightAndWithinTimeLimits2()
+    {
+        // Arrange
+        var dayTime = new DateTime(2022, 1, 1, 5, 15, 0, DateTimeKind.Local); //.ToUniversalTime();
+        _ctx.SetCurrentTime(dayTime);
+        _ctx.InitHouseManagerApp();
+        // Act
+        _ctx
+            .WithEntityState("input_select.house_mode_select", "Natt")
+            .ChangeStateFor("sensor.light_outside")
+                .FromState(NightBrightness )
+                .ToState(MorningBrightness);
+
+        _ctx.AdvanceTimeBy(TimeSpan.FromMinutes(15).Ticks);
+
+        // _ctx
+        //     .ChangeStateFor("sensor.light_outside")
+        //     .FromState(MorningBrightness )
+        //     .ToState("36.8");
+        // _ctx.AdvanceTimeBy(TimeSpan.FromMinutes(1).Ticks);
+
+
+        _ctx.VerifyHouseState("Morgon");
+        // Assert
     }
 
     [Fact]
@@ -88,7 +115,7 @@ public class HouseStateManagerTests
         // Act
         _ctx
             .WithEntityState("input_select.house_mode_select", "Natt")
-            .WithEntityState("sensor.light_outside", MorningBrightness.ToString(CultureInfo.InvariantCulture));
+            .WithEntityState("sensor.light_outside", MorningBrightness);
 
         _ctx.AdvanceTimeBy(TimeSpan.FromMinutes(15).Ticks);
         // Assert
@@ -99,7 +126,7 @@ public class HouseStateManagerTests
     public void HouseState_ShouldNotChangeToMorning_WhenLightIsBrightAndNotWithinLowerTimeLimits()
     {
         // Arrange
-        var dayTime = new DateTime(2022, 1, 1, 4, 59, 59, DateTimeKind.Local).ToUniversalTime();
+        var dayTime = new DateTime(2022, 1, 1, 4, 59, 59, DateTimeKind.Local); //.ToUniversalTime();
         _ctx.SetCurrentTime(dayTime);
         _ctx.InitHouseManagerApp();
 
@@ -120,7 +147,7 @@ public class HouseStateManagerTests
     public void HouseState_ShouldNotChangeToMorning_WhenLightIsBrightAndNotWithinHigherTimeLimits()
     {
         // Arrange
-        var dayTime = new DateTime(2022, 1, 1, 10, 0, 0, DateTimeKind.Local).ToUniversalTime();
+        var dayTime = new DateTime(2022, 1, 1, 10, 0, 0, DateTimeKind.Local); //.ToUniversalTime();
         _ctx.SetCurrentTime(dayTime);
 
         _ctx.InitHouseManagerApp();
@@ -142,7 +169,7 @@ public class HouseStateManagerTests
     public void HouseState_ShouldChangeToEvening_WhenLightIsDarkAndWithinTimeLimits()
     {
         // Arrange
-        var dayTime = new DateTime(2022, 1, 1, 16, 0, 0, DateTimeKind.Local).ToUniversalTime();
+        var dayTime = new DateTime(2022, 1, 1, 16, 0, 0, DateTimeKind.Local); //.ToUniversalTime();
         _ctx.SetCurrentTime(dayTime);
 
         _ctx.InitHouseManagerApp();
@@ -173,7 +200,7 @@ public class HouseStateManagerTests
         // Act
         _ctx
             .WithEntityState("input_select.house_mode_select", "Dag")
-            .WithEntityState("sensor.light_outside", EveningBrightness.ToString(CultureInfo.InvariantCulture));
+            .WithEntityState("sensor.light_outside", EveningBrightness);
 
         _ctx.AdvanceTimeBy(TimeSpan.FromMinutes(15).Ticks);
         // Assert
@@ -185,7 +212,7 @@ public class HouseStateManagerTests
     public void HouseState_ShouldNotChangeToEvening_WhenLightIsBrightAndNotWithinLowerTimeLimits()
     {
         // Arrange
-        var dayTime = new DateTime(2022, 1, 1, 14, 59, 59, DateTimeKind.Local).ToUniversalTime();
+        var dayTime = new DateTime(2022, 1, 1, 14, 59, 59, DateTimeKind.Local); //.ToUniversalTime();
         _ctx.SetCurrentTime(dayTime);
 
         _ctx.InitHouseManagerApp();
@@ -206,7 +233,7 @@ public class HouseStateManagerTests
     public void HouseState_ShouldNotChangeToEvening_WhenLightIsBrightAndNotWithinHigherTimeLimits()
     {
         // Arrange
-        var dayTime = new DateTime(2022, 1, 1, 23, 0, 0, DateTimeKind.Local).ToUniversalTime();
+        var dayTime = new DateTime(2022, 1, 1, 23, 0, 0, DateTimeKind.Local); //.ToUniversalTime();
         _ctx.SetCurrentTime(dayTime);
 
         _ctx.InitHouseManagerApp();

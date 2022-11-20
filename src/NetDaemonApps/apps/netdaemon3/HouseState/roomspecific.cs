@@ -9,7 +9,7 @@ public class RoomSpecificManager
     private readonly IEntities _entities;
     private readonly IScheduler _scheduler;
 
-    public RoomSpecificManager(IEntities entities, IScheduler scheduler)
+    public RoomSpecificManager(IHaContext ctx, IEntities entities, IScheduler scheduler)
     {
         _entities = entities;
         _scheduler = scheduler;
@@ -49,7 +49,7 @@ public class RoomSpecificManager
     private void SetupTomasComputerAutoStart()
     {
         // Turn on computer if Tomas is home and enter room
-        _entities.BinarySensor.TomasRumPir
+        _entities.BinarySensor.TomasRumPirOccupancy
             .StateChanges()
             .Where(e =>
                 e.New.IsOn() &&
@@ -59,7 +59,7 @@ public class RoomSpecificManager
                 s => _entities.Switch.ComputerTomas.TurnOn());
 
         // Turn off computer if no movement for one hour en Tomas room
-        _entities.BinarySensor.TomasRumPir
+        _entities.BinarySensor.TomasRumPirOccupancy
             .StateChanges()
             .Where(e => e.New.IsOff())
             .Throttle(TimeSpan.FromHours(1))

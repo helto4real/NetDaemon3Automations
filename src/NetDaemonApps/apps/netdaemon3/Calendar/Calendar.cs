@@ -6,18 +6,20 @@ using NetDaemon.Extensions.Tts;
 [NetDaemonApp]
 public class GoogleCalendarManager
 {
-    public GoogleCalendarManager(IHaContext ha, ITextToSpeechService tts)
+    public GoogleCalendarManager(IEntities entities, ITextToSpeechService tts)
     {
-        var entities = new Entities(ha);
-        entities.Calendar.TaUtSopor
-            .WhenTurnsOn(s =>
-                {
-                    tts.Speak("media_player.huset", "Viktigt meddelande", "google_cloud_say"); // Important message
-                    if (s.New?.Attributes?.Message is not null)
-                        tts.Speak("media_player.huset", s.New.Attributes.Message, "google_cloud_say");
-                    if (s.New?.Attributes?.Description is not null)
-                        tts.Speak("media_player.huset", s.New.Attributes.Description, "google_cloud_say");
-                }
-            );
+        entities.InputSelect.HouseModeSelect.StateChanges()
+            .Where(e => e.New?.State == "Natt")
+            .Subscribe(_ => tts.Speak("media_player.huset", "Tomas, kom ihåg att ta din medicin!", "google_cloud_say"));
+        // entities.Calendar.TaUtSopor
+        //     .WhenTurnsOn(s =>
+        //         {
+        //             tts.Speak("media_player.huset", "Viktigt meddelande", "google_cloud_say"); // Important message
+        //             if (s.New?.Attributes?.Message is not null)
+        //                 tts.Speak("media_player.huset", s.New.Attributes.Message, "google_cloud_say");
+        //             if (s.New?.Attributes?.Description is not null)
+        //                 tts.Speak("media_player.huset", s.New.Attributes.Description, "google_cloud_say");
+        //         }
+        //     );
     }
 }

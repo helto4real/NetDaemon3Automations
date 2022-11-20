@@ -183,7 +183,7 @@ public class LightManager
                 e.New.IsOff() &&
                 e.Old.IsOn() &&
                 IsNight &&
-                !IsTimeNowBetween(TimeSpan.FromHours(5), TimeSpan.FromHours(10)))
+                !IsTimeNowBetween(TimeSpan.FromHours(5), TimeSpan.FromHours(9)))
             .Throttle(TimeSpan.FromMinutes(15))
             .Subscribe(s => _entities.Light.Kok.TurnOff(0));
 
@@ -205,7 +205,7 @@ public class LightManager
                 e.Old.IsOn() &&
                 IsNight &&
                 !IsTvOn &&
-                !IsTimeNowBetween(TimeSpan.FromHours(5), TimeSpan.FromHours(10)))
+                !IsTimeNowBetween(TimeSpan.FromHours(5), TimeSpan.FromHours(9)))
             .Throttle(TimeSpan.FromMinutes(15))
             .Subscribe(s => _entities.Light.Tvrummet.TurnOff(0)); //Entity("light.tvrummet")
     }

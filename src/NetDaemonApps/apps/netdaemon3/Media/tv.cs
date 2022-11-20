@@ -1,7 +1,10 @@
 //
 
+using System;
+using System.Reactive.Concurrency;
 using System.Threading;
 using System.Threading.Tasks;
+using NetDaemon.HassModel;
 
 /// <summary>
 ///     Manage the media in the tv room
@@ -20,20 +23,20 @@ public class TVManager
     // 20 minutes idle before turn off TV
     private readonly TimeSpan _idleTimeout = TimeSpan.FromMinutes(20);
     private readonly ILogger<TVManager> _log;
-    private readonly INetDaemonScheduler _scheduler;
+    private readonly IScheduler _scheduler;
 
     private readonly Services _services;
 
     // If this RunScript paused the mediaplayer, it is here
-    private MediaPlayerEntity? _currentlyPausedMediaPlayer;
+    // private MediaPlayerEntity? _currentlyPausedMediaPlayer;
 
     // True if we are in the process of turning on the TV
-    private bool _isTurningOnTv;
+    // private bool _isTurningOnTv;
 
     // The time when we stopped play media for any of the media players
-    private DateTime? _timeStoppedPlaying;
+    // private DateTime? _timeStoppedPlaying;
 
-    public TVManager(IHaContext ha, ILogger<TVManager> logger, INetDaemonScheduler scheduler)
+    public TVManager(IHaContext ha, ILogger<TVManager> logger, IScheduler scheduler)
     {
         _ha = ha;
         _entities = new Entities(ha);
@@ -50,22 +53,28 @@ public class TVManager
         //     .Where(n => n.First.New?.State == "playing" || n.Second.New?.State == "playing")
         //     .Subscribe(_ => _log.LogInformation())
 
-        _entities.MediaPlayer.TvNere
+        // Turn off TV-system if samsung TV is off more than 10 seconds
+        _entities.MediaPlayer.SamsungQ60Series65
             .StateChanges()
-            .Subscribe(s => { OnMediaStateChanged(s.New, s.Old); });
+            .WhenStateIsFor(n => n.IsOff(), TimeSpan.FromSeconds(10), _scheduler)
+            .Subscribe(_ => _entities.Remote.Tvrummet.TurnOff());
+
+        // _entities.MediaPlayer.TvNere
+        //     .StateChanges()
+        //     .Subscribe(s => { OnMediaStateChanged(s.New, s.Old); });
 
         // When TV on (remote on), call OnTvTurnedOn
-        _entities.Remote.Tvrummet
-            .StateChanges()
-            .Where(e =>
-                e.New.IsOn())
-            .SubscribeAsync(async s => { await OnTVTurnedOn().ConfigureAwait(false); });
+        // _entities.Remote.Tvrummet
+        //     .StateChanges()
+        //     .Where(e =>
+        //         e.New.IsOn())
+        //     .SubscribeAsync(async s => { await OnTVTurnedOn().ConfigureAwait(false); });
 
-        _entities.Remote.Tvrummet
-            .StateChanges()
-            .Where(e =>
-                e.New.IsOff())
-            .SubscribeAsync(async s => { await HandleOnTvOff().ConfigureAwait(false); });
+        // _entities.Remote.Tvrummet
+        //     .StateChanges()
+        //     .Where(e =>
+        //         e.New.IsOff())
+        //     .SubscribeAsync(async s => { await HandleOnTvOff().ConfigureAwait(false); });
 
 
         // When ever TV remote activity changes, ie TV, Film, Poweroff call OnTvActivityChange
@@ -110,76 +119,76 @@ public class TVManager
     /// <returns></returns>
     private bool MediaIsPlaying => _entities.MediaPlayer.ShieldTv?.State == "playing";
 
-    /// <summary>
-    ///     Called when ever state change for the media_players playing on the TV
-    /// </summary>
-    private void OnMediaStateChanged(EntityState? to, EntityState? from)
-    {
-        if (to?.State == "playing")
-        {
-            _timeStoppedPlaying = null;
-            TurnOnTvIfOff(to.EntityId);
-        }
-        else
-        {
-            if (from?.State == "playing")
-            {
-                _timeStoppedPlaying = DateTime.Now;
-                // Check in 20 minutes if TV is on and nothing still playing
-                _scheduler.RunIn(_idleTimeout,
-                    () =>
-                    {
-                        if (TvIsOn && !MediaIsPlaying && _timeStoppedPlaying != null)
-                            if (DateTime.Now.Subtract(_timeStoppedPlaying.Value) >= _idleTimeout)
-                                // Idle timeout went by without any change in state turn off TV
-                                _log.LogInformation("TV been idle for {IdleTimeOut} minutes, turning off",
-                                    _idleTimeout);
-                        // If the state did has changed after we waited just run to completion
-                    });
-            }
-        }
-    }
+    // /// <summary>
+    // ///     Called when ever state change for the media_players playing on the TV
+    // /// </summary>
+    // private void OnMediaStateChanged(EntityState? to, EntityState? from)
+    // {
+    //     if (to?.State == "playing")
+    //     {
+    //         _timeStoppedPlaying = null;
+    //         TurnOnTvIfOff(to.EntityId);
+    //     }
+    //     else
+    //     {
+    //         if (from?.State == "playing")
+    //         {
+    //             _timeStoppedPlaying = DateTime.Now;
+    //             // Check in 20 minutes if TV is on and nothing still playing
+    //             _scheduler.RunIn(_idleTimeout,
+    //                 () =>
+    //                 {
+    //                     if (TvIsOn && !MediaIsPlaying && _timeStoppedPlaying != null)
+    //                         if (DateTime.Now.Subtract(_timeStoppedPlaying.Value) >= _idleTimeout)
+    //                             // Idle timeout went by without any change in state turn off TV
+    //                             _log.LogInformation("TV been idle for {IdleTimeOut} minutes, turning off",
+    //                                 _idleTimeout);
+    //                     // If the state did has changed after we waited just run to completion
+    //                 });
+    //         }
+    //     }
+    // }
 
-    /// <summary>
-    ///     Turns the TV on if not on and pauses any playing media until TV is fully on
-    /// </summary>
-    private void TurnOnTvIfOff(string entityId)
-    {
-        if (!TvIsOn && !_isTurningOnTv)
-        {
-            // Tv is of and there are not an operation turning it on
-            _isTurningOnTv = true;
-            _log.LogInformation("TV is not on, pause media {EntityId} and turn on tv!", entityId);
+    // /// <summary>
+    // ///     Turns the TV on if not on and pauses any playing media until TV is fully on
+    // /// </summary>
+    // private void TurnOnTvIfOff(string entityId)
+    // {
+    //     if (!TvIsOn && !_isTurningOnTv)
+    //     {
+    //         // Tv is of and there are not an operation turning it on
+    //         _isTurningOnTv = true;
+    //         _log.LogInformation("TV is not on, pause media {EntityId} and turn on tv!", entityId);
+    //
+    //         // Tv and light etc is managed through a RunScript
+    //         _entities.Remote.Tvrummet.TurnOn("TV");
+    //     }
+    //
+    //     if (!_isTurningOnTv) return;
+    //
+    //     _currentlyPausedMediaPlayer = new MediaPlayerEntity(_ha, entityId);
+    //     _currentlyPausedMediaPlayer.MediaPause();
+    // }
 
-            // Tv and light etc is managed through a RunScript
-            _entities.Remote.Tvrummet.TurnOn("TV");
-        }
-
-        if (!_isTurningOnTv) return;
-
-        _currentlyPausedMediaPlayer = new MediaPlayerEntity(_ha, entityId);
-        _currentlyPausedMediaPlayer.MediaPause();
-    }
-
-    /// <summary>
-    ///     When TV is on and we have paused media, play it
-    /// </summary>
-    public async Task OnTVTurnedOn()
-    {
-        if (_isTurningOnTv && _currentlyPausedMediaPlayer is not null)
-        {
-            // We had just turned on tv with this RunScript and have a media player paused
-            // First delay and wait for the TV to get ready
-            _log.LogDebug("TV is turning on.. Wait 9 seconds to complete...");
-            _scheduler.RunIn(TimeSpan.FromSeconds(9), () =>
-            {
-                _isTurningOnTv = false;
-                if (!MediaIsPlaying) _currentlyPausedMediaPlayer.MediaPlay();
-            });
-        }
-
-        await HandleOnTvOn().ConfigureAwait(false);
-    }
+    // /// <summary>
+    // ///     When TV is on and we have paused media, play it
+    // /// </summary>
+    // public async Task OnTVTurnedOn()
+    // {
+    //     if (_isTurningOnTv && _currentlyPausedMediaPlayer is not null)
+    //     {
+    //         // We had just turned on tv with this RunScript and have a media player paused
+    //         // First delay and wait for the TV to get ready
+    //         _log.LogDebug("TV is turning on.. Wait 9 seconds to complete...");
+    //         _scheduler.Schedule(TimeSpan.FromSeconds(9), () =>
+    //         {
+    //             _isTurningOnTv = false;
+    //             if (!MediaIsPlaying) _currentlyPausedMediaPlayer.MediaPlay();
+    //         });
+    //     }
+    //
+    //     await HandleOnTvOn().ConfigureAwait(false);
+    // }
 
     private async Task HandleOnTvOn()
     {

@@ -31,7 +31,7 @@ public class MagicCubeRemoteControlManager
 
     public void Initialize()
     {
-        _entities.Sensor.TvrumCube.StateChanges()
+        _entities.Sensor.TvrumCubeAction.StateChanges()
             .Subscribe(s =>
             {
                 if (s.New?.State is null)
