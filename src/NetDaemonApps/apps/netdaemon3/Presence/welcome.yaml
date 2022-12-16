@@ -1,7 +1,7 @@
 WelcomeConfig:
   PresenceCriteria: '_presence'
   HallwayMediaPlayer: media_player.vardagsrum
-  DoorSensor: binary_sensor.hall_dorr
+  DoorSensor: binary_sensor.hall_dorr_sensor_contact
   Greetings:
     - "Välkommen hem {namn} hoppas att du har haft en bra dag."
     - "Vad roligt att just du {namn} kommer hem."

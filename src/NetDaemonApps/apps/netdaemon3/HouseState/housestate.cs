@@ -110,6 +110,7 @@ public class HouseStateManager
             .StateChanges()
             .WhenStateIsFor(n =>
                     n?.State >= 35.0 &&
+                     IsNighttime &&
                     _scheduler.Now.LocalDateTime.Hour is >= 5 and < 10
                                , TimeSpan.FromMinutes(15)
                                , _scheduler)

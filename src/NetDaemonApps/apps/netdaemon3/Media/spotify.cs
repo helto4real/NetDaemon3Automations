@@ -17,11 +17,19 @@ public class SpotifyManager
         _cubeSideSensor = entities.Sensor.KokCubeSide;
 
         _cubeSideSensor.StateChanges()
-            .Subscribe(s => HandleNewSide( s.New?.State));
+            .Subscribe(s =>
+            {
+                if (s.Old?.State is null)
+                    return;
+                HandleNewSide(s.New?.State);
+            });
 
         entities.Sensor.KokCubeAction.StateChanges()
             .Where(e => e.New?.State == "slide" || e.New?.State == "shake")
-            .Subscribe(s => HandleCubeAction(s.New?.State, s.New?.LastChanged - s.Old?.LastChanged, s.New?.Attributes?.Side ) );
+            .Subscribe(s =>
+            {
+                HandleCubeAction(s.New?.State, s.New?.LastChanged - s.Old?.LastChanged, s.New?.Attributes?.Side);
+            });
     }
 
     private void HandleCubeAction(string? newState, TimeSpan? timeDiff, double? side)
@@ -31,7 +39,6 @@ public class SpotifyManager
 
         if (timeDiff is {TotalSeconds: >= 2})
         {
-            // _logger.LogInformation("New action {Action}, {Side}", newState, side);
             switch (_player.State)
             {
                 case "playing":
@@ -54,7 +61,9 @@ public class SpotifyManager
                         HandleNewSide(side);
                     }
                     break;
+
                 default:
+
                     HandleNewSide(side);
                     break;
 
