@@ -6,3 +6,4 @@ appsettings.Development.json
 *.gen
 .storage
 .idea
+HomeAssistantGenerated.cs
