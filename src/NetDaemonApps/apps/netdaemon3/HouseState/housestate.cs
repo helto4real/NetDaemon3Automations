@@ -75,7 +75,7 @@ public class HouseStateManager
     /// </summary>
     private void InitEveningTimeSubscriptions()
     {
-        _scheduler.ScheduleCron("15 15 * * *", () =>
+        _scheduler.ScheduleCron("14 15 * * *", () =>
         {
             if (_entities.Sensor.LightOutsideIlluminanceLux.State <= 20.0 && IsDaytime)
                 SetHouseState(HouseState.Evening);

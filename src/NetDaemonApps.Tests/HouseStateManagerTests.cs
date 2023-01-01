@@ -67,7 +67,7 @@ public class HouseStateManagerTests
         // Act
         _ctx
             .WithEntityState("input_select.house_mode_select", "Natt")
-            .ChangeStateFor("sensor.light_outside")
+            .ChangeStateFor("sensor.light_outside_illuminance_lux")
                 .FromState(NightBrightness )
                 .ToState(MorningBrightness);
 
@@ -86,7 +86,7 @@ public class HouseStateManagerTests
         // Act
         _ctx
             .WithEntityState("input_select.house_mode_select", "Natt")
-            .ChangeStateFor("sensor.light_outside")
+            .ChangeStateFor("sensor.light_outside_illuminance_lux")
                 .FromState(NightBrightness )
                 .ToState(MorningBrightness);
 
@@ -115,7 +115,7 @@ public class HouseStateManagerTests
         // Act
         _ctx
             .WithEntityState("input_select.house_mode_select", "Natt")
-            .WithEntityState("sensor.light_outside", MorningBrightness);
+            .WithEntityState("sensor.light_outside_illuminance_lux", MorningBrightness);
 
         _ctx.AdvanceTimeBy(TimeSpan.FromMinutes(15).Ticks);
         // Assert
@@ -177,7 +177,7 @@ public class HouseStateManagerTests
         // Act
         _ctx
             .WithEntityState("input_select.house_mode_select", "Dag")
-            .ChangeStateFor("sensor.light_outside")
+            .ChangeStateFor("sensor.light_outside_illuminance_lux")
             .FromState(DayBrightness)
             .ToState(EveningBrightness);
 
@@ -200,7 +200,7 @@ public class HouseStateManagerTests
         // Act
         _ctx
             .WithEntityState("input_select.house_mode_select", "Dag")
-            .WithEntityState("sensor.light_outside", EveningBrightness);
+            .WithEntityState("sensor.light_outside_illuminance_lux", EveningBrightness);
 
         _ctx.AdvanceTimeBy(TimeSpan.FromMinutes(15).Ticks);
         // Assert
