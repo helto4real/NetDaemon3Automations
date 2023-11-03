@@ -42,7 +42,6 @@ public class WelcomeHomeManager
         ArgumentNullException.ThrowIfNull(_config.DoorSensor);
         ArgumentNullException.ThrowIfNull(_config.HallwayMediaPlayer);
         ArgumentNullException.ThrowIfNull(_config.PresenceCriteria);
-        
         Intitialize();
     }
 
@@ -52,7 +51,7 @@ public class WelcomeHomeManager
             .Where(e => e.New.IsOn())
             .Subscribe(s =>
             {
-                _logger.LogInformation("A door sensor changed {From} -> {To}", s.Old, s.New);
+                //_logger.LogInformation("A door sensor changed {From} -> {To}", s.Old, s.New);
 
                 GreetIfJustArrived(s.New?.EntityId);
             });
@@ -64,7 +63,7 @@ public class WelcomeHomeManager
                      e.New?.State == "Nyss anlänt")
             .Subscribe(s =>
             {
-                _logger.LogInformation("A precence changed to 'Just Arrived' {From} -> {To}", s.Old, s.New);
+                //_logger.LogInformation("A precence changed to 'Just Arrived' {From} -> {To}", s.Old, s.New);
                 GreetIfJustArrived(s.New?.EntityId);
             });
     }
@@ -79,7 +78,7 @@ public class WelcomeHomeManager
             var trackerJustArrived = _ha.GetAllEntities()
                 .Where(n => n.EntityId.EndsWith(_config.PresenceCriteria!) && n.State == "Nyss anlänt");
 
-            _logger.LogInformation("All trackers that is just arrived {Trackers}", trackerJustArrived);
+            //_logger.LogInformation("All trackers that is just arrived {Trackers}", trackerJustArrived);
             foreach (var tracker in trackerJustArrived) Greet(tracker.EntityId);
         }
         else if (entityId.StartsWith("device_tracker."))
@@ -105,7 +104,7 @@ public class WelcomeHomeManager
 
         if (!OkToGreet(nameOfPerson))
             return; // We can not greet person just yet
-        _logger.LogInformation("Ok to greet {Name}!", nameOfPerson);
+        //_logger.LogInformation("Ok to greet {Name}!", nameOfPerson);
 
         _tts.Speak(_config.HallwayMediaPlayer?.EntityId!, GetGreeting(nameOfPerson), "google_cloud_say");
     }

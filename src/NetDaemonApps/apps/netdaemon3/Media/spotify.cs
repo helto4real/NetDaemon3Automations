@@ -9,12 +9,12 @@ public class SpotifyManager
     private readonly ILogger<SpotifyManager> _logger;
     private readonly NumericSensorEntity _cubeSideSensor;
 
-    public SpotifyManager(IEntities entities, IServices services, ILogger<SpotifyManager> logger)
+    public SpotifyManager(Entities entities, Services services, ILogger<SpotifyManager> logger)
     {
         _spotcastService = services.Spotcast;
         _player = entities.MediaPlayer.Kok;
         _logger = logger;
-        _cubeSideSensor = entities.Sensor.KokCubeSide;
+        _cubeSideSensor = new NumericSensorEntity(entities.Sensor.KokCubeSide);
 
         _cubeSideSensor.StateChanges()
             .Subscribe(s =>

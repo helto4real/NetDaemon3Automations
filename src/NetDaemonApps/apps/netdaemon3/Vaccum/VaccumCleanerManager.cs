@@ -6,7 +6,7 @@ using NetDaemon.Extensions.Observables;
 public class VaccumCleanerManager
 {
     public VaccumCleanerManager(
-        IEntities entities,
+        Entities entities,
         ITextToSpeechService textToSpeechService)
     {
         // entities.Vacuum.RoborockVacuumA15.StateChanges()

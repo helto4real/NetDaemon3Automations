@@ -5,7 +5,7 @@ public class DinnerIsReadyManager
     private readonly Random _randomizer = new();
     private IReadOnlyCollection<string> _messages;
     public DinnerIsReadyManager(
-        IEntities entities,
+        Entities entities,
         ITextToSpeechService textToSpeechService,
         IAppConfig<DinnerIsReadyMessages> messages,
         ILogger<DinnerIsReadyManager> logger)

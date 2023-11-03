@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
 using System.Text.Json;
+using System.Threading.Tasks;
 using NetDaemon.HassModel;
 using NetDaemon.HassModel.Entities;
 
@@ -23,6 +24,11 @@ public class HaContextMockBase : IHaContext, IHaContextMock
 
     public virtual void CallService(string domain, string service, ServiceTarget? target = null, object? data = null)
     { }
+
+    public Task<JsonElement?> CallServiceWithResponseAsync(string domain, string service, ServiceTarget? target = null, object? data = null)
+    {
+        throw new NotImplementedException();
+    }
 
     public Area? GetAreaFromEntityId(string entityId) => null;
 

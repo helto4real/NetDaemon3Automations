@@ -22,7 +22,7 @@ try
                 .AddNetDaemonStateManager()
                 .AddNetDaemonScheduler()
                 .AddStateRepository()
-                .AddHeltoServices()
+                .AddHomeAssistantGenerated()
         )
         .Build()
         .RunAsync()

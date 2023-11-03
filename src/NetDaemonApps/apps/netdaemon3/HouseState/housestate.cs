@@ -16,7 +16,7 @@ public class HouseStateManager
     private readonly IScheduler _scheduler;
 
     public HouseStateManager(
-        IEntities entities,
+        Entities entities,
         IScheduler scheduler,
         ILogger<HouseStateManager> logger,
         IAppConfig<GlobalConfig> config)

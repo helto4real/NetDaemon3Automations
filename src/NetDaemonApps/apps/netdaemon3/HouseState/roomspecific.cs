@@ -6,20 +6,27 @@ using System.Reactive.Concurrency;
 [NetDaemonApp]
 public class RoomSpecificManager
 {
-    private readonly IEntities _entities;
+    private readonly BinarySensorEntities _binarySensors;
+    private readonly LightEntities _lights;
     private readonly IScheduler _scheduler;
+    private readonly SwitchEntities _switches;
+    private readonly DeviceTrackerEntities _trackers;
 
-    public RoomSpecificManager(IHaContext ctx, IEntities entities, IScheduler scheduler)
+    public RoomSpecificManager(IHaContext ctx, LightEntities lights, SwitchEntities switches,
+        DeviceTrackerEntities trackers, BinarySensorEntities binarySensors, IScheduler scheduler)
     {
-        _entities = entities;
+        // _entities = entities;
+        _lights = lights;
+        _switches = switches;
+        _trackers = trackers;
+        _binarySensors = binarySensors;
         _scheduler = scheduler;
-
-        SetupTomasComputerAutoStart();
+        // SetupTomasComputerAutoStart();
         SetupManageMelkersChromecast();
         SetupTurnOffKidsLightsEarly();
     }
 
-    public bool TomasIsHome => _entities.DeviceTracker.TomasPresence.State == "Hemma";
+    private bool TomasIsHome => _trackers.TomasPresence.State == "Hemma";
 
     private void SetupTurnOffKidsLightsEarly()
     {
@@ -30,10 +37,10 @@ public class RoomSpecificManager
     {
         var kidsRoomLights = new Entity[]
         {
-            _entities.Light.MelkersRum,
-            _entities.Light.SallysRum
+            _lights.MelkersRum,
+            _lights.SallysRum
         };
-        kidsRoomLights.CallService("turn_off", new {transition = 0});
+        kidsRoomLights.CallService("turn_off", new { transition = 0 });
     }
 
     private void SetupManageMelkersChromecast()
@@ -41,28 +48,28 @@ public class RoomSpecificManager
         _scheduler.ScheduleCron("30 1 * * *", () =>
         {
             // Every night reset Melkers chromecast so the TV will auto shut off
-            _entities.Switch.Switch8MelkersTv.TurnOff();
-            _scheduler.Schedule(TimeSpan.FromMinutes(5), () => _entities.Switch.Switch8MelkersTv.TurnOn());
+            _switches.Switch8MelkersTv.TurnOff();
+            _scheduler.Schedule(TimeSpan.FromMinutes(5), () => _switches.Switch8MelkersTv.TurnOn());
         });
     }
 
     private void SetupTomasComputerAutoStart()
     {
         // Turn on computer if Tomas is home and enter room
-        _entities.BinarySensor.TomasRumPirOccupancy
+        _binarySensors.TomasRumPirOccupancy
             .StateChanges()
             .Where(e =>
                 e.New.IsOn() &&
-                _entities.Switch.ComputerTomas.IsOff() &&
+                _switches.ComputerTomas.IsOff() &&
                 TomasIsHome)
             .Subscribe(
-                s => _entities.Switch.ComputerTomas.TurnOn());
+                _ => _switches.ComputerTomas.TurnOn());
 
         // Turn off computer if no movement for one hour en Tomas room
-        _entities.BinarySensor.TomasRumPirOccupancy
+        _binarySensors.TomasRumPirOccupancy
             .StateChanges()
             .Where(e => e.New.IsOff())
             .Throttle(TimeSpan.FromHours(1))
-            .Subscribe(s => _entities.Switch.ComputerTomas.TurnOff());
+            .Subscribe(_ => _switches.ComputerTomas.TurnOff());
     }
 }
