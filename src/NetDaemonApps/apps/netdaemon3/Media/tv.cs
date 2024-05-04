@@ -41,8 +41,6 @@ public class TVManager
         _ha = ha;
         _entities = new Entities(ha);
         _services = new Services(ha);
-        var scripts = new ScriptServices(ha);
-        scripts.Setnightmode();
         _log = logger;
         _scheduler = scheduler;
 
