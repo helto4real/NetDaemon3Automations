@@ -3612,6 +3612,16 @@
           "cSharpName": "MemoryUsePercent"
         },
         {
+          "id": "sensor.nere_cpu_utilization",
+          "friendlyName": "Nere CPU utilization",
+          "cSharpName": "NereCpuUtilization"
+        },
+        {
+          "id": "sensor.nere_memory_utilization",
+          "friendlyName": "Nere Memory utilization",
+          "cSharpName": "NereMemoryUtilization"
+        },
+        {
           "id": "sensor.network_out_wlp2s0",
           "friendlyName": "Network out wlp2s0",
           "cSharpName": "NetworkOutWlp2s0"
@@ -3705,6 +3715,26 @@
           "id": "sensor.sovrum_temp_temperature",
           "friendlyName": "Temperatur sovrum nere",
           "cSharpName": "SovrumTempTemperature"
+        },
+        {
+          "id": "sensor.switch_gym_cpu_utilization",
+          "friendlyName": "Switch Gym CPU utilization",
+          "cSharpName": "SwitchGymCpuUtilization"
+        },
+        {
+          "id": "sensor.switch_gym_memory_utilization",
+          "friendlyName": "Switch Gym Memory utilization",
+          "cSharpName": "SwitchGymMemoryUtilization"
+        },
+        {
+          "id": "sensor.switch_tv_rummet_cpu_utilization",
+          "friendlyName": "Switch TV-rummet CPU utilization",
+          "cSharpName": "SwitchTvRummetCpuUtilization"
+        },
+        {
+          "id": "sensor.switch_tv_rummet_memory_utilization",
+          "friendlyName": "Switch TV-rummet Memory utilization",
+          "cSharpName": "SwitchTvRummetMemoryUtilization"
         },
         {
           "id": "sensor.temp_altan_ute_battery",
@@ -3815,6 +3845,16 @@
           "id": "sensor.tvrum_temp_temperature",
           "friendlyName": "tvrum_temp Temperature",
           "cSharpName": "TvrumTempTemperature"
+        },
+        {
+          "id": "sensor.uppe_cpu_utilization",
+          "friendlyName": "Uppe CPU utilization",
+          "cSharpName": "UppeCpuUtilization"
+        },
+        {
+          "id": "sensor.uppe_memory_utilization",
+          "friendlyName": "Uppe Memory utilization",
+          "cSharpName": "UppeMemoryUtilization"
         },
         {
           "id": "sensor.ute_temp_battery",
@@ -5157,6 +5197,23 @@
           "cSharpName": "Icon",
           "clrType": "System.String"
         },
+        {
+          "jsonName": "friendly_name",
+          "cSharpName": "FriendlyName",
+          "clrType": "System.String"
+        }
+      ]
+    },
+    {
+      "domain": "conversation",
+      "entities": [
+        {
+          "id": "conversation.home_assistant",
+          "friendlyName": "Home Assistant",
+          "cSharpName": "HomeAssistant"
+        }
+      ],
+      "attributes": [
         {
           "jsonName": "friendly_name",
           "cSharpName": "FriendlyName",
