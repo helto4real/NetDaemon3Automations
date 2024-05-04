@@ -31,6 +31,10 @@ public class HaContextMockBase : IHaContext, IHaContextMock
     }
 
     public Area? GetAreaFromEntityId(string entityId) => null;
+    // public EntityRegistration? GetEntityRegistration(string entityId)
+    // {
+    //     return null;
+    // }
 
     public virtual void SendEvent(string eventType, object? data = null)
     { }

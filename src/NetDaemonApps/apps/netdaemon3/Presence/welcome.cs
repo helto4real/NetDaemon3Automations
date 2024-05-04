@@ -106,7 +106,7 @@ public class WelcomeHomeManager
             return; // We can not greet person just yet
         //_logger.LogInformation("Ok to greet {Name}!", nameOfPerson);
 
-        _tts.Speak(_config.HallwayMediaPlayer?.EntityId!, GetGreeting(nameOfPerson), "google_cloud_say");
+        _tts.Speak(_config.HallwayMediaPlayer?.EntityId!, GetGreeting(nameOfPerson), "google_translate_say");
     }
 
     private bool OkToGreet(string nameOfPerson)

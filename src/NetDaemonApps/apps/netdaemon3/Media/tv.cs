@@ -41,6 +41,8 @@ public class TVManager
         _ha = ha;
         _entities = new Entities(ha);
         _services = new Services(ha);
+        var scripts = new ScriptServices(ha);
+        scripts.Setnightmode();
         _log = logger;
         _scheduler = scheduler;
 
@@ -212,7 +214,7 @@ public class TVManager
         await Task.Delay(200).ConfigureAwait(false);
         _entities.MediaPlayer.ShieldTv.TurnOff();
         await Task.Delay(200).ConfigureAwait(false);
-        if (IsNight || IsEvening)
-            _entities.Light.Tvrummet.TurnOn(0);
+        // if (IsNight || IsEvening)
+        //     _entities.Light.Tvrummet.TurnOn(0);
     }
 }
