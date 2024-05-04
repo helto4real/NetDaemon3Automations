@@ -22,7 +22,6 @@ public class RoomSpecificManager
         _binarySensors = binarySensors;
         _scheduler = scheduler;
         // SetupTomasComputerAutoStart();
-        SetupManageMelkersChromecast();
         SetupTurnOffKidsLightsEarly();
     }
 
@@ -41,16 +40,6 @@ public class RoomSpecificManager
             _lights.SallysRum
         };
         kidsRoomLights.CallService("turn_off", new { transition = 0 });
-    }
-
-    private void SetupManageMelkersChromecast()
-    {
-        _scheduler.ScheduleCron("30 1 * * *", () =>
-        {
-            // Every night reset Melkers chromecast so the TV will auto shut off
-            _switches.Switch8MelkersTv.TurnOff();
-            _scheduler.Schedule(TimeSpan.FromMinutes(5), () => _switches.Switch8MelkersTv.TurnOn());
-        });
     }
 
     private void SetupTomasComputerAutoStart()
