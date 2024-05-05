@@ -6,9 +6,6 @@ public class GoogleCalendarManager
 {
     public GoogleCalendarManager(Entities entities, ITextToSpeechService tts, ILogger<GoogleCalendarManager> logger)
     {
-        // entities.InputSelect.HouseModeSelect.StateChanges()
-        //     .Where(e => e.New?.State == "Natt")
-        //     .Subscribe(_ => tts.Speak("media_player.huset", "Tomas, kom ihåg att ta din medicin!", "google_cloud_say"));
         entities.Calendar.FamiljenHellstrom
             .WhenTurnsOn(s =>
                 {

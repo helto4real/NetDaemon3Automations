@@ -54,6 +54,6 @@ public static class LigtManagerAppTestContextInstanceExtensions
 {
     public static LightManager InitLightManager(this AppTestContext ctx, LightsConfiguration config)
     {
-        return new LightManager(ctx.HaContext,new FakeAppConfig<LightsConfiguration>(config));
+        return new LightManager(ctx.HaContext,new FakeAppConfig<LightsConfiguration>(config), ctx.Scheduler);
     }
 }

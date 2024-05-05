@@ -15,7 +15,6 @@ public class RoomSpecificManager
     public RoomSpecificManager(IHaContext ctx, LightEntities lights, SwitchEntities switches,
         DeviceTrackerEntities trackers, BinarySensorEntities binarySensors, IScheduler scheduler)
     {
-        // _entities = entities;
         _lights = lights;
         _switches = switches;
         _trackers = trackers;

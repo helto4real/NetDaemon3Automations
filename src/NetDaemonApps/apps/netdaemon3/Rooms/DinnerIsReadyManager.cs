@@ -27,7 +27,7 @@ public class DinnerIsReadyManager
 
     private string GetRandomMessage()
     {
-        var randomMessageIndex = _randomizer.Next(0, _messages.Count() - 1);
+        var randomMessageIndex = _randomizer.Next(0, _messages.Count - 1);
         return _messages.ElementAt(randomMessageIndex);
     }
 }

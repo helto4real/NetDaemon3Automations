@@ -1,6 +1,5 @@
+using System.Reactive.Concurrency;
 using System.Threading;
-using System.Threading.Tasks;
-using NetDaemon.Extensions.Observables;
 
 public class LightsConfiguration
 {
@@ -22,15 +21,17 @@ public class LightsConfiguration
 public class LightManager
 {
     private readonly LightsConfiguration _config;
+    private readonly IScheduler _scheduler;
     private readonly Entities _entities;
 
     private readonly Services _services;
 
-    public LightManager(IHaContext ha, IAppConfig<LightsConfiguration> config)
+    public LightManager(IHaContext ha, IAppConfig<LightsConfiguration> config, IScheduler scheduler)
     {
         _entities = new Entities(ha);
         _services = new Services(ha);
         _config = config.Value;
+        _scheduler = scheduler;
         Initialize();
     }
 
@@ -52,7 +53,7 @@ public class LightManager
         // handle keylights
         _config.TomasRoomPir?
             .StateChanges()
-            .WhenStateIsFor(n => n.IsOff(), TimeSpan.FromMinutes(30))
+            .WhenStateIsFor(n => n.IsOff(), TimeSpan.FromMinutes(30), _scheduler)
             .Where(_ =>
                 _config.ElgatoKeyLight.IsOn()
             )

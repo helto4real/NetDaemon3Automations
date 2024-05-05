@@ -1,10 +1,5 @@
-//
-
-using System;
 using System.Reactive.Concurrency;
-using System.Threading;
 using System.Threading.Tasks;
-using NetDaemon.HassModel;
 
 /// <summary>
 ///     Manage the media in the tv room
@@ -18,7 +13,6 @@ using NetDaemon.HassModel;
 public class TVManager
 {
     private readonly Entities _entities;
-    private readonly IHaContext _ha;
 
     // 20 minutes idle before turn off TV
     private readonly TimeSpan _idleTimeout = TimeSpan.FromMinutes(20);
@@ -36,11 +30,10 @@ public class TVManager
     // The time when we stopped play media for any of the media players
     // private DateTime? _timeStoppedPlaying;
 
-    public TVManager(IHaContext ha, ILogger<TVManager> logger, IScheduler scheduler)
+    public TVManager(Entities entities, Services services, ILogger<TVManager> logger, IScheduler scheduler)
     {
-        _ha = ha;
-        _entities = new Entities(ha);
-        _services = new Services(ha);
+        _entities = entities;
+        _services = services;
         _log = logger;
         _scheduler = scheduler;
 

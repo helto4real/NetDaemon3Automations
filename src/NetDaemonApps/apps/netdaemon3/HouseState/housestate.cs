@@ -1,13 +1,9 @@
 using System.Reactive.Concurrency;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
-using NetDaemon.Extensions.Observables;
 
 /// <summary>
 ///     Manage state of morning, house, day, evening, night and cleaning
 /// </summary>
 [NetDaemonApp]
-// [Focus]
 public class HouseStateManager
 {
     private readonly IEntities _entities;
