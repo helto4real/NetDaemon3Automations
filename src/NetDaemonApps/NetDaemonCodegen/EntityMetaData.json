@@ -61,6 +61,11 @@
           "cSharpName": "_0x00158d0002370290Contact"
         },
         {
+          "id": "binary_sensor.backups_stale",
+          "friendlyName": "Backups Stale",
+          "cSharpName": "BackupsStale"
+        },
+        {
           "id": "binary_sensor.hall_dorr_sensor_contact",
           "friendlyName": "Ytterd\u00F6rr uppe",
           "cSharpName": "HallDorrSensorContact"
@@ -149,16 +154,6 @@
           "id": "binary_sensor.sallys_rum_pir_occupancy",
           "friendlyName": "R\u00F6relsedetektor Sallys rum",
           "cSharpName": "SallysRumPirOccupancy"
-        },
-        {
-          "id": "binary_sensor.sm_g986b_is_charging",
-          "friendlyName": "SM-G986B Is charging",
-          "cSharpName": "SmG986bIsCharging"
-        },
-        {
-          "id": "binary_sensor.snapshots_stale",
-          "friendlyName": "Snapshots Stale",
-          "cSharpName": "SnapshotsStale"
         },
         {
           "id": "binary_sensor.sovrum_pir_illuminance_above_threshold",
@@ -351,6 +346,11 @@
           "jsonName": "integration",
           "cSharpName": "Integration",
           "clrType": "System.String"
+        },
+        {
+          "jsonName": "trigger_count",
+          "cSharpName": "TriggerCount",
+          "clrType": "System.Double"
         }
       ]
     },
@@ -378,9 +378,154 @@
           "cSharpName": "ElgatoVansterRestart"
         },
         {
+          "id": "button.julbelysning_1_identify",
+          "friendlyName": "julbelysning_1 Identify",
+          "cSharpName": "Julbelysning1Identify"
+        },
+        {
+          "id": "button.julbelysning_2_identify",
+          "friendlyName": "julbelysning_2 Identify",
+          "cSharpName": "Julbelysning2Identify"
+        },
+        {
+          "id": "button.julbelysning_sovrum_identify",
+          "friendlyName": "julbelysning_sovrum Identify",
+          "cSharpName": "JulbelysningSovrumIdentify"
+        },
+        {
+          "id": "button.julbelysning_tomas_rum_identify",
+          "friendlyName": "julbelysning_tomas_rum Identify",
+          "cSharpName": "JulbelysningTomasRumIdentify"
+        },
+        {
+          "id": "button.julbelysning_tvrummet_identify",
+          "friendlyName": "julbelysning_tvrummet Identify",
+          "cSharpName": "JulbelysningTvrummetIdentify"
+        },
+        {
+          "id": "button.julbelysning_vardagsrum_mitten_identify",
+          "friendlyName": "julbelysning_vardagsrum_mitten Identify",
+          "cSharpName": "JulbelysningVardagsrumMittenIdentify"
+        },
+        {
+          "id": "button.knapp_kok_identify",
+          "friendlyName": "knapp_kok Identify",
+          "cSharpName": "KnappKokIdentify"
+        },
+        {
+          "id": "button.kok_dimmer_diskbank_identify",
+          "friendlyName": "kok_dimmer_diskbank Identify",
+          "cSharpName": "KokDimmerDiskbankIdentify"
+        },
+        {
+          "id": "button.kok_dimmer_vitrinskap_identify",
+          "friendlyName": "kok_dimmer_vitrinskap Identify",
+          "cSharpName": "KokDimmerVitrinskapIdentify"
+        },
+        {
+          "id": "button.kok_diskbank_identify",
+          "friendlyName": "kok_diskbank Identify",
+          "cSharpName": "KokDiskbankIdentify"
+        },
+        {
+          "id": "button.kok_fonster_identify",
+          "friendlyName": "kok_fonster Identify",
+          "cSharpName": "KokFonsterIdentify"
+        },
+        {
+          "id": "button.kok_vitrinskap_identify",
+          "friendlyName": "kok_vitrinskap Identify",
+          "cSharpName": "KokVitrinskapIdentify"
+        },
+        {
+          "id": "button.melkers_fonster_identify",
+          "friendlyName": "melkers_fonster Identify",
+          "cSharpName": "MelkersFonsterIdentify"
+        },
+        {
+          "id": "button.melkers_rum_pir_identify",
+          "friendlyName": "melkers_rum_pir Identify",
+          "cSharpName": "MelkersRumPirIdentify"
+        },
+        {
+          "id": "button.sallys_fonster_identify",
+          "friendlyName": "sallys_fonster Identify",
+          "cSharpName": "SallysFonsterIdentify"
+        },
+        {
+          "id": "button.sallys_rum_pir_identify",
+          "friendlyName": "sallys_rum_pir Identify",
+          "cSharpName": "SallysRumPirIdentify"
+        },
+        {
+          "id": "button.sovrum_byra_identify",
+          "friendlyName": "sovrum_byra Identify",
+          "cSharpName": "SovrumByraIdentify"
+        },
+        {
+          "id": "button.sovrum_fonster_identify",
+          "friendlyName": "sovrum_fonster Identify",
+          "cSharpName": "SovrumFonsterIdentify"
+        },
+        {
+          "id": "button.sovrum_pir_identify",
+          "friendlyName": "sovrum_pir Identify",
+          "cSharpName": "SovrumPirIdentify"
+        },
+        {
           "id": "button.synchronize_devices",
           "friendlyName": "Google Assistant Synchronize devices",
           "cSharpName": "SynchronizeDevices"
+        },
+        {
+          "id": "button.tomas_rum_old_identify",
+          "friendlyName": "tomas_rum_old Identify",
+          "cSharpName": "TomasRumOldIdentify"
+        },
+        {
+          "id": "button.tomas_rum_pir_identify",
+          "friendlyName": "tomas_rum_pir Identify",
+          "cSharpName": "TomasRumPirIdentify"
+        },
+        {
+          "id": "button.tv_rum_hoger_identify",
+          "friendlyName": "tv_rum_hoger Identify",
+          "cSharpName": "TvRumHogerIdentify"
+        },
+        {
+          "id": "button.tv_rum_vanster_identify",
+          "friendlyName": "tv_rum_vanster Identify",
+          "cSharpName": "TvRumVansterIdentify"
+        },
+        {
+          "id": "button.tvrum_rullgardin_hoger_identify",
+          "friendlyName": "tvrum_rullgardin_hoger Identify",
+          "cSharpName": "TvrumRullgardinHogerIdentify"
+        },
+        {
+          "id": "button.tvrum_rullgardin_vanster_identify",
+          "friendlyName": "tvrum_rullgardin_vanster Identify",
+          "cSharpName": "TvrumRullgardinVansterIdentify"
+        },
+        {
+          "id": "button.vardagsrum_hoger_identify",
+          "friendlyName": "vardagsrum_hoger Identify",
+          "cSharpName": "VardagsrumHogerIdentify"
+        },
+        {
+          "id": "button.vardagsrum_mitten_identify",
+          "friendlyName": "vardagsrum_mitten Identify",
+          "cSharpName": "VardagsrumMittenIdentify"
+        },
+        {
+          "id": "button.vardagsrum_vanster_identify",
+          "friendlyName": "vardagsrum_vanster Identify",
+          "cSharpName": "VardagsrumVansterIdentify"
+        },
+        {
+          "id": "button.vardagsrum_vinskap_identify",
+          "friendlyName": "vardagsrum_vinskap Identify",
+          "cSharpName": "VardagsrumVinskapIdentify"
         },
         {
           "id": "button.zigbee2mqtt_bridge_restart",
@@ -413,6 +558,96 @@
           "jsonName": "supported_features",
           "cSharpName": "SupportedFeatures",
           "clrType": "System.Double"
+        },
+        {
+          "jsonName": "color_options",
+          "cSharpName": "ColorOptions",
+          "clrType": null
+        },
+        {
+          "jsonName": "linkquality",
+          "cSharpName": "Linkquality",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "power_on_behavior",
+          "cSharpName": "PowerOnBehavior",
+          "clrType": "System.String"
+        },
+        {
+          "jsonName": "update",
+          "cSharpName": "Update",
+          "clrType": "System.Object"
+        },
+        {
+          "jsonName": "update_available",
+          "cSharpName": "UpdateAvailable",
+          "clrType": "System.Boolean"
+        },
+        {
+          "jsonName": "brightness",
+          "cSharpName": "Brightness",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "color",
+          "cSharpName": "Color",
+          "clrType": "System.Object"
+        },
+        {
+          "jsonName": "color_mode",
+          "cSharpName": "ColorMode",
+          "clrType": "System.String"
+        },
+        {
+          "jsonName": "color_temp",
+          "cSharpName": "ColorTemp",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "level_config",
+          "cSharpName": "LevelConfig",
+          "clrType": "System.Object"
+        },
+        {
+          "jsonName": "battery",
+          "cSharpName": "Battery",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "illuminance_above_threshold",
+          "cSharpName": "IlluminanceAboveThreshold",
+          "clrType": "System.Boolean"
+        },
+        {
+          "jsonName": "occupancy",
+          "cSharpName": "Occupancy",
+          "clrType": "System.Boolean"
+        },
+        {
+          "jsonName": "requested_brightness_level",
+          "cSharpName": "RequestedBrightnessLevel",
+          "clrType": null
+        },
+        {
+          "jsonName": "requested_brightness_percent",
+          "cSharpName": "RequestedBrightnessPercent",
+          "clrType": null
+        },
+        {
+          "jsonName": "position",
+          "cSharpName": "Position",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "action",
+          "cSharpName": "Action",
+          "clrType": null
+        },
+        {
+          "jsonName": "click",
+          "cSharpName": "Click",
+          "clrType": null
         }
       ]
     },
@@ -1110,6 +1345,11 @@
           "cSharpName": "NetdaemonDinnerIsReadyManager"
         },
         {
+          "id": "input_boolean.netdaemon_google_calendar_manager",
+          "friendlyName": "netdaemon_google_calendar_manager",
+          "cSharpName": "NetdaemonGoogleCalendarManager"
+        },
+        {
           "id": "input_boolean.netdaemon_house_state_manager",
           "friendlyName": "netdaemon_house_state_manager",
           "cSharpName": "NetdaemonHouseStateManager"
@@ -1656,6 +1896,11 @@
           "cSharpName": "Kok"
         },
         {
+          "id": "media_player.marantz_sr5006",
+          "friendlyName": "marantz:[SR5006] ",
+          "cSharpName": "MarantzSr5006"
+        },
+        {
           "id": "media_player.melkers_rum",
           "friendlyName": "melkers rum",
           "cSharpName": "MelkersRum"
@@ -2070,6 +2315,11 @@
           "cSharpName": "_1586350051032"
         },
         {
+          "id": "script.add_five",
+          "friendlyName": "add_five",
+          "cSharpName": "AddFive"
+        },
+        {
           "id": "script.cleaning_scene",
           "friendlyName": "Cleaning scene",
           "cSharpName": "CleaningScene"
@@ -2145,6 +2395,16 @@
           "jsonName": "friendly_name",
           "cSharpName": "FriendlyName",
           "clrType": "System.String"
+        },
+        {
+          "jsonName": "restored",
+          "cSharpName": "Restored",
+          "clrType": "System.Boolean"
+        },
+        {
+          "jsonName": "supported_features",
+          "cSharpName": "SupportedFeatures",
+          "clrType": "System.Double"
         }
       ]
     },
@@ -2392,6 +2652,11 @@
           "id": "sensor.activity",
           "friendlyName": "Tomas iPad Activity",
           "cSharpName": "Activity"
+        },
+        {
+          "id": "sensor.backup_state",
+          "friendlyName": "Backup State",
+          "cSharpName": "BackupState"
         },
         {
           "id": "sensor.basic_sensor",
@@ -2689,16 +2954,6 @@
           "cSharpName": "SmG975fWifiConnection"
         },
         {
-          "id": "sensor.sm_g986b_audio_sensor",
-          "friendlyName": "SM-G986B Ringer mode",
-          "cSharpName": "SmG986bAudioSensor"
-        },
-        {
-          "id": "sensor.sm_g986b_battery_health",
-          "friendlyName": "SM-G986B Battery health",
-          "cSharpName": "SmG986bBatteryHealth"
-        },
-        {
           "id": "sensor.sm_g986b_battery_state",
           "friendlyName": "SM-G986B Battery state",
           "cSharpName": "SmG986bBatteryState"
@@ -2707,41 +2962,6 @@
           "id": "sensor.sm_g986b_charger_type",
           "friendlyName": "SM-G986B Charger type",
           "cSharpName": "SmG986bChargerType"
-        },
-        {
-          "id": "sensor.sm_g986b_do_not_disturb_sensor",
-          "friendlyName": "SM-G986B Do Not Disturb sensor",
-          "cSharpName": "SmG986bDoNotDisturbSensor"
-        },
-        {
-          "id": "sensor.sm_g986b_geocoded_location",
-          "friendlyName": "SM-G986B Geocoded location",
-          "cSharpName": "SmG986bGeocodedLocation"
-        },
-        {
-          "id": "sensor.sm_g986b_last_reboot",
-          "friendlyName": "SM-G986B Last reboot",
-          "cSharpName": "SmG986bLastReboot"
-        },
-        {
-          "id": "sensor.sm_g986b_next_alarm",
-          "friendlyName": "SM-G986B Next alarm",
-          "cSharpName": "SmG986bNextAlarm"
-        },
-        {
-          "id": "sensor.sm_g986b_proximity_sensor",
-          "friendlyName": "SM-G986B Proximity sensor",
-          "cSharpName": "SmG986bProximitySensor"
-        },
-        {
-          "id": "sensor.sm_g986b_wifi_connection",
-          "friendlyName": "SM-G986B WiFi connection",
-          "cSharpName": "SmG986bWifiConnection"
-        },
-        {
-          "id": "sensor.snapshot_backup",
-          "friendlyName": "Snapshot State",
-          "cSharpName": "SnapshotBackup"
         },
         {
           "id": "sensor.sovrum_byra_color_options",
@@ -2807,6 +3027,11 @@
           "id": "sensor.testar_mqtt",
           "friendlyName": "testar_mqtt",
           "cSharpName": "TestarMqtt"
+        },
+        {
+          "id": "sensor.testarnd",
+          "friendlyName": "tes",
+          "cSharpName": "Testarnd"
         },
         {
           "id": "sensor.tomas_ipad_activity",
@@ -3349,6 +3574,46 @@
           "jsonName": "power_on_behavior",
           "cSharpName": "PowerOnBehavior",
           "clrType": null
+        },
+        {
+          "jsonName": "trigger_count",
+          "cSharpName": "TriggerCount",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "last_backup",
+          "cSharpName": "LastBackup",
+          "clrType": "System.String"
+        },
+        {
+          "jsonName": "next_backup",
+          "cSharpName": "NextBackup",
+          "clrType": "System.String"
+        },
+        {
+          "jsonName": "last_uploaded",
+          "cSharpName": "LastUploaded",
+          "clrType": "System.String"
+        },
+        {
+          "jsonName": "backups_in_google_drive",
+          "cSharpName": "BackupsInGoogleDrive",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "backups_in_home_assistant",
+          "cSharpName": "BackupsInHomeAssistant",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "backups",
+          "cSharpName": "Backups",
+          "clrType": "System.Collections.Generic.IReadOnlyList\u00601[System.Object]"
+        },
+        {
+          "jsonName": "free_space_in_google_drive",
+          "cSharpName": "FreeSpaceInGoogleDrive",
+          "clrType": "System.String"
         }
       ]
     },
@@ -3665,36 +3930,6 @@
           "id": "sensor.sm_g986b_battery_level",
           "friendlyName": "SM-G986B Battery level",
           "cSharpName": "SmG986bBatteryLevel"
-        },
-        {
-          "id": "sensor.sm_g986b_battery_power",
-          "friendlyName": "SM-G986B Battery power",
-          "cSharpName": "SmG986bBatteryPower"
-        },
-        {
-          "id": "sensor.sm_g986b_battery_temperature",
-          "friendlyName": "SM-G986B Battery temperature",
-          "cSharpName": "SmG986bBatteryTemperature"
-        },
-        {
-          "id": "sensor.sm_g986b_bluetooth_connection",
-          "friendlyName": "SM-G986B Bluetooth connection",
-          "cSharpName": "SmG986bBluetoothConnection"
-        },
-        {
-          "id": "sensor.sm_g986b_light_sensor",
-          "friendlyName": "SM-G986B Light sensor",
-          "cSharpName": "SmG986bLightSensor"
-        },
-        {
-          "id": "sensor.sm_g986b_pressure_sensor",
-          "friendlyName": "SM-G986B Pressure sensor",
-          "cSharpName": "SmG986bPressureSensor"
-        },
-        {
-          "id": "sensor.sm_g986b_storage_sensor",
-          "friendlyName": "SM-G986B Internal storage",
-          "cSharpName": "SmG986bStorageSensor"
         },
         {
           "id": "sensor.sovrum_pir_battery",
@@ -4176,6 +4411,11 @@
         {
           "jsonName": "occupancy_timeout",
           "cSharpName": "OccupancyTimeout",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "trigger_count",
+          "cSharpName": "TriggerCount",
           "clrType": "System.Double"
         }
       ]
@@ -4700,6 +4940,11 @@
           "cSharpName": "NetdaemonV4Net8Update"
         },
         {
+          "id": "update.piper_update",
+          "friendlyName": "Piper Update",
+          "cSharpName": "PiperUpdate"
+        },
+        {
           "id": "update.sallys_fonster",
           "friendlyName": "sallys_fonster",
           "cSharpName": "SallysFonster"
@@ -4823,6 +5068,11 @@
           "id": "update.vscode_remote_update",
           "friendlyName": "VSCode Remote Update",
           "cSharpName": "VscodeRemoteUpdate"
+        },
+        {
+          "id": "update.whisper_update",
+          "friendlyName": "Whisper Update",
+          "cSharpName": "WhisperUpdate"
         }
       ],
       "attributes": [
@@ -5037,6 +5287,11 @@
           "id": "weather.smhi_hemma",
           "friendlyName": "Hemma",
           "cSharpName": "SmhiHemma"
+        },
+        {
+          "id": "weather.test",
+          "friendlyName": "TestV\u00E4der",
+          "cSharpName": "Test"
         }
       ],
       "attributes": [
@@ -5211,6 +5466,40 @@
           "id": "conversation.home_assistant",
           "friendlyName": "Home Assistant",
           "cSharpName": "HomeAssistant"
+        }
+      ],
+      "attributes": [
+        {
+          "jsonName": "friendly_name",
+          "cSharpName": "FriendlyName",
+          "clrType": "System.String"
+        }
+      ]
+    },
+    {
+      "domain": "stt",
+      "entities": [
+        {
+          "id": "stt.faster_whisper",
+          "friendlyName": "faster-whisper",
+          "cSharpName": "FasterWhisper"
+        }
+      ],
+      "attributes": [
+        {
+          "jsonName": "friendly_name",
+          "cSharpName": "FriendlyName",
+          "clrType": "System.String"
+        }
+      ]
+    },
+    {
+      "domain": "tts",
+      "entities": [
+        {
+          "id": "tts.piper",
+          "friendlyName": "piper",
+          "cSharpName": "Piper"
         }
       ],
       "attributes": [

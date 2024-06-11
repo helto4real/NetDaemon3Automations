@@ -4,6 +4,10 @@ This is my personal automations made for NetDaemon4
 
 [![buymeacoffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/ij1qXRM6E)
 
+## Code generator
+```bash
+dotnet tool run nd-codegen
+```
 
 ## Discuss the NetDaemon
 

@@ -17,11 +17,11 @@ public class VaccumCleanerManager
         //         textToSpeechService.Speak("media_player.allmanna_ytor", "Pausat dammsugaren. Töm dammsugaren på damm.", "google_cloud_say");
         //     });
 
-        entities.Vacuum.RoborockS7.StateChanges()
-                .Where(n => n.New?.State == "cleaning")
-                .Subscribe(_ =>
-                {
-                    textToSpeechService.Speak("media_player.allmanna_ytor", "Startar dammsugning, kommer att pausa om 15 minuter för att tömma damm.", "google_cloud_say");
-                });
+        // entities.Vacuum.RoborockS7.StateChanges()
+        //         .Where(n => n.New?.State == "cleaning")
+        //         .Subscribe(_ =>
+        //         {
+        //             textToSpeechService.Speak("media_player.allmanna_ytor", "Startar dammsugning, kommer att pausa om 15 minuter för att tömma damm.", "google_cloud_say");
+        //         });
     }
 }

@@ -67,6 +67,11 @@ public class HaContextMockBase : IHaContext, IHaContextMock
     public virtual void VerifyServiceCalled(Entity entity, string domain, string service)
     {
     }
+
+    public EntityRegistration? GetEntityRegistration(string entityId)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public interface IHaContextMock
