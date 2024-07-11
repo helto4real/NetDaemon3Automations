@@ -56,8 +56,7 @@ public class RoomSpecificManager
         // Turn off computer if no movement for one hour en Tomas room
         _binarySensors.TomasRumPirOccupancy
             .StateChanges()
-            .Where(e => e.New.IsOff())
-            .Throttle(TimeSpan.FromHours(1))
+            .WhenStateIsFor(e => e.IsOff(), TimeSpan.FromHours(1), _scheduler)
             .Subscribe(_ => _switches.ComputerTomas.TurnOff());
     }
 }

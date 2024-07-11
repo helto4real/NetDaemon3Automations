@@ -23,15 +23,17 @@ public class LightManager
     private readonly LightsConfiguration _config;
     private readonly IScheduler _scheduler;
     private readonly Entities _entities;
+    private readonly ILogger<LightManager> _logger;
 
     private readonly Services _services;
 
-    public LightManager(IHaContext ha, IAppConfig<LightsConfiguration> config, IScheduler scheduler)
+    public LightManager(IHaContext ha, IAppConfig<LightsConfiguration> config, IScheduler scheduler, ILogger<LightManager> logger)
     {
         _entities = new Entities(ha);
         _services = new Services(ha);
         _config = config.Value;
         _scheduler = scheduler;
+        _logger = logger;
         Initialize();
     }
 
@@ -57,7 +59,10 @@ public class LightManager
             .Where(_ =>
                 _config.ElgatoKeyLight.IsOn()
             )
-            .Subscribe(_ => _config.ElgatoKeyLight?.TurnOff(0));
+            .Subscribe(s => 
+            {
+                _config.ElgatoKeyLight?.TurnOff(0);
+            });
 
         _config.TomasRoomPir?
             .StateChanges()
@@ -162,11 +167,9 @@ public class LightManager
         _config.LivingRoomPirs?
             .StateChanges()
             .Where(e =>
-                e.New.IsOff() &&
-                e.Old.IsOn() &&
                 IsNight &&
                 !IsTimeNowBetween(TimeSpan.FromHours(5), TimeSpan.FromHours(10)))
-            .Throttle(TimeSpan.FromMinutes(15))
+            .WhenStateIsFor(e=>e.IsOff(), TimeSpan.FromMinutes(15), _scheduler)
             .Subscribe(s => _entities.Light.HallByra.TurnOff(0));
 
         // Kitchen night lights
@@ -181,11 +184,9 @@ public class LightManager
         _config.KitchenPir?
             .StateChanges()
             .Where(e =>
-                e.New.IsOff() &&
-                e.Old.IsOn() &&
                 IsNight &&
                 !IsTimeNowBetween(TimeSpan.FromHours(5), TimeSpan.FromHours(9)))
-            .Throttle(TimeSpan.FromMinutes(15))
+            .WhenStateIsFor(e => e.IsOff(), TimeSpan.FromMinutes(15), _scheduler)
             .Subscribe(s => _entities.Light.Kok.TurnOff(0));
 
         // TV Room night lights, only at night and not TV is on
@@ -202,12 +203,10 @@ public class LightManager
         _config.TvRoomPirs?
             .StateChanges()
             .Where(e =>
-                e.New.IsOff() &&
-                e.Old.IsOn() &&
                 IsNight &&
                 !IsTvOn &&
                 !IsTimeNowBetween(TimeSpan.FromHours(5), TimeSpan.FromHours(9)))
-            .Throttle(TimeSpan.FromMinutes(15))
+            .WhenStateIsFor(e => e.IsOff(), TimeSpan.FromMinutes(15), _scheduler)
             .Subscribe(s => _entities.Light.Tvrummet.TurnOff(0)); //Entity("light.tvrummet")
     }
 

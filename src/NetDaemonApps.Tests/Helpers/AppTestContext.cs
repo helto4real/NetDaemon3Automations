@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Reactive.Concurrency;
 using Microsoft.Reactive.Testing;
-using NetDaemon.AppModel;
-using NetDaemon.Extensions.Scheduler;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 using NetDaemon.HassModel;
 
 namespace NetDaemonApps.Tests.Helpers;
@@ -15,6 +14,7 @@ public class AppTestContext
     public HaContextMock HaContextMock { get; } = new();
     public IHaContext HaContext => HaContextMock.HaContext;
     public TestScheduler Scheduler { get; } = new ();
+    public ILogger Logger { get; } = Substitute.For<ILogger>();
     public GlobalConfig TestConfig { get; } = new GlobalConfig()
     {
         DayTime = TimeSpan.Parse("09:00:00"),
