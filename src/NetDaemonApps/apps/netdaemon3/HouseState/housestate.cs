@@ -4,17 +4,12 @@ using System.Reactive.Concurrency;
 ///     Manage state of morning, house, day, evening, night and cleaning
 /// </summary>
 [NetDaemonApp]
-public class HouseStateManager : IDisposable
+public class HouseStateManager 
 {
     private readonly IEntities _entities;
     private readonly ILogger<HouseStateManager> _log;
     private readonly GlobalConfig _gc;
     private readonly IScheduler _scheduler;
-    private IDisposable? _morningSubscription;
-    private IDisposable? _daytimeSubscription;
-    private IDisposable? _eveningSubscription;
-    private IDisposable? _nighttimeWeekdaySubscription;
-    private IDisposable? _nighttimeWeekendSubscription;
 
     public HouseStateManager(
         Entities entities,
@@ -52,7 +47,7 @@ public class HouseStateManager : IDisposable
     private void InitDayTimeSubscriptions()
     {
         _log.LogInformation("Setting daytime: {DayTime}", _gc.DayTime);
-        _daytimeSubscription = _scheduler.ScheduleCron($"{_gc.DayTime.Minutes} {_gc.DayTime.Hours} * * *", () => SetHouseState(HouseState.Day));
+        _scheduler.ScheduleCron($"{_gc.DayTime.Minutes} {_gc.DayTime.Hours} * * *", () => SetHouseState(HouseState.Day));
     }
 
     /// <summary>
@@ -62,12 +57,12 @@ public class HouseStateManager : IDisposable
     {
         _log.LogInformation("Setting weekday night time to: {NightTime}",
             _gc.NightTimeWeekdays);
-        _nighttimeWeekdaySubscription = _scheduler.ScheduleCron($"{_gc.NightTimeWeekdays.Minutes} {_gc.NightTimeWeekdays.Hours} * * 0-4",
+        _scheduler.ScheduleCron($"{_gc.NightTimeWeekdays.Minutes} {_gc.NightTimeWeekdays.Hours} * * 0-4",
             () => SetHouseState(HouseState.Night));
 
         _log.LogInformation("Setting weekend night time to: {NightTime}",
             _gc.NightTimeWeekends);
-        _nighttimeWeekendSubscription = _scheduler.ScheduleCron($"{_gc.NightTimeWeekends.Minutes} {_gc.NightTimeWeekends.Hours} * * 5-6",
+        _scheduler.ScheduleCron($"{_gc.NightTimeWeekends.Minutes} {_gc.NightTimeWeekends.Hours} * * 5-6",
             () => SetHouseState(HouseState.Night));
     }
 
@@ -76,7 +71,7 @@ public class HouseStateManager : IDisposable
     /// </summary>
     private void InitEveningTimeSubscriptions()
     {
-        _eveningSubscription = _scheduler.ScheduleCron("14 15 * * *", () =>
+        _scheduler.ScheduleCron("14 15 * * *", () =>
         {
             if (_entities.Sensor.LightOutsideIlluminanceLux.State <= 20.0 && IsDaytime)
                 SetHouseState(HouseState.Evening);
@@ -97,7 +92,7 @@ public class HouseStateManager : IDisposable
     /// </summary>
     private void InitMorningTimeSubscriptions()
     {
-        _morningSubscription = _scheduler.ScheduleCron("15 5 * * *", () =>
+        _scheduler.ScheduleCron("15 5 * * *", () =>
         {
             _log.LogInformation("It is 5:15 and light outside is {State}", _entities.Sensor.LightOutsideIlluminanceLux?.State);
             if (_entities.Sensor.LightOutsideIlluminanceLux?.State >= 35.0 && IsNighttime)
@@ -143,16 +138,6 @@ public class HouseStateManager : IDisposable
             _ => throw new InvalidOperationException($"State {state} Not supported")
         };
         _entities.InputSelect.HouseModeSelect.SelectOption(selectState);
-    }
-
-    public void Dispose()
-    {
-        _morningSubscription?.Dispose();
-        _daytimeSubscription?.Dispose();
-        _eveningSubscription?.Dispose();
-        _nighttimeWeekdaySubscription?.Dispose();
-        _nighttimeWeekendSubscription?.Dispose();
-        GC.SuppressFinalize(this);
     }
 }
 
