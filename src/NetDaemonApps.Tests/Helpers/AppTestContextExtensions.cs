@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using FluentAssertions;
 using HomeAssistantGenerated;
 using NetDaemon.HassModel.Entities;
 using NSubstitute;
+using NSubstitute.Core.Arguments;
 
 namespace NetDaemonApps.Tests.Helpers;
 
@@ -32,6 +34,34 @@ public static class AppTestContextExtensions
         
         ctx.HaContext.Received(times)
             .CallService(domain, service, Arg.Any<ServiceTarget>(), Arg.Any<object?>());
+    }
+
+    public static void VerifyNotCallService(this AppTestContext ctx, string serviceCall)
+    {
+        var domain = serviceCall[..serviceCall.IndexOf(".", StringComparison.InvariantCultureIgnoreCase)];
+        var service = serviceCall[(serviceCall.IndexOf(".", StringComparison.InvariantCultureIgnoreCase) + 1)..];
+        
+        ctx.HaContext.Received(0)
+            .CallService(domain, service, Arg.Any<ServiceTarget?>(), Arg.Any<object?>());
+    }
+
+    public static void VerifyCallServiceWithData<T>(this AppTestContext ctx, string serviceCall, ServiceTarget? target, T? data, int times = 1) where T : class
+    {
+        var domain = serviceCall[..serviceCall.IndexOf(".", StringComparison.InvariantCultureIgnoreCase)];
+        var service = serviceCall[(serviceCall.IndexOf(".", StringComparison.InvariantCultureIgnoreCase) + 1)..];
+        T? calledData = null;
+
+        ctx.HaContext.Received(times).CallService(domain, service, target, Arg.Any<T>());
+        var sp = ctx.HaContext.ReceivedCalls().Where(x => x.GetMethodInfo().Name == "CallService").ToList();
+        foreach (var s in sp)
+        {
+            if (s.GetArguments()[3] is T arg)
+            {
+                calledData = arg;
+                break;
+            }
+        }
+        calledData.Should().BeEquivalentTo(data);
     }
 
     public static T? GetEntity<T>(this AppTestContext ctx, string entityId) where T : Entity 

@@ -66,6 +66,16 @@
           "cSharpName": "BackupsStale"
         },
         {
+          "id": "binary_sensor.espresense_tomas_rum_connectivity",
+          "friendlyName": "Tomas rum (ESP)",
+          "cSharpName": "EspresenseTomasRumConnectivity"
+        },
+        {
+          "id": "binary_sensor.galaxy_watch6_classic_jq4a_bluetooth_state",
+          "friendlyName": "Galaxy Watch6 Classic (JQ4A) Bluetooth state",
+          "cSharpName": "GalaxyWatch6ClassicJq4aBluetoothState"
+        },
+        {
           "id": "binary_sensor.hall_dorr_sensor_contact",
           "friendlyName": "Ytterd\u00F6rr uppe",
           "cSharpName": "HallDorrSensorContact"
@@ -351,6 +361,71 @@
           "jsonName": "trigger_count",
           "cSharpName": "TriggerCount",
           "clrType": "System.Double"
+        },
+        {
+          "jsonName": "ip",
+          "cSharpName": "Ip",
+          "clrType": "System.String"
+        },
+        {
+          "jsonName": "uptime",
+          "cSharpName": "Uptime",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "firm",
+          "cSharpName": "Firm",
+          "clrType": "System.String"
+        },
+        {
+          "jsonName": "rssi",
+          "cSharpName": "Rssi",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "ver",
+          "cSharpName": "Ver",
+          "clrType": "System.String"
+        },
+        {
+          "jsonName": "adverts",
+          "cSharpName": "Adverts",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "seen",
+          "cSharpName": "Seen",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "reported",
+          "cSharpName": "Reported",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "freeHeap",
+          "cSharpName": "FreeHeap",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "maxHeap",
+          "cSharpName": "MaxHeap",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "scanStack",
+          "cSharpName": "ScanStack",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "loopStack",
+          "cSharpName": "LoopStack",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "bleStack",
+          "cSharpName": "BleStack",
+          "clrType": "System.Double"
         }
       ]
     },
@@ -376,6 +451,21 @@
           "id": "button.elgato_vanster_restart",
           "friendlyName": "elgato v\u00E4nster Restart",
           "cSharpName": "ElgatoVansterRestart"
+        },
+        {
+          "id": "button.espresense_tomas_rum_enroll",
+          "friendlyName": "ESPresense Tomas rum Enroll",
+          "cSharpName": "EspresenseTomasRumEnroll"
+        },
+        {
+          "id": "button.espresense_tomas_rum_restart",
+          "friendlyName": "ESPresense Tomas rum Restart",
+          "cSharpName": "EspresenseTomasRumRestart"
+        },
+        {
+          "id": "button.espresense_tomas_rum_update",
+          "friendlyName": "ESPresense Tomas rum Update",
+          "cSharpName": "EspresenseTomasRumUpdate"
         },
         {
           "id": "button.julbelysning_1_identify",
@@ -906,44 +996,19 @@
           "cSharpName": "AutomowerNone205202468200840768"
         },
         {
-          "id": "device_tracker.e2c56db5_dffb_48d2_b060_d0f5a71096e0_0_0_8e50",
-          "friendlyName": null,
-          "cSharpName": "E2c56db5Dffb48d2B060D0f5a71096e0008e50"
-        },
-        {
-          "id": "device_tracker.e57c3534_9bec_43a9_bd14_a4166f852d1e_100_1_0cfc",
-          "friendlyName": null,
-          "cSharpName": "E57c35349bec43a9Bd14A4166f852d1e10010cfc"
-        },
-        {
-          "id": "device_tracker.e57c3534_9bec_43a9_bd14_a4166f852d1e_100_1_1b6f",
-          "friendlyName": null,
-          "cSharpName": "E57c35349bec43a9Bd14A4166f852d1e10011b6f"
-        },
-        {
-          "id": "device_tracker.e57c3534_9bec_43a9_bd14_a4166f852d1e_100_1_ab3e",
-          "friendlyName": null,
-          "cSharpName": "E57c35349bec43a9Bd14A4166f852d1e1001Ab3e"
-        },
-        {
-          "id": "device_tracker.e57c3534_9bec_43a9_bd14_a4166f852d1e_100_1_e29f",
-          "friendlyName": null,
-          "cSharpName": "E57c35349bec43a9Bd14A4166f852d1e1001E29f"
-        },
-        {
-          "id": "device_tracker.e57c3534_9bec_43a9_bd14_a4166f852d1e_100_1_ef0e",
-          "friendlyName": null,
-          "cSharpName": "E57c35349bec43a9Bd14A4166f852d1e1001Ef0e"
-        },
-        {
           "id": "device_tracker.elin_presence",
           "friendlyName": "Elin",
           "cSharpName": "ElinPresence"
         },
         {
-          "id": "device_tracker.galaxy_watch_bc7b_le_d8f6",
-          "friendlyName": null,
-          "cSharpName": "GalaxyWatchBc7bLeD8f6"
+          "id": "device_tracker.espresense_c4c030",
+          "friendlyName": "espresense-tomas-rum",
+          "cSharpName": "EspresenseC4c030"
+        },
+        {
+          "id": "device_tracker.galaxy_watch6_classic_jq4a",
+          "friendlyName": "Galaxy Watch6 Classic (JQ4A)",
+          "cSharpName": "GalaxyWatch6ClassicJq4a"
         },
         {
           "id": "device_tracker.google_maps_110786808112177763666",
@@ -1999,6 +2064,16 @@
       "isNumeric": true,
       "entities": [
         {
+          "id": "number.espresense_tomas_rum_absorption",
+          "friendlyName": "ESPresense Tomas rum Absorption",
+          "cSharpName": "EspresenseTomasRumAbsorption"
+        },
+        {
+          "id": "number.espresense_tomas_rum_max_distance",
+          "friendlyName": "ESPresense Tomas rum Max Distance",
+          "cSharpName": "EspresenseTomasRumMaxDistance"
+        },
+        {
           "id": "number.vardagsrum_pir_occupancy_timeout",
           "friendlyName": "vardagsrum_pir Occupancy timeout",
           "cSharpName": "VardagsrumPirOccupancyTimeout"
@@ -2215,6 +2290,11 @@
     {
       "domain": "remote",
       "entities": [
+        {
+          "id": "remote.android_tv_10_10_100_74",
+          "friendlyName": "Android TV 10.10.100.74",
+          "cSharpName": "AndroidTv101010074"
+        },
         {
           "id": "remote.samsung_q60_series_65",
           "friendlyName": "Samsung Q60 Series (65)",
@@ -2684,6 +2764,21 @@
           "cSharpName": "ConnectionType"
         },
         {
+          "id": "sensor.galaxy_watch6_classic_jq4a_battery_state",
+          "friendlyName": "Galaxy Watch6 Classic (JQ4A) Battery state",
+          "cSharpName": "GalaxyWatch6ClassicJq4aBatteryState"
+        },
+        {
+          "id": "sensor.galaxy_watch6_classic_jq4a_ble_transmitter",
+          "friendlyName": "Galaxy Watch6 Classic (JQ4A) BLE transmitter",
+          "cSharpName": "GalaxyWatch6ClassicJq4aBleTransmitter"
+        },
+        {
+          "id": "sensor.galaxy_watch6_classic_jq4a_charger_type",
+          "friendlyName": "Galaxy Watch6 Classic (JQ4A) Charger type",
+          "cSharpName": "GalaxyWatch6ClassicJq4aChargerType"
+        },
+        {
           "id": "sensor.geocoded_location",
           "friendlyName": "Tomas iPad Geocoded Location",
           "cSharpName": "GeocodedLocation"
@@ -3044,6 +3139,11 @@
           "cSharpName": "TomasIpadBatteryState"
         },
         {
+          "id": "sensor.tomas_ipad_ble",
+          "friendlyName": "Tomas iPad BLE",
+          "cSharpName": "TomasIpadBle"
+        },
+        {
           "id": "sensor.tomas_ipad_bssid",
           "friendlyName": "Tomas iPad BSSID",
           "cSharpName": "TomasIpadBssid"
@@ -3067,6 +3167,11 @@
           "id": "sensor.tomas_ipad_ssid",
           "friendlyName": "Tomas iPad SSID",
           "cSharpName": "TomasIpadSsid"
+        },
+        {
+          "id": "sensor.tomas_klocka_ble",
+          "friendlyName": "Tomas Klocka BLE",
+          "cSharpName": "TomasKlockaBle"
         },
         {
           "id": "sensor.tomas_rum_old_color_options",
@@ -3614,6 +3719,36 @@
           "jsonName": "free_space_in_google_drive",
           "cSharpName": "FreeSpaceInGoogleDrive",
           "clrType": "System.String"
+        },
+        {
+          "jsonName": "distance",
+          "cSharpName": "Distance",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "Advertise mode",
+          "cSharpName": "Advertisemode",
+          "clrType": "System.String"
+        },
+        {
+          "jsonName": "Measured power",
+          "cSharpName": "Measuredpower",
+          "clrType": "System.Double"
+        },
+        {
+          "jsonName": "Supports transmitter",
+          "cSharpName": "Supportstransmitter",
+          "clrType": "System.Boolean"
+        },
+        {
+          "jsonName": "Transmitting power",
+          "cSharpName": "Transmittingpower",
+          "clrType": "System.String"
+        },
+        {
+          "jsonName": "id",
+          "cSharpName": "Id",
+          "clrType": "System.String"
         }
       ]
     },
@@ -3642,39 +3777,19 @@
           "cSharpName": "DiskUsePercentHome"
         },
         {
-          "id": "sensor.e2c56db5_dffb_48d2_b060_d0f5a71096e0_0_0_8e50_estimated_distance",
-          "friendlyName": "Estimated Distance",
-          "cSharpName": "E2c56db5Dffb48d2B060D0f5a71096e0008e50EstimatedDistance"
+          "id": "sensor.espresense_tomas_rum_free_mem",
+          "friendlyName": "ESPresense Tomas rum Free Mem",
+          "cSharpName": "EspresenseTomasRumFreeMem"
         },
         {
-          "id": "sensor.e57c3534_9bec_43a9_bd14_a4166f852d1e_100_1_0cfc_estimated_distance",
-          "friendlyName": "Estimated Distance",
-          "cSharpName": "E57c35349bec43a9Bd14A4166f852d1e10010cfcEstimatedDistance"
+          "id": "sensor.espresense_tomas_rum_uptime",
+          "friendlyName": "ESPresense Tomas rum Uptime",
+          "cSharpName": "EspresenseTomasRumUptime"
         },
         {
-          "id": "sensor.e57c3534_9bec_43a9_bd14_a4166f852d1e_100_1_1b6f_estimated_distance",
-          "friendlyName": "Estimated Distance",
-          "cSharpName": "E57c35349bec43a9Bd14A4166f852d1e10011b6fEstimatedDistance"
-        },
-        {
-          "id": "sensor.e57c3534_9bec_43a9_bd14_a4166f852d1e_100_1_ab3e_estimated_distance",
-          "friendlyName": "Estimated Distance",
-          "cSharpName": "E57c35349bec43a9Bd14A4166f852d1e1001Ab3eEstimatedDistance"
-        },
-        {
-          "id": "sensor.e57c3534_9bec_43a9_bd14_a4166f852d1e_100_1_e29f_estimated_distance",
-          "friendlyName": "Estimated Distance",
-          "cSharpName": "E57c35349bec43a9Bd14A4166f852d1e1001E29fEstimatedDistance"
-        },
-        {
-          "id": "sensor.e57c3534_9bec_43a9_bd14_a4166f852d1e_100_1_ef0e_estimated_distance",
-          "friendlyName": "Estimated Distance",
-          "cSharpName": "E57c35349bec43a9Bd14A4166f852d1e1001Ef0eEstimatedDistance"
-        },
-        {
-          "id": "sensor.galaxy_watch_bc7b_le_d8f6_estimated_distance",
-          "friendlyName": "Estimated Distance",
-          "cSharpName": "GalaxyWatchBc7bLeD8f6EstimatedDistance"
+          "id": "sensor.galaxy_watch6_classic_jq4a_battery_level",
+          "friendlyName": "Galaxy Watch6 Classic (JQ4A) Battery level",
+          "cSharpName": "GalaxyWatch6ClassicJq4aBatteryLevel"
         },
         {
           "id": "sensor.hacs",
@@ -4496,6 +4611,21 @@
           "cSharpName": "ComputerTomas"
         },
         {
+          "id": "switch.espresense_tomas_rum_arduino_ota",
+          "friendlyName": "ESPresense Tomas rum Arduino OTA",
+          "cSharpName": "EspresenseTomasRumArduinoOta"
+        },
+        {
+          "id": "switch.espresense_tomas_rum_auto_update",
+          "friendlyName": "ESPresense Tomas rum Auto Update",
+          "cSharpName": "EspresenseTomasRumAutoUpdate"
+        },
+        {
+          "id": "switch.espresense_tomas_rum_prerelease",
+          "friendlyName": "ESPresense Tomas rum Prerelease",
+          "cSharpName": "EspresenseTomasRumPrerelease"
+        },
+        {
           "id": "switch.film",
           "friendlyName": "film",
           "cSharpName": "Film"
@@ -4607,7 +4737,7 @@
         },
         {
           "id": "switch.tvrummet_tv",
-          "friendlyName": "TVRUMMET TV",
+          "friendlyName": "TV",
           "cSharpName": "TvrummetTv"
         },
         {
@@ -5063,11 +5193,6 @@
           "id": "update.vardagsrum_vinskap",
           "friendlyName": "vardagsrum_vinskap",
           "cSharpName": "VardagsrumVinskap"
-        },
-        {
-          "id": "update.vscode_remote_update",
-          "friendlyName": "VSCode Remote Update",
-          "cSharpName": "VscodeRemoteUpdate"
         },
         {
           "id": "update.whisper_update",

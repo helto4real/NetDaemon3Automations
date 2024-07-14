@@ -1,5 +1,6 @@
 using System.Reactive.Concurrency;
 using System.Threading;
+using System.Threading.Tasks;
 
 public class LightsConfiguration
 {
@@ -10,6 +11,7 @@ public class LightsConfiguration
     public RemoteEntity? RemoteTvRummet { get; set; }
     public LightEntity? ElgatoKeyLight { get; set; }
     public InputSelectEntity? HouseModeSelect { get; set; }
+
 }
 
 /// <summary>
@@ -18,7 +20,7 @@ public class LightsConfiguration
 ///     - Activates the correct scene (RunScript) depending on time of day
 /// </summary>
 [NetDaemonApp]
-public class LightManager
+public class LightManager : IAsyncInitializable
 {
     private readonly LightsConfiguration _config;
     private readonly IScheduler _scheduler;
@@ -26,6 +28,7 @@ public class LightManager
     private readonly ILogger<LightManager> _logger;
 
     private readonly Services _services;
+    private CancellationToken? _cancellationToken { get; set; }
 
     public LightManager(IHaContext ha, IAppConfig<LightsConfiguration> config, IScheduler scheduler, ILogger<LightManager> logger)
     {
@@ -81,22 +84,22 @@ public class LightManager
         _config.HouseModeSelect?
             .StateChanges()
             .Where(e => e.New?.State == "Dag")
-            .Subscribe(s => TurnOffAmbient());
+            .SubscribeAsync(s => TurnOffAmbient());
 
         _config.HouseModeSelect?
             .StateChanges()
             .Where(e => e.New?.State == "Kväll")
-            .Subscribe(s => TurnOnAmbient());
+            .SubscribeAsync(s => TurnOnAmbient());
 
         _config.HouseModeSelect?
             .StateChanges()
             .Where(e => e.New?.State == "Natt")
-            .Subscribe(s => TurnOffAmbient());
+            .SubscribeAsync(s => TurnOffAmbient());
 
         _config.HouseModeSelect?
             .StateChanges()
             .Where(e => e.New?.State == "Morgon")
-            .Subscribe(s => TurnOffAmbient());
+            .SubscribeAsync(s => TurnOffAmbient());
 
         _config.HouseModeSelect?
             .StateChanges()
@@ -105,43 +108,49 @@ public class LightManager
     }
 
 
-    private void TurnOffAmbient()
+    private async Task TurnOffAmbient()
     {
+        if (_cancellationToken?.IsCancellationRequested ?? true)
+            return;
+
         _entities.Light.Vardagsrum.TurnOff(0);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken.Value);
         _entities.Light.Kok.TurnOff(0);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken.Value);
         _entities.Light.TomasRum.TurnOff(0);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken.Value);
         _entities.Light.MelkersRum.TurnOff(0);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken.Value);
         _entities.Light.SallysRum.TurnOff(0);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken.Value);
         _entities.Light.Tvrummet.TurnOff(0);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken.Value);
         _entities.Light.FarstukvistLed.TurnOff(0);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken.Value);
         _entities.Light.Sovrum.TurnOff(0);
+        await Task.Delay(200, _cancellationToken.Value);
     }
 
-    private void TurnOnAmbient()
+    private async Task TurnOnAmbient()
     {
+        if (_cancellationToken?.IsCancellationRequested ?? true)
+            return;
         _entities.Light.Vardagsrum.TurnOn(0, brightness: 150);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken!.Value);
         _entities.Light.Kok.TurnOn(0, brightness: 150);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken!.Value);
         _entities.Light.TomasRum.TurnOn(0, brightness: 150);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken!.Value);
         _entities.Light.MelkersRum.TurnOn(0, brightness: 150);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken!.Value);
         _entities.Light.SallysRum.TurnOn(0, brightness: 150);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken!.Value);
         _entities.Light.Tvrummet.TurnOn(0, brightness: 130);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken!.Value);
         _entities.Light.FarstukvistLed.TurnOn(0, brightness: 150);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken!.Value);
         _entities.Light.Sovrum.TurnOn(0, brightness: 20);
-        Thread.Sleep(200);
+        await Task.Delay(200, _cancellationToken!.Value);
     }
 
     /// <summary>
@@ -218,5 +227,11 @@ public class LightManager
             return true;
 
         return false;
+    }
+
+    public Task InitializeAsync(CancellationToken cancellationToken)
+    {
+        _cancellationToken = cancellationToken;
+        return Task.CompletedTask;
     }
 }
