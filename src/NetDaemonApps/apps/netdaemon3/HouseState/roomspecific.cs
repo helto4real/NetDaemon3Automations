@@ -41,22 +41,22 @@ public class RoomSpecificManager
         kidsRoomLights.CallService("turn_off", new { transition = 0 });
     }
 
-    private void SetupTomasComputerAutoStart()
-    {
-        // Turn on computer if Tomas is home and enter room
-        _binarySensors.TomasRumPirOccupancy
-            .StateChanges()
-            .Where(e =>
-                e.New.IsOn() &&
-                _switches.ComputerTomas.IsOff() &&
-                TomasIsHome)
-            .Subscribe(
-                _ => _switches.ComputerTomas.TurnOn());
-
-        // Turn off computer if no movement for one hour en Tomas room
-        _binarySensors.TomasRumPirOccupancy
-            .StateChanges()
-            .WhenStateIsFor(e => e.IsOff(), TimeSpan.FromHours(1), _scheduler)
-            .Subscribe(_ => _switches.ComputerTomas.TurnOff());
-    }
+    // private void SetupTomasComputerAutoStart()
+    // {
+    //     // Turn on computer if Tomas is home and enter room
+    //     _binarySensors.TomasRumPirOccupancy
+    //         .StateChanges()
+    //         .Where(e =>
+    //             e.New.IsOn() &&
+    //             _switches.ComputerTomas.IsOff() &&
+    //             TomasIsHome)
+    //         .Subscribe(
+    //             _ => _switches.ComputerTomas.TurnOn());
+    //
+    //     // Turn off computer if no movement for one hour en Tomas room
+    //     _binarySensors.TomasRumPirOccupancy
+    //         .StateChanges()
+    //         .WhenStateIsFor(e => e.IsOff(), TimeSpan.FromHours(1), _scheduler)
+    //         .Subscribe(_ => _switches.ComputerTomas.TurnOff());
+    // }
 }

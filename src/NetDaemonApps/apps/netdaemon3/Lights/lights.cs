@@ -56,24 +56,6 @@ public class LightManager : IAsyncInitializable
 
         InitializeTimeOfDayScenes();
         // handle keylights
-        _config.TomasRoomPir?
-            .StateChanges()
-            .WhenStateIsFor(n => n.IsOff(), TimeSpan.FromMinutes(30), _scheduler)
-            .Where(_ =>
-                _config.ElgatoKeyLight.IsOn()
-            )
-            .Subscribe(s => 
-            {
-                _config.ElgatoKeyLight?.TurnOff(0);
-            });
-
-        _config.TomasRoomPir?
-            .StateChanges()
-            .Where(e =>
-                e.New.IsOn() &&
-                _config.ElgatoKeyLight.IsOff()
-            )
-            .Subscribe(_ => _config.ElgatoKeyLight?.TurnOn(0));
     }
 
     /// <summary>
@@ -101,10 +83,10 @@ public class LightManager : IAsyncInitializable
             .Where(e => e.New?.State == "Morgon")
             .SubscribeAsync(s => TurnOffAmbient());
 
-        _config.HouseModeSelect?
-            .StateChanges()
-            .Where(e => e.New?.State == "Städning")
-            .Subscribe(s => _services.Script.CleaningScene());
+        // _config.HouseModeSelect?
+        //     .StateChanges()
+        //     .Where(e => e.New?.State == "Städning")
+        //     .Subscribe(s => _services.Script.CleaningScene());
     }
 
 
@@ -119,7 +101,7 @@ public class LightManager : IAsyncInitializable
         await Task.Delay(200, _cancellationToken.Value);
         _entities.Light.TomasRum.TurnOff(0);
         await Task.Delay(200, _cancellationToken.Value);
-        _entities.Light.MelkersRum.TurnOff(0);
+        _entities.Light.ElinsRum.TurnOff(0);
         await Task.Delay(200, _cancellationToken.Value);
         _entities.Light.SallysRum.TurnOff(0);
         await Task.Delay(200, _cancellationToken.Value);
@@ -141,7 +123,7 @@ public class LightManager : IAsyncInitializable
         await Task.Delay(200, _cancellationToken!.Value);
         _entities.Light.TomasRum.TurnOn(0, brightness: 150);
         await Task.Delay(200, _cancellationToken!.Value);
-        _entities.Light.MelkersRum.TurnOn(0, brightness: 150);
+        _entities.Light.ElinsRum.TurnOn(0, brightness: 150);
         await Task.Delay(200, _cancellationToken!.Value);
         _entities.Light.SallysRum.TurnOn(0, brightness: 150);
         await Task.Delay(200, _cancellationToken!.Value);

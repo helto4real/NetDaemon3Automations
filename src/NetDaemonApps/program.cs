@@ -11,8 +11,9 @@ using NetDaemon.Runtime;
 try
 {
     await Host.CreateDefaultBuilder(args)
+        .UseCustomLogging()
         .UseNetDaemonAppSettings()
-        .UseNetDaemonDefaultLogging()
+        // .UseNetDaemonDefaultLogging()
         .UseNetDaemonRuntime()
         .UseNetDaemonTextToSpeech()
         .UseNetDaemonMqttEntityManagement()

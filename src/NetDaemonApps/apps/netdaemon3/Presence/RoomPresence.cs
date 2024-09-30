@@ -22,7 +22,7 @@ public class RoomPresence
                         logger.LogInformation("Tomas watch - BLE Transmitter is on");
                         services.Notify.MobileAppGalaxyWatch6ClassicJq4a("command_ble_transmitter", null, null, new { command = "turn_on" });
                     }
-                    else if (!_homeStates.Contains(s.New?.State))
+                    else if (!_homeStates.Contains(s.New?.State) && _homeStates.Contains(s.Old?.State))
                     {
                         logger.LogInformation("Tomas watch - BLE Transmitter is off");
                         services.Notify.MobileAppGalaxyWatch6ClassicJq4a("command_ble_transmitter", null, null, new { command = "turn_off" });
