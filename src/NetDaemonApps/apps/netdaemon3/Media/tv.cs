@@ -187,11 +187,11 @@ public class TVManager
     {
         _entities.Light.TvrumBakgrundTv.TurnOn(0, xyColor: new[] {0.136, 0.04});
         await Task.Delay(200).ConfigureAwait(false);
-        _entities.Light.TvrumVagg.TurnOff(0);
-        await Task.Delay(200).ConfigureAwait(false);
+        // _entities.Light.TvrumVagg.TurnOff(0);
+        // await Task.Delay(200).ConfigureAwait(false);
         // _entities.Switch.JulbelysningTvrummet.TurnOff();
-        _entities.Light.Tvrummet.TurnOff(0);
-        await Task.Delay(200).ConfigureAwait(false);
+        // _entities.Light.Tvrummet.TurnOff(0);
+        // await Task.Delay(200).ConfigureAwait(false);
         if (_entities.Cover.TvrumRullgardinHoger?.Attributes?.Position < 100)
             _entities.Cover.TvrumRullgardinHoger.CloseCover();
         await Task.Delay(200).ConfigureAwait(false);
@@ -205,7 +205,7 @@ public class TVManager
         await Task.Delay(200).ConfigureAwait(false);
         _entities.MediaPlayer.ShieldTv.TurnOff();
         await Task.Delay(200).ConfigureAwait(false);
-        // if (IsNight || IsEvening)
-        //     _entities.Light.Tvrummet.TurnOn(0);
+        if (_entities.Light.Tvrummet.IsOn() && IsEvening)
+            _entities.Light.Tvrummet.TurnOn(0);
     }
 }

@@ -1,3 +1,3 @@
-dotnet publish src/NetDaemonApps/NetDaemonApps.csproj -c release -o ./nd4
-cp -r ./nd4/* /mnt/hass/nd4/
+dotnet publish src/NetDaemonApps/NetDaemonApps.csproj -c release -o ./nd5
+cp -r ./nd5/* /mnt/hass/nd5/
 # /mnt/hass/nd4/
