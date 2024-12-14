@@ -184,7 +184,7 @@ public class TomasOfficeApp
                 _tts.Speak("media_player.huset", "Fukt i filamentboxen är för hög", "cloud_say");
                 _services.Notify.MobileAppSmG986b("Fukt i filamentboxen är för hög", "Varning! Filamentboxen har för hög funktighet");
                 _services.PersistentNotification.Dismiss("humitidy_notification");
-                _services.PersistentNotification.Create("Varning! Filamentboxen har för hög fuktighet på {3}", "Hög fuktighet i filamentboxen!", "humitidy_notification");
+                _services.PersistentNotification.Create($"Varning! Filamentboxen har för hög fuktighet på {s.New.State}", "Hög fuktighet i filamentboxen!", "humitidy_notification");
             });
     }
 
