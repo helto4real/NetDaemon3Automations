@@ -73,10 +73,10 @@ public class HouseStateManager
     {
         _scheduler.ScheduleCron("14 15 * * *", () =>
         {
-            if (_entities.Sensor.LightOutsideIlluminanceLux.State <= 20.0 && IsDaytime)
+            if (_entities.Sensor.LightOutsideIlluminance.State <= 20.0 && IsDaytime)
                 SetHouseState(HouseState.Evening);
         });
-        _entities.Sensor.LightOutsideIlluminanceLux
+        _entities.Sensor.LightOutsideIlluminance
             .StateChanges()
             .WhenStateIsFor(n =>
                 n?.State <= 20.0 &&
@@ -94,15 +94,15 @@ public class HouseStateManager
     {
         _scheduler.ScheduleCron("15 5 * * *", () =>
         {
-            _log.LogInformation("It is 5:15 and light outside is {State}", _entities.Sensor.LightOutsideIlluminanceLux?.State);
-            if (_entities.Sensor.LightOutsideIlluminanceLux?.State >= 35.0 && IsNighttime)
+            _log.LogInformation("It is 5:15 and light outside is {State}", _entities.Sensor.LightOutsideIlluminance?.State);
+            if (_entities.Sensor.LightOutsideIlluminance?.State >= 35.0 && IsNighttime)
             {
                 _log.LogInformation("It is 5:15 and setting morning house state");
                 SetHouseState(HouseState.Morning);
             }
         });
 
-        _entities.Sensor.LightOutsideIlluminanceLux
+        _entities.Sensor.LightOutsideIlluminance
             .StateChanges()
             .WhenStateIsFor(n =>
                     n?.State >= 35.0 &&
@@ -112,13 +112,13 @@ public class HouseStateManager
                                , _scheduler)
             .Subscribe(_ => SetHouseState(HouseState.Morning));
         
-        _entities.Sensor.LightOutsideIlluminanceLux
+        _entities.Sensor.LightOutsideIlluminance
             .StateChanges()
             .WhenStateIsFor(n =>
                     n?.State >= 35.0
                 , TimeSpan.FromMinutes(15)
                 , _scheduler)
-            .Subscribe(_ => _log.LogInformation("Now it is morningtime due to lightlevel {State} and hour {Hour}", _entities.Sensor.LightOutsideIlluminanceLux?.State, _scheduler.Now.Hour));
+            .Subscribe(_ => _log.LogInformation("Now it is morningtime due to lightlevel {State} and hour {Hour}", _entities.Sensor.LightOutsideIlluminance?.State, _scheduler.Now.Hour));
     }
 
     /// <summary>

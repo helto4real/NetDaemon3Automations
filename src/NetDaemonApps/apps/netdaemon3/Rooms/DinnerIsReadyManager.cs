@@ -13,9 +13,9 @@ public class DinnerIsReadyManager
         _textToSpeechService = textToSpeechService;
         _messages = messages.Value;
         // States can be open/close/None/stop
-        entities.Sensor.KnappKokAction.StateChanges()
-            .Where(n => n.ButtonIsClicked())
-            .Subscribe(s => BroadcastDinnerIsReady());
+        // entities.Sensor.KnappKokAction.StateChanges()
+        //     .Where(n => n.ButtonIsClicked())
+        //     .Subscribe(s => BroadcastDinnerIsReady());
     }
 
     private void BroadcastDinnerIsReady()

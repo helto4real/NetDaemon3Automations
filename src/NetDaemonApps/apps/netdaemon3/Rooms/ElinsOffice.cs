@@ -5,29 +5,30 @@ using System.Text.Json;
 public class ElinsOfficeApp
 {
     private readonly Entities _entities;
+    private readonly ITriggerManager _triggerManager;
 
-    public ElinsOfficeApp(Entities entities)
+    public ElinsOfficeApp(Entities entities, ITriggerManager triggerManager)
     {
         _entities = entities;
+        _triggerManager = triggerManager;
         HandlebBlinds();
     }
 
     private void HandlebBlinds()
     {
-        _entities.Button.ElinsRumKnappRullgardin.StateAllChanges()
-            .Where(n => n.New?.Attributes?.Action is not null)
-            .Subscribe(s =>
-        {
-            var action = ((JsonElement)s.New!.Attributes!.Action!).GetString();
-            switch (action)
+        _triggerManager.RegisterMqttActionTrigger("elins_rum_knapp_rullgardin")
+            .Subscribe(e =>
             {
-                case "open":
-                    _entities.Cover.ElinsRumRullgardin.OpenCover();
-                    break;
-                case "close":
-                    _entities.Cover.ElinsRumRullgardin.CloseCover();
-                    break;
-            }
-        });
+                var action = e;
+                switch (action)
+                {
+                    case "open":
+                        _entities.Cover.ElinsRumRullgardin.OpenCover();
+                        break;
+                    case "close":
+                        _entities.Cover.ElinsRumRullgardin.CloseCover();
+                        break;
+                }
+            });
     }
 }

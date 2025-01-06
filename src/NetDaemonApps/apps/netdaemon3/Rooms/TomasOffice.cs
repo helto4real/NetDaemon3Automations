@@ -10,14 +10,16 @@ public class TomasOfficeApp
     private readonly ITextToSpeechService _tts;
     private readonly IServices _services;
     private readonly ILogger<TomasOfficeApp> _logger;
+    private readonly ITriggerManager _triggerMagager;
 
-    public TomasOfficeApp(Entities entities, Services services, ITextToSpeechService tts, IScheduler scheduler, ILogger<TomasOfficeApp> logger)
+    public TomasOfficeApp(Entities entities, Services services, ITriggerManager triggerManager, ITextToSpeechService tts, IScheduler scheduler, ILogger<TomasOfficeApp> logger)
     {
         _entities = entities;
         _scheduler = scheduler;
         _tts = tts;
         _services = services;
         _logger = logger;
+        _triggerMagager = triggerManager;
 
         HandlebBlinds();
         HandleDeskRgbLightsOnPresence();
@@ -32,21 +34,20 @@ public class TomasOfficeApp
 
     private void HandlebBlinds()
     {
-        _entities.Button.TomsaRumKnappRullgardin.StateAllChanges()
-            .Where(n => n.New?.Attributes?.Action is not null)
+        _triggerMagager.RegisterMqttActionTrigger("tomas_rum_knapp_rullgardin")
+            .Where(n => n is not null)
             .Subscribe(s =>
-        {
-            var action = ((JsonElement)s.New!.Attributes!.Action!).GetString();
-            switch (action)
             {
-                case "open":
-                    _entities.Cover.TomasRumRullgardin.OpenCover();
-                    break;
-                case "close":
-                    _entities.Cover.TomasRumRullgardin.CloseCover();
-                    break;
-            }
-        });
+                switch (s)
+                {
+                    case "open":
+                        _entities.Cover.TomasRumRullgardin.OpenCover();
+                        break;
+                    case "close":
+                        _entities.Cover.TomasRumRullgardin.CloseCover();
+                        break;
+                }
+            });
     }
 
     private bool IsNighttime => _entities.InputSelect.HouseModeSelect.State == "Natt";

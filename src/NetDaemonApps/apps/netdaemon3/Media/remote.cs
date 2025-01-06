@@ -31,28 +31,27 @@ public class MagicCubeRemoteControlManager
 
     public void Initialize()
     {
-        _entities.Sensor.TvrumCubeAction.StateChanges()
-            .Subscribe(s =>
-            {
-                if (s.New?.State is null)
-                    return;
-
-                switch (s.New?.State)
-                {
-                    case "shake": // Shake
-                        _entities.Remote.Tvrummet.Toggle();
-                        break;
-                    case "flip90": // Flip
-                        PlayPauseMedia();
-                        break;
-                    case "rotate_right": // Turn clockwise
-                        VolumeUp();
-                        break;
-                    case "rotate_left": // Turn counter clockwise
-                        VolumeDown();
-                        break;
-                }
-            });
+        // _entities.Sensor.tv.StateChanges()
+        //     .Subscribe(s =>
+        //     {
+        //         if (s.New?.State is null)
+        //             return;
+        //
+        //         switch (s.New?.State)
+        //         {
+        //             case "shake": // Shake
+        //                 _entities.Remote.Tvrummet.Toggle();
+        //                 break;
+        //             case "flip90": // Flip
+        //                 PlayPauseMedia();
+        //                 break;
+        //             case "rotate_right": // Turn clockwise
+        //                 VolumeUp();
+        //                 break;
+        //             case "rotate_left": // Turn counter clockwise
+        //                 VolumeDown();
+        //                 break;
+        
     }
 
     /// <summary>

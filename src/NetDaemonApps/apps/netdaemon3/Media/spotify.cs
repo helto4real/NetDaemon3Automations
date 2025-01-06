@@ -24,7 +24,7 @@ public class SpotifyManager
                 HandleNewSide(s.New?.State);
             });
 
-        entities.Sensor.KokCubeAction.StateChanges()
+        entities.Sensor.KokCubeSide.StateChanges()
             .Where(e => e.New?.State == "slide" || e.New?.State == "shake")
             .Subscribe(s =>
             {
