@@ -192,10 +192,10 @@ public class TVManager
         // _entities.Switch.JulbelysningTvrummet.TurnOff();
         // _entities.Light.Tvrummet.TurnOff(0);
         // await Task.Delay(200).ConfigureAwait(false);
-        if (_entities.Cover.TvrumRullgardinHoger?.Attributes?.Position < 100)
+        if (_entities.Cover.TvrumRullgardinHoger?.Attributes?.CurrentPosition < 100)
             _entities.Cover.TvrumRullgardinHoger.CloseCover();
         await Task.Delay(200).ConfigureAwait(false);
-        if (_entities.Cover.TvrumRullgardinVanster?.Attributes?.Position < 100)
+        if (_entities.Cover.TvrumRullgardinVanster?.Attributes?.CurrentPosition < 100)
             _entities.Cover.TvrumRullgardinVanster.CloseCover();
     }
 

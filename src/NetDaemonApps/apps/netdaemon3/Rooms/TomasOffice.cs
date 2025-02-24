@@ -30,6 +30,16 @@ public class TomasOfficeApp
         HandleWardrobeLight();
         HandleFilamentMoustiureLevelAlert();
         HandleAirFilter();
+        HandleJarvisAvailablity();
+    }
+
+    // <summary>
+    //  Jarvis should be turned off during office hours
+    // </summary>
+    private void HandleJarvisAvailablity()
+    {
+        _scheduler.ScheduleCron("0 8 * * 1-5", ()=>_entities.Switch.JarvisTysta.TurnOn());
+        _scheduler.ScheduleCron("30 16 * * 1-5", ()=>_entities.Switch.JarvisTysta.TurnOff());
     }
 
     private void HandlebBlinds()
