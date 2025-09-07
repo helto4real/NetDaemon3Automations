@@ -1,5 +1,8 @@
 using System.Text.Json;
 
+/// <summary>
+/// Automation app for Elin's office.
+/// </summary>
 [NetDaemonApp]
 // [Focus]
 public class ElinsOfficeApp
@@ -7,6 +10,11 @@ public class ElinsOfficeApp
     private readonly Entities _entities;
     private readonly ITriggerManager _triggerManager;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ElinsOfficeApp"/> class.
+    /// </summary>
+    /// <param name="entities">The entities manager.</param>
+    /// <param name="triggerManager">The trigger manager.</param>
     public ElinsOfficeApp(Entities entities, ITriggerManager triggerManager)
     {
         _entities = entities;

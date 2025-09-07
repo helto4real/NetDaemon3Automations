@@ -5,6 +5,7 @@ LightsConfiguration:
   TvRoomPirs:
     - binary_sensor.trapp_pir_occupancy
     - binary_sensor.tvrum_pir_occupancy
+    - binary_sensor.tvrum_eprl_occupancy
   KitchenPir: binary_sensor.kok_pir_occupancy
   TomasRoomPir: binary_sensor.tomas_rum_pir_occupancy
   RemoteTvRummet: remote.tvrummet

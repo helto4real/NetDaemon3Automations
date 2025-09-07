@@ -1,5 +1,8 @@
 using NetDaemon.Extensions.Persistance;
 
+/// <summary>
+/// Configuration class for car heater settings.
+/// </summary>
 public class CarHeaterConfig
 {
     /// <summary>
@@ -51,6 +54,14 @@ public class CarHeaterManager
     // Used for logging at startup and no more
     private bool _appJustStarted = true;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CarHeaterManager"/> class.
+    /// </summary>
+    /// <param name="ha">The Home Assistant context.</param>
+    /// <param name="scheduler">The scheduler for timing operations.</param>
+    /// <param name="logger">The logger for diagnostic information.</param>
+    /// <param name="storage">The state repository for storing data.</param>
+    /// <param name="config">The configuration for car heater.</param>
     public CarHeaterManager(IHaContext ha, INetDaemonScheduler scheduler, ILogger<CarHeaterManager> logger,
         IStateRepository storage, IAppConfig<CarHeaterConfig> config)
     {

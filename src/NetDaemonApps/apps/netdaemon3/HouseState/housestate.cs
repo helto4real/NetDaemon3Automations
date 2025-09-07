@@ -11,6 +11,13 @@ public class HouseStateManager
     private readonly GlobalConfig _gc;
     private readonly IScheduler _scheduler;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HouseStateManager"/> class.
+    /// </summary>
+    /// <param name="entities">The entities manager.</param>
+    /// <param name="scheduler">The scheduler for timing operations.</param>
+    /// <param name="logger">The logger for diagnostic information.</param>
+    /// <param name="config">The global configuration.</param>
     public HouseStateManager(
         Entities entities,
         IScheduler scheduler,
@@ -141,6 +148,9 @@ public class HouseStateManager
     }
 }
 
+/// <summary>
+/// Represents the different states of the house.
+/// </summary>
 public enum HouseState
 {
     Morning,

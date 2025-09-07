@@ -1,10 +1,18 @@
-﻿
+
 using NetDaemon.Extensions.Observables;
 
+/// <summary>
+/// Manages the vacuum cleaner automations.
+/// </summary>
 [NetDaemonApp]
 // [Focus]
 public class VaccumCleanerManager
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="VaccumCleanerManager"/> class.
+    /// </summary>
+    /// <param name="entities">The entities manager.</param>
+    /// <param name="textToSpeechService">The text-to-speech service.</param>
     public VaccumCleanerManager(
         Entities entities,
         ITextToSpeechService textToSpeechService)

@@ -32,6 +32,13 @@ public class TVManager
     // The time when we stopped play media for any of the media players
     // private DateTime? _timeStoppedPlaying;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TVManager"/> class.
+    /// </summary>
+    /// <param name="entities">The entities manager.</param>
+    /// <param name="services">The services manager.</param>
+    /// <param name="logger">The logger for diagnostic information.</param>
+    /// <param name="scheduler">The scheduler for timing operations.</param>
     public TVManager(Entities entities, Services services, ILogger<TVManager> logger, IScheduler scheduler)
     {
         _entities = entities;

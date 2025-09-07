@@ -1,7 +1,10 @@
-﻿// namespace daemonapp.apps.netdaemon3.Media;
+// namespace daemonapp.apps.netdaemon3.Media;
 
 using System.Text.Json.Serialization;
 
+/// <summary>
+/// Manages Spotify playback and controls.
+/// </summary>
 [NetDaemonApp]
 //[Focus]
 public class SpotifyManagerNew
@@ -15,6 +18,13 @@ public class SpotifyManagerNew
     private readonly ITriggerManager _triggerManager;
     private readonly NumericSensorEntity _cubeSideSensor;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SpotifyManagerNew"/> class.
+    /// </summary>
+    /// <param name="entities">The entities manager.</param>
+    /// <param name="services">The services manager.</param>
+    /// <param name="logger">The logger for diagnostic information.</param>
+    /// <param name="triggerManager">The trigger manager.</param>
     public SpotifyManagerNew(Entities entities, Services services, ILogger<SpotifyManagerNew> logger, ITriggerManager triggerManager)
     {
         _spotcastService = services.Spotcast;
@@ -110,8 +120,14 @@ public class SpotifyManagerNew
         }
     }
 }
+/// <summary>
+/// Parameters for media playback.
+/// </summary>
 public record MediaParameters : MediaPlayerPlayMediaParameters
 {
+    /// <summary>
+    /// Gets or sets the source.
+    /// </summary>
     [JsonPropertyName("source")]
     public string Source { get; set; } = string.Empty;
 
