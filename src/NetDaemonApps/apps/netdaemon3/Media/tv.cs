@@ -1,5 +1,6 @@
 using System.Reactive.Concurrency;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.Data;
 
 /// <summary>
 ///     Manage the media in the tv room
@@ -20,6 +21,7 @@ public class TVManager
     private readonly IScheduler _scheduler;
 
     private readonly Services _services;
+    private IDisposable? _turnOffLightScheduler;
 
     // If this RunScript paused the mediaplayer, it is here
     // private MediaPlayerEntity? _currentlyPausedMediaPlayer;
@@ -88,6 +90,17 @@ public class TVManager
                         await HandleOnTvOff().ConfigureAwait(false);
                         break;
                 }
+            });
+
+        _entities.BinarySensor.TvrummEprlOccupancy.
+            StateChanges()
+            .Where(e => e.New?.State == "on" || e.Old?.State == "on")
+            .WhenStateIsFor(n => n?.State == "off", TimeSpan.FromMinutes(20), _scheduler)
+            .Subscribe(_ =>
+            {
+                _log.LogInformation("Ingen är i tv-rummet, stänger av tv:n");
+                _entities.Remote.Tvrummet.TurnOff();
+
             });
     }
 
@@ -185,6 +198,7 @@ public class TVManager
 
     private async Task HandleOnTvOn()
     {
+        ResetTurnOffLightScheduler();
         _entities.Light.TvrumBakgrundTv.TurnOn(0, xyColor: new[] {0.136, 0.04});
         await Task.Delay(200).ConfigureAwait(false);
         // _entities.Light.TvrumVagg.TurnOff(0);
@@ -205,7 +219,32 @@ public class TVManager
         await Task.Delay(200).ConfigureAwait(false);
         _entities.MediaPlayer.ShieldTv.TurnOff();
         await Task.Delay(200).ConfigureAwait(false);
-        if (_entities.Light.Tvrummet.IsOn() && IsEvening)
-            _entities.Light.Tvrummet.TurnOn(0);
+        if (_entities.Light.Tvrummet.IsOn())
+        {
+            if (IsEvening)
+                _entities.Light.Tvrummet.TurnOn(0);
+            else if (IsNight )
+            {
+                // 1. First turn on the lights so we can see when we go to bed
+                _entities.Light.TvrumVagg.TurnOn(0);
+                // 2. Check a timer to see if someone still is in the sofa for 20 minutes,
+                //    then turn off the lights since there probably been someone sleeping there
+                ResetTurnOffLightScheduler();
+
+                _turnOffLightScheduler = _scheduler.Schedule(_idleTimeout, () =>
+                {
+                    if (_entities.Light.TvrumVagg.IsOn())
+                    {
+                        _entities.Light.TvrumVagg.TurnOff(0);
+                    }
+                });
+
+            }
+        }
+    }
+    private void ResetTurnOffLightScheduler()
+    {
+        _turnOffLightScheduler?.Dispose();
+        _turnOffLightScheduler = null;
     }
 }
