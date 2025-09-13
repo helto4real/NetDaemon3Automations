@@ -147,7 +147,7 @@ public class TomasOfficeApp
     {
         _entities.BinarySensor.TomasRumEprlZone2Occupancy.StateChanges()
             .Where(n => n.New?.State == "on" && _entities.Light.ElgatoKeyLight.State == "off")
-            .Subscribe(_ => _entities.Light.ElgatoKeyLight.TurnOn());
+            .Subscribe(_ => _entities.Light.ElgatoKeyLight.TurnOn(brightness: 15, colorTempKelvin: 4800));
 
         _entities.BinarySensor.TomasRumEprlZone2Occupancy.StateChanges()
             .WhenStateIsFor(n => n?.State == "off" && _entities.Light.ElgatoKeyLight.State == "on", 
