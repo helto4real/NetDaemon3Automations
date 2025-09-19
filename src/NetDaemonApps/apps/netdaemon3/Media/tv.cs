@@ -240,9 +240,9 @@ public class TVManager
 
                 _turnOffLightScheduler = _scheduler.Schedule(_idleTimeout, () =>
                 {
-                    if (_entities.Light.TvrumVagg.IsOn())
+                    if (IsNight && _entities.Light.Tvrummet.IsOn())
                     {
-                        _entities.Light.TvrumVagg.TurnOff(0);
+                        _entities.Light.Tvrummet.TurnOff(0);
                     }
                 });
 
