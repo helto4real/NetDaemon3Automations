@@ -8,7 +8,6 @@ This is my personal automations made for NetDaemon4
 ```bash
 dotnet tool run nd-codegen
 ```
-This is a test
 
 ## Discuss the NetDaemon
 
