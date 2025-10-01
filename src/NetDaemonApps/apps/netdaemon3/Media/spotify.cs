@@ -9,127 +9,128 @@ using System.Text.Json.Serialization;
 //[Focus]
 public class SpotifyManagerNew
 {
-    private readonly SpotcastServices _spotcastService;
-    private readonly MediaPlayerEntity _player;
-    private readonly MediaPlayerEntity _spotifyTomas;
-    private readonly MediaPlayerEntity _spotifyElin;
-    private readonly Services _services;
-    private readonly ILogger<SpotifyManagerNew> _logger;
-    private readonly ITriggerManager _triggerManager;
-    private readonly NumericSensorEntity _cubeSideSensor;
+  private readonly SpotcastServices _spotcastService;
+  private readonly MediaPlayerEntity _player;
+  private readonly MediaPlayerEntity _spotifyTomas;
+  private readonly MediaPlayerEntity _spotifyElin;
+  private readonly Services _services;
+  private readonly ILogger<SpotifyManagerNew> _logger;
+  private readonly ITriggerManager _triggerManager;
+  private readonly NumericSensorEntity _cubeSideSensor;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SpotifyManagerNew"/> class.
-    /// </summary>
-    /// <param name="entities">The entities manager.</param>
-    /// <param name="services">The services manager.</param>
-    /// <param name="logger">The logger for diagnostic information.</param>
-    /// <param name="triggerManager">The trigger manager.</param>
-    public SpotifyManagerNew(Entities entities, Services services, ILogger<SpotifyManagerNew> logger, ITriggerManager triggerManager)
-    {
-        _spotcastService = services.Spotcast;
-        _player = entities.MediaPlayer.Kok;
-        _spotifyTomas = entities.MediaPlayer.SpotifyTomasHellstrom;
-        _spotifyElin = entities.MediaPlayer.SpotifyElinHellstrom;
-        _services = services;
+  /// <summary>
+  /// Initializes a new instance of the <see cref="SpotifyManagerNew"/> class.
+  /// </summary>
+  /// <param name="entities">The entities manager.</param>
+  /// <param name="services">The services manager.</param>
+  /// <param name="logger">The logger for diagnostic information.</param>
+  /// <param name="triggerManager">The trigger manager.</param>
+  public SpotifyManagerNew(Entities entities, Services services, ILogger<SpotifyManagerNew> logger, ITriggerManager triggerManager)
+  {
+    _spotcastService = services.Spotcast;
+    _player = entities.MediaPlayer.Kok;
+    _spotifyTomas = entities.MediaPlayer.SpotifyTomasHellstrom;
+    _spotifyElin = entities.MediaPlayer.SpotifyElinHellstrom;
+    _services = services;
 
-        _logger = logger;
-        _triggerManager = triggerManager;
-        _cubeSideSensor = new NumericSensorEntity(entities.Sensor.KokCubeSide);
+    _logger = logger;
+    _triggerManager = triggerManager;
+    _cubeSideSensor = new NumericSensorEntity(entities.Sensor.KokCubeSide);
 
 
-        triggerManager.RegisterMqttActionTrigger("kok_cube")
-            .Where(e => e == "slide" || e == "shake")
-            .Subscribe(_ =>
-            {
+    // services.AssistSatellite.AskQuestion()
+    triggerManager.RegisterMqttActionTrigger("kok_cube")
+        .Where(e => e == "slide" || e == "shake")
+        .Subscribe(_ =>
+        {
 
-                HandleCubeAction(_cubeSideSensor.State);
-            });
-        _cubeSideSensor.StateChanges()
-            .Subscribe(s =>
-            {
-                if (s.Old?.State is null)
-                    return;
-                HandleNewSide(s.New?.State);
-            });
-        /**/
-        /*entities.Sensor.KokCubeSide.StateChanges()*/
-        /*    .Where(e => e.New?.State == "slide" || e.New?.State == "shake")*/
-        /*    .Subscribe(s =>*/
-        /*    {*/
-        /*        HandleCubeAction(s.New?.State, s.New?.LastChanged - s.Old?.LastChanged, s.New?.Attributes?.CurrentSide);*/
-        /*    });*/
-    }
-
-    private void HandleCubeAction(double? side)
-    {
-        if (side is null)
+          HandleCubeAction(_cubeSideSensor.State);
+        });
+    _cubeSideSensor.StateChanges()
+        .Subscribe(s =>
+        {
+          if (s.Old?.State is null)
             return;
+          HandleNewSide(s.New?.State);
+        });
+    /**/
+    /*entities.Sensor.KokCubeSide.StateChanges()*/
+    /*    .Where(e => e.New?.State == "slide" || e.New?.State == "shake")*/
+    /*    .Subscribe(s =>*/
+    /*    {*/
+    /*        HandleCubeAction(s.New?.State, s.New?.LastChanged - s.Old?.LastChanged, s.New?.Attributes?.CurrentSide);*/
+    /*    });*/
+  }
 
-        switch (_player.State)
-        {
-            case "playing":
-                if (Equals(side, _cubeSideSensor?.State))
-                {
-                    _player.MediaPause();
-                }
-                else
-                {
-                    HandleNewSide(side);
-                }
-                break;
-            case "paused":
-                if (Equals(side, _cubeSideSensor?.State))
-                {
-                    _player.MediaPlay();
-                }
-                else
-                {
-                    HandleNewSide(side);
-                }
-                break;
+  private void HandleCubeAction(double? side)
+  {
+    if (side is null)
+      return;
 
-            default:
-
-                HandleNewSide(side);
-                break;
-
-        }
-    }
-
-    private void HandleNewSide(double? newState)
+    switch (_player.State)
     {
-        switch (newState)
+      case "playing":
+        if (Equals(side, _cubeSideSensor?.State))
         {
-            case 0:
-                _spotifyTomas.SelectSource("Kök");
-                _spotifyTomas.PlayMedia("https://open.spotify.com/playlist/0ynJQD5wQwjVqvaxae6nMM?si=1f0708287d904806", "playlist");
-                break;
-            case 5:
-                _spotifyTomas.SelectSource("Kök");
-                _spotifyTomas.PlayMedia("https://open.spotify.com/playlist/0ynJQD5wQwjVqvaxae6nMM?si=1f0708287d904806", "playlist");
-                break;
-            case 4:
-                // P1
-                _player.PlayMedia(mediaContentType: "music", mediaContentId: "http://sverigesradio.se/topsy/direkt/132-hi.mp3");
-                break;
-            case 2:
-                // P4 Västernorrland
-                _player.PlayMedia(mediaContentType: "music", mediaContentId: "http://sverigesradio.se/topsy/direkt/216-hi.mp3");
-                break;
+          _player.MediaPause();
         }
+        else
+        {
+          HandleNewSide(side);
+        }
+        break;
+      case "paused":
+        if (Equals(side, _cubeSideSensor?.State))
+        {
+          _player.MediaPlay();
+        }
+        else
+        {
+          HandleNewSide(side);
+        }
+        break;
+
+      default:
+
+        HandleNewSide(side);
+        break;
+
     }
+  }
+
+  private void HandleNewSide(double? newState)
+  {
+    switch (newState)
+    {
+      case 0:
+        _spotifyTomas.SelectSource("Kök");
+        _spotifyTomas.PlayMedia("https://open.spotify.com/playlist/0ynJQD5wQwjVqvaxae6nMM?si=1f0708287d904806", "playlist");
+        break;
+      case 5:
+        _spotifyTomas.SelectSource("Kök");
+        _spotifyTomas.PlayMedia("https://open.spotify.com/playlist/0ynJQD5wQwjVqvaxae6nMM?si=1f0708287d904806", "playlist");
+        break;
+      case 4:
+        // P1
+        _player.PlayMedia(new { media_content_type = "music", media_content_id = "http://sverigesradio.se/topsy/direkt/132-hi.mp3" });
+        break;
+      case 2:
+        // P4 Västernorrland
+        _player.PlayMedia(new { media_content_type = "music", media_content_id = "http://sverigesradio.se/topsy/direkt/216-hi.mp3" });
+        break;
+    }
+  }
 }
 /// <summary>
 /// Parameters for media playback.
 /// </summary>
 public record MediaParameters : MediaPlayerPlayMediaParameters
 {
-    /// <summary>
-    /// Gets or sets the source.
-    /// </summary>
-    [JsonPropertyName("source")]
-    public string Source { get; set; } = string.Empty;
+  /// <summary>
+  /// Gets or sets the source.
+  /// </summary>
+  [JsonPropertyName("source")]
+  public string Source { get; set; } = string.Empty;
 
 
 }
