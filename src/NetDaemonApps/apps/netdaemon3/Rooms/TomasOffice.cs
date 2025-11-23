@@ -1,5 +1,7 @@
 using System.Reactive.Concurrency;
-using System.Text.Json;
+
+namespace NetDaemonApps
+{
 
 /// <summary>
 /// Automation app for Tomas' office managing all automations related to this room
@@ -24,8 +26,7 @@ public class TomasOfficeApp
     /// <param name="triggerManager">Trigger manager for registering external triggers</param>
     /// <param name="tts">Text-to-speech service</param>
     /// <param name="scheduler">Scheduler for timing operations</param>
-    /// <param name="logger">Logger for diagnostic information</param>
-    public TomasOfficeApp(Entities entities, Services services, ITriggerManager triggerManager, ITextToSpeechService tts, IScheduler scheduler, ILogger<TomasOfficeApp> logger)
+    public TomasOfficeApp(Entities entities, Services services, ITriggerManager triggerManager, ITextToSpeechService tts, IScheduler scheduler)
     {
         _entities = entities;
         _scheduler = scheduler;
@@ -229,41 +230,6 @@ private void HandleWardrobeLight()
             .Subscribe(_ => _entities.Light.TomasRumLedlampaGarderob.TurnOff());
     }
 /// <summary>
-/// Controls the air filter based on 3D printer status
-/// - Turns on air filter when printer is running
-/// - Turns off air filter 5 minutes after printer stops running
-/// </summary>
-private void HandleAirFilter()
-    {
-        _entities.Sensor.A103919c452210211PrintStatus.StateChanges()
-            .Where(n => n.New?.State == "running")
-            .Subscribe(_ => _entities.Switch.TomasRumGarderobLuftfilter.TurnOn());
-
-        _entities.Sensor.A103919c452210211PrintStatus.StateChanges()
-            .WhenStateIsFor(n => n?.State != "running" && _entities.Switch.TomasRumGarderobLuftfilter.IsOn(), TimeSpan.FromMinutes(5), _scheduler)
-            .Subscribe(_ => _entities.Switch.TomasRumGarderobLuftfilter.TurnOff());
-    }
-
-/// <summary>
-/// Monitors humidity levels in the filament storage box
-/// - Triggers alerts via TTS and mobile notification when humidity exceeds 25% for 1 hour
-/// - Creates a persistent notification with current humidity level
-/// </summary>
-private void HandleFilamentMoustiureLevelAlert()
-    {
-        _entities.Sensor.TomasRumFilamentBoxTempHumidity.StateChanges()
-            .Where(n => n.Old?.State <= 25.0)
-            .WhenStateIsFor(n =>  n?.State > 25.0, TimeSpan.FromHours(1), _scheduler)
-            .Subscribe(s =>
-            {
-                _tts.Speak("media_player.huset", "Fukt i filamentboxen är för hög", "cloud_say");
-                _services.Notify.MobileAppSmG986b("Fukt i filamentboxen är för hög", "Varning! Filamentboxen har för hög funktighet");
-                _services.PersistentNotification.Dismiss("humitidy_notification");
-                _services.PersistentNotification.Create($"Varning! Filamentboxen har för hög fuktighet på {s.New.State}", "Hög fuktighet i filamentboxen!", "humitidy_notification");
-            });
-    }
-
-/// <summary>
 /// Turns on the ambient lighting in the room
 /// - Activates the main room light
 /// - Sets the bookshelf LED to blue with specific brightness
@@ -305,44 +271,4 @@ public static int[] NotAtDesk => [0, 0, 255];
 public static int[] NotInRoom => [255, 255, 255];
 }
 
-/// <summary>
-/// Extension methods for IObservable to enhance reactive programming capabilities
-/// </summary>
-public static class ObservableExtensions
-{
-
-/// <summary>
-/// Extension method for observables combining two binary sensor state changes
-/// - Emits when the combined state of both sensors matches the predicate for the specified time duration
-/// - Handles throttling and completion states to ensure proper event timing
-/// </summary>
-/// <param name="observable">The source observable combining two state changes</param>
-/// <param name="predicate">Function determining when the combined state is considered active</param>
-/// <param name="timeSpan">Duration the state must remain active before emitting</param>
-/// <param name="scheduler">Scheduler used for timing operations</param>
-/// <returns>Observable that emits when conditions have been met for specified duration</returns>
-public static IObservable<(StateChange<BinarySensorEntity, EntityState<BinarySensorAttributes>>, StateChange<BinarySensorEntity, EntityState<BinarySensorAttributes>>)> WhenCombinedStateIsFor(
-        this IObservable<(StateChange<BinarySensorEntity, EntityState<BinarySensorAttributes>>, StateChange<BinarySensorEntity, EntityState<BinarySensorAttributes>>)> observable,
-        Func<EntityState?, EntityState?, bool> predicate,
-        TimeSpan timeSpan,
-        IScheduler scheduler)
-    {
-        ArgumentNullException.ThrowIfNull(observable, nameof(observable));
-        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
-        ArgumentNullException.ThrowIfNull(scheduler, nameof(scheduler));
-
-        var isCompleted = false;
-
-        return observable
-            .Do(_ => { }, () => isCompleted = true)
-            // Only process changes that start or stop matching the predicate
-            .Where(e => predicate(e.Item1.Old, e.Item2.Old) != predicate(e.Item1.New, e.Item2.New))
-
-            // Both  will restart the timer
-            .Throttle(timeSpan, scheduler)
-
-            // But only when the new state matches the predicate we emit it
-            .Where(e => predicate(e.Item1.New, e.Item2.New) && isCompleted == false);
-    }
 }
-
