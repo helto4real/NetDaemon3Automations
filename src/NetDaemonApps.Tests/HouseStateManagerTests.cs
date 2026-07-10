@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using FluentAssertions;
 using HomeAssistantGenerated;
@@ -68,7 +68,7 @@ public class HouseStateManagerTests
         _ctx
             .WithEntityState("input_select.house_mode_select", "Natt")
             .ChangeStateFor("sensor.light_outside_illuminance")
-                .FromState(NightBrightness )
+                .FromState(NightBrightness)
                 .ToState(MorningBrightness);
 
         _ctx.AdvanceTimeBy(TimeSpan.FromMinutes(15).Ticks);
@@ -87,7 +87,7 @@ public class HouseStateManagerTests
         _ctx
             .WithEntityState("input_select.house_mode_select", "Natt")
             .ChangeStateFor("sensor.light_outside_illuminance")
-                .FromState(NightBrightness )
+                .FromState(NightBrightness)
                 .ToState(MorningBrightness);
 
         _ctx.AdvanceTimeBy(TimeSpan.FromMinutes(15).Ticks);
@@ -121,7 +121,7 @@ public class HouseStateManagerTests
         // Assert
         _ctx.VerifyHouseState("Morgon");
     }
-    
+
     [Fact]
     public void HouseState_ShouldNotChangeToMorning_WhenLightIsBrightAndNotWithinLowerTimeLimits()
     {
@@ -138,11 +138,11 @@ public class HouseStateManagerTests
             .ToState(35.0d);
 
         // Assert
-        
+
         // Check that no select option been called, i.e HouseState not set
         _ctx.HaContext.DidNotReceiveWithAnyArgs().CallService("input_select", "select_option", null, null);
     }
-    
+
     [Fact]
     public void HouseState_ShouldNotChangeToMorning_WhenLightIsBrightAndNotWithinHigherTimeLimits()
     {
@@ -160,11 +160,11 @@ public class HouseStateManagerTests
             .ToState(35.0d);
 
         // Assert
-        
+
         // Check that no select option been called, i.e HouseState not set
         _ctx.HaContext.DidNotReceiveWithAnyArgs().CallService("input_select", "select_option", null, null);
     }
-    
+
     [Fact]
     public void HouseState_ShouldChangeToEvening_WhenLightIsDarkAndWithinTimeLimits()
     {
@@ -207,7 +207,7 @@ public class HouseStateManagerTests
         _ctx.VerifyHouseState("Kväll");
     }
 
-    
+
     [Fact]
     public void HouseState_ShouldNotChangeToEvening_WhenLightIsBrightAndNotWithinLowerTimeLimits()
     {
@@ -225,10 +225,10 @@ public class HouseStateManagerTests
             .ToState(EveningBrightness);
 
         // Assert
-        
+
         _ctx.VerifyHouseStateNotChanged();
-    }    
-    
+    }
+
     [Fact]
     public void HouseState_ShouldNotChangeToEvening_WhenLightIsBrightAndNotWithinHigherTimeLimits()
     {
@@ -246,7 +246,7 @@ public class HouseStateManagerTests
             .ToState(EveningBrightness);
 
         // Assert
-        
+
         _ctx.VerifyHouseStateNotChanged();
     }
 
@@ -274,9 +274,13 @@ public static class HouseManagerAppTestContextInstanceExtensions
     public static (HouseStateManager, ILogger<HouseStateManager>) InitHouseManagerApp(this AppTestContext ctx)
     {
         var loggerMock = Substitute.For<ILogger<HouseStateManager>>();
-        return (
-            new HouseStateManager(new Entities(ctx.HaContext), ctx.Scheduler, loggerMock,
-                new FakeAppConfig<GlobalConfig>(ctx.TestConfig)), loggerMock);
+        var app = new HouseStateManager(
+            new Entities(ctx.HaContext),
+            ctx.Scheduler,
+            loggerMock,
+            new FakeAppConfig<GlobalConfig>(ctx.TestConfig));
+        app.InitializeAsync(CancellationToken.None).GetAwaiter().GetResult();
+        return (app, loggerMock);
     }
 
     public static void VerifyHouseState(this AppTestContext ctx, string houseState)

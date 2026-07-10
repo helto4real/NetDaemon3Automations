@@ -1,41 +1,20 @@
-/// <summary>
-/// Global configuration record for time settings.
-/// </summary>
-public record GlobalConfig
+namespace NetDaemonApps;
+
+public sealed record GlobalConfig
 {
-    /// <summary>
-    /// Gets the morning time.
-    /// </summary>
-    public TimeSpan MorningTime { get; init; }
-    /// <summary>
-    /// Gets the day time.
-    /// </summary>
-    public TimeSpan DayTime { get; init; }
-    /// <summary>
-    /// Gets the night time for weekends.
-    /// </summary>
-    public TimeSpan NightTimeWeekends { get; init; }
-    /// <summary>
-    /// Gets the night time for weekdays.
-    /// </summary>
-    public TimeSpan NightTimeWeekdays { get; init; }
-}
+    public TimeSpan MorningTime { get; init; } = new(5, 15, 0);
 
+    public TimeSpan DayTime { get; init; } = new(9, 0, 0);
 
-/// <summary>
-/// Test application for configuration.
-/// </summary>
-// [NetDaemonApp]
-// [Focus]
-public class ConfigTestApp
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ConfigTestApp"/> class.
-    /// </summary>
-    /// <param name="config">The global configuration.</param>
-    public ConfigTestApp(IAppConfig<GlobalConfig> config)
-    {
-        Console.WriteLine(config.Value.DayTime);
-    }
+    public TimeSpan EveningCheckTime { get; init; } = new(15, 14, 0);
 
+    public TimeSpan NightTimeWeekends { get; init; } = new(23, 40, 0);
+
+    public TimeSpan NightTimeWeekdays { get; init; } = new(22, 40, 0);
+
+    public double EveningIlluminanceThreshold { get; init; } = 20;
+
+    public double MorningIlluminanceThreshold { get; init; } = 35;
+
+    public TimeSpan IlluminanceStabilityDuration { get; init; } = TimeSpan.FromMinutes(15);
 }

@@ -1,6 +1,6 @@
-namespace NetDaemon.Extensions.Scheduler;
+namespace NetDaemonApps;
 
-public static class NetDaemonScehdulerExtensions
+public static class NetDaemonSchedulerExtensions
 {
     public static IDisposable RunDaily(this INetDaemonScheduler scheduler, TimeSpan timeOfDay, Action action)
     {

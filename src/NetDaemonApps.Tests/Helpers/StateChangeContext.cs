@@ -57,7 +57,7 @@ public class StateChangeContext : IFromState, IToState, IWithState
     {
         ArgumentNullException.ThrowIfNull(hassState);
         ToState = hassState;
-        _ctx.HaContext.GetState(_entityId).Returns(FromState);
+        _ctx.HaContext.GetState(_entityId).Returns(ToState);
         _ctx.HaContextMock.StateChangeSubject.OnNext(
             new StateChange(
                 new Entity(_ctx.HaContext, _entityId),
@@ -70,7 +70,7 @@ public class StateChangeContext : IFromState, IToState, IWithState
         _ctx.HaContext.GetState(entityId).Returns(
             new EntityState
             {
-                EntityId = _entityId,
+                EntityId = entityId,
                 State = Convert.ToString(state, CultureInfo.InvariantCulture)
             }
         );

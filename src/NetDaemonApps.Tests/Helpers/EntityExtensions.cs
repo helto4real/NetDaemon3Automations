@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NetDaemon.HassModel.Entities;
 using NSubstitute;
 

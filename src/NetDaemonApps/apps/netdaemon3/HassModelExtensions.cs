@@ -1,52 +1,59 @@
-namespace NetDaemon.HassModel.Extensions;
+namespace NetDaemonApps;
 
 public static class HassModelExtensions
 {
     internal static string GetDomainFromEntity(string entity)
     {
-        var entityParts = entity.Split('.');
+        ArgumentException.ThrowIfNullOrWhiteSpace(entity);
+        var entityParts = entity.Split('.', StringSplitOptions.TrimEntries);
         if (entityParts.Length != 2)
-            throw new Exception($"entity_id is mal-formatted {entity}");
+        {
+            throw new ArgumentException($"Entity id is malformed: {entity}", nameof(entity));
+        }
 
         return entityParts[0];
     }
 
     internal static string GetDomainForServiceCall(string[] entityIds)
     {
-        var domainsUsed = entityIds.Select(n => GetDomainFromEntity(n));
-        // get first entitys domain
-        return domainsUsed.Distinct().Count() == 1 ? domainsUsed.First() : "homeassistant";
+        ArgumentNullException.ThrowIfNull(entityIds);
+        var domains = entityIds.Select(GetDomainFromEntity).Distinct(StringComparer.Ordinal).ToArray();
+        return domains.Length == 1 ? domains[0] : "homeassistant";
     }
 
     public static void TurnOn(this IHaContext ha, params string[] entityIds)
     {
         if (entityIds.Length == 0)
-            throw new ArgumentNullException(nameof(entityIds));
+        {
+            throw new ArgumentException("At least one entity id is required.", nameof(entityIds));
+        }
 
-        ha.CallService(GetDomainForServiceCall(entityIds), "turn_on", new ServiceTarget {EntityIds = entityIds});
+        ha.CallService(GetDomainForServiceCall(entityIds), "turn_on", new ServiceTarget { EntityIds = entityIds });
     }
 
     public static void TurnOff(this IHaContext ha, params string[] entityIds)
     {
         if (entityIds.Length == 0)
-            throw new ArgumentNullException(nameof(entityIds));
+        {
+            throw new ArgumentException("At least one entity id is required.", nameof(entityIds));
+        }
 
-        ha.CallService(GetDomainForServiceCall(entityIds), "turn_off", new ServiceTarget {EntityIds = entityIds});
+        ha.CallService(GetDomainForServiceCall(entityIds), "turn_off", new ServiceTarget { EntityIds = entityIds });
     }
 
     public static void TurnOn(this IHaContext ha, string entityId, object attributes)
     {
-        var entityIds = new[] {entityId};
+        var entityIds = new[] { entityId };
 
-        ha.CallService(GetDomainForServiceCall(entityIds), "turn_on", new ServiceTarget {EntityIds = entityIds},
+        ha.CallService(GetDomainForServiceCall(entityIds), "turn_on", new ServiceTarget { EntityIds = entityIds },
             attributes);
     }
 
     public static void TurnOff(this IHaContext ha, string entityId, object attributes)
     {
-        var entityIds = new[] {entityId};
+        var entityIds = new[] { entityId };
 
-        ha.CallService(GetDomainForServiceCall(entityIds), "turn_off", new ServiceTarget {EntityIds = entityIds},
+        ha.CallService(GetDomainForServiceCall(entityIds), "turn_off", new ServiceTarget { EntityIds = entityIds },
             attributes);
     }
 

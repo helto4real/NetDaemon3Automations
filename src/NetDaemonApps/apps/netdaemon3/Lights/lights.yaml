@@ -7,7 +7,13 @@ LightsConfiguration:
     - binary_sensor.tvrum_pir_occupancy
     - binary_sensor.tvrum_eprl_occupancy
   KitchenPir: binary_sensor.kok_pir_occupancy
-  TomasRoomPir: binary_sensor.tomas_rum_pir_occupancy
   RemoteTvRummet: remote.tvrummet
-  ElgatoKeyLight: light.elgato_key_light
   HouseModeSelect: input_select.house_mode_select
+  CommandDelay: 00:00:00.200
+  NightLightTimeout: 00:15:00
+  AmbientBrightnessPercent: 59
+  TvRoomBrightnessPercent: 51
+  BedroomBrightnessPercent: 8
+  MorningStart: 05:00:00
+  MorningEnd: 10:00:00
+  KitchenMorningEnd: 09:00:00

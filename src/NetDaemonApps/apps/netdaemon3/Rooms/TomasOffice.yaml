@@ -1,0 +1,3 @@
+TomasOfficeConfig:
+  JarvisMuteSwitch: switch.jarvis_tysta
+  BlindsMqttDevice: tomas_rum_knapp_rullgardin

@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: "**/packages.lock.json"
+
+      - name: Restore local tools
+        run: dotnet tool restore
+
+      - name: Restore locked dependencies
+        run: dotnet restore NetDaemonApps.slnx --locked-mode -m:1
+
+      - name: Verify formatting
+        run: dotnet format NetDaemonApps.slnx --verify-no-changes --no-restore
+
+      - name: Build
+        run: dotnet build NetDaemonApps.slnx --configuration Release --no-restore -p:ContinuousIntegrationBuild=true
+
+      - name: Test
+        run: dotnet test NetDaemonApps.slnx --configuration Release --no-build --no-restore --collect:"XPlat Code Coverage" --settings coverlet.runsettings
+
+      - name: Publish
+        run: dotnet publish src/NetDaemonApps/NetDaemonApps.csproj --configuration Release --no-restore -p:ContinuousIntegrationBuild=true

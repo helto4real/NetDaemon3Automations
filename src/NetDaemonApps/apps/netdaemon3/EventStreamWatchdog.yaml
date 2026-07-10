@@ -1,0 +1,3 @@
+EventStreamWatchdogConfig:
+  EventTimeout: 00:05:00
+  CheckInterval: 00:01:00

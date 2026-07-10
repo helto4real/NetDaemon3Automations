@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using FluentAssertions;
 using HomeAssistantGenerated;
@@ -16,7 +16,7 @@ public static class AppTestContextExtensions
             Arg.Is<ServiceTarget>(x
                 => x.EntityIds != null && x.EntityIds.First() == entityId),
             Arg.Is<InputSelectSelectOptionParameters>(x
-                => x.Option == option));
+                => x.Option != null && string.Equals(x.Option.ToString(), option, StringComparison.Ordinal)));
     }
 
     public static void VerifyInputSelect_SelectOption_NotChanged(this AppTestContext ctx, string entityId)
@@ -31,7 +31,7 @@ public static class AppTestContextExtensions
     {
         var domain = serviceCall[..serviceCall.IndexOf(".", StringComparison.InvariantCultureIgnoreCase)];
         var service = serviceCall[(serviceCall.IndexOf(".", StringComparison.InvariantCultureIgnoreCase) + 1)..];
-        
+
         ctx.HaContext.Received(times)
             .CallService(domain, service, Arg.Any<ServiceTarget>(), Arg.Any<object?>());
     }
@@ -40,7 +40,7 @@ public static class AppTestContextExtensions
     {
         var domain = serviceCall[..serviceCall.IndexOf(".", StringComparison.InvariantCultureIgnoreCase)];
         var service = serviceCall[(serviceCall.IndexOf(".", StringComparison.InvariantCultureIgnoreCase) + 1)..];
-        
+
         ctx.HaContext.Received(0)
             .CallService(domain, service, Arg.Any<ServiceTarget?>(), Arg.Any<object?>());
     }
@@ -52,7 +52,12 @@ public static class AppTestContextExtensions
         T? calledData = null;
 
         ctx.HaContext.Received(times).CallService(domain, service, target, Arg.Any<T>());
-        var sp = ctx.HaContext.ReceivedCalls().Where(x => x.GetMethodInfo().Name == "CallService").ToList();
+        var sp = ctx.HaContext.ReceivedCalls()
+            .Where(call =>
+                call.GetMethodInfo().Name == "CallService" &&
+                Equals(call.GetArguments()[0], domain) &&
+                Equals(call.GetArguments()[1], service))
+            .ToList();
         foreach (var s in sp)
         {
             if (s.GetArguments()[3] is T arg)
@@ -64,14 +69,14 @@ public static class AppTestContextExtensions
         calledData.Should().BeEquivalentTo(data);
     }
 
-    public static T? GetEntity<T>(this AppTestContext ctx, string entityId) where T : Entity 
-        
+    public static T? GetEntity<T>(this AppTestContext ctx, string entityId) where T : Entity
+
     {
-        return  Activator.CreateInstance(typeof(T), ctx.HaContext, entityId) as T;
-    }    
-    
-    public static T? GetEntity<T>(this AppTestContext ctx, string entityId, string state) where T : Entity 
-        
+        return Activator.CreateInstance(typeof(T), ctx.HaContext, entityId) as T;
+    }
+
+    public static T? GetEntity<T>(this AppTestContext ctx, string entityId, string state) where T : Entity
+
     {
         ctx.HaContext.GetState(entityId).Returns(
             new EntityState
@@ -80,7 +85,7 @@ public static class AppTestContextExtensions
                 State = state
             }
         );
-        return  Activator.CreateInstance(typeof(T), ctx.HaContext, entityId) as T;
+        return Activator.CreateInstance(typeof(T), ctx.HaContext, entityId) as T;
     }
 
     public static void ActivateScene(this AppTestContext ctx, string sceneName)

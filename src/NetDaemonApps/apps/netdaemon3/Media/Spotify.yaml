@@ -1,0 +1,3 @@
+SpotifyConfig:
+  PlaybackSource: Kök
+  CubeMqttDevice: kok_cube

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Reactive.Testing;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -13,12 +13,12 @@ public class AppTestContext
 {
     public HaContextMock HaContextMock { get; } = new();
     public IHaContext HaContext => HaContextMock.HaContext;
-    public TestScheduler Scheduler { get; } = new ();
+    public TestScheduler Scheduler { get; } = new();
     public ILogger Logger { get; } = Substitute.For<ILogger>();
     public GlobalConfig TestConfig { get; } = new GlobalConfig()
     {
         DayTime = TimeSpan.Parse("09:00:00"),
-        MorningTime = TimeSpan.Parse("09:00:00"),
+        MorningTime = TimeSpan.Parse("05:15:00"),
         NightTimeWeekdays = TimeSpan.Parse("22:40:00"),
         NightTimeWeekends = TimeSpan.Parse("23:40:00")
     };

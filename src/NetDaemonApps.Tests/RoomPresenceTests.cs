@@ -16,7 +16,7 @@ public class RoomPresenceTests
     {
         // Arrange
         _ctx.InitRoomPresence();
-        
+
         // Act
         _ctx
             .ChangeStateFor("person.tomas")
@@ -31,7 +31,7 @@ public class RoomPresenceTests
     {
         // Arrange
         _ctx.InitRoomPresence();
-        
+
         // Act
         _ctx
             .ChangeStateFor("person.tomas")
@@ -46,7 +46,7 @@ public class RoomPresenceTests
     {
         // Arrange
         _ctx.InitRoomPresence();
-        
+
         // Act
         _ctx
             .ChangeStateFor("person.tomas")
@@ -61,7 +61,7 @@ public class RoomPresenceTests
     {
         // Arrange
         _ctx.InitRoomPresence();
-        
+
         // Act
         _ctx
             .ChangeStateFor("person.tomas")
@@ -79,7 +79,7 @@ public class RoomPresenceTests
         _ctx
             .ChangeStateFor("input_select.house_mode_select")
             .FromState("Natt")
-            .ToState("Natt");  
+            .ToState("Natt");
 
         _ctx.InitRoomPresence();
         // Act
@@ -108,7 +108,7 @@ public class RoomPresenceTests
         _ctx
             .ChangeStateFor("input_select.house_mode_select")
             .FromState("Evening")
-            .ToState("Natt");  
+            .ToState("Natt");
 
         // Pass 25 minutes
         _ctx.Scheduler.AdvanceBy(TimeSpan.FromMinutes(25).Ticks);
@@ -142,13 +142,22 @@ public static class RoomPresenceAppTestContextInstanceExtensions
         var logger = Substitute.For<ILogger<RoomPresence>>();
         var services = new Services(ctx.HaContext);
         var entities = new Entities(ctx.HaContext);
-        return new RoomPresence(services, entities, logger, ctx.Scheduler);
+        var app = new RoomPresence(services, entities, logger, ctx.Scheduler);
+        app.InitializeAsync(CancellationToken.None).GetAwaiter().GetResult();
+        return app;
     }
 
     public static void VerifyBleTransmitterServiceCallCommand(this AppTestContext ctx, string command)
     {
-        ctx.VerifyCallServiceWithData("notify.mobile_app_galaxy_watch6_classic_jq4a", null,
-                new NotifyMobileAppGalaxyWatch6ClassicJq4aParameters { Message = "command_ble_transmitter", Data = new { command } } , 1);
+        ctx.VerifyCallServiceWithData(
+            "notify.mobile_app_galaxy_watch6_classic_jq4a",
+            null,
+            new NotifyMobileAppGalaxyWatch6ClassicJq4aParameters
+            {
+                Message = "command_ble_transmitter",
+                Data = new { command },
+            },
+            1);
     }
 
     public static void VerifyBleTransmitterServiceNotCallCommand(this AppTestContext ctx)

@@ -1,54 +1,46 @@
-# NetDaemon3Automations Agent Guidelines
+# NetDaemon Automations Agent Guidelines
 
-## Build Commands
-- **Build**: `dotnet build`
-- **Build Release**: `dotnet build --configuration Release`
-- **Restore**: `dotnet restore`
+## Build and test
 
-## Test Commands
-- **Run all tests**: `dotnet test`
-- **Run single test**: `dotnet test --filter "FullyQualifiedName~TestClass.TestMethod"`
-- **Run with coverage**: `dotnet test --collect:"XPlat Code Coverage"`
+- Restore: `dotnet restore NetDaemonApps.slnx --locked-mode -m:1`
+- Build: `dotnet build NetDaemonApps.slnx --no-restore`
+- Release build: `dotnet build NetDaemonApps.slnx --configuration Release --no-restore`
+- Test: `dotnet test NetDaemonApps.slnx --no-build --no-restore`
+- Coverage: `dotnet test NetDaemonApps.slnx --collect:"XPlat Code Coverage" --settings coverlet.runsettings`
+- Single test: `dotnet test NetDaemonApps.slnx --filter "FullyQualifiedName~TestClass.TestMethod"`
 
-## Code Style Guidelines
+## Platform
 
-### Language & Framework
-- **Target Framework**: .NET 9.0
-- **Language Version**: C# 12.0
-- **Nullable**: Enable nullable reference types
-- **Reactive Extensions**: Use System.Reactive.Linq for event handling
+- Target framework: .NET 10
+- Language version: C# 14
+- Nullable reference types: enabled
+- Reactive event handling: System.Reactive
 
-### Naming Conventions
-- **Classes**: PascalCase (e.g., `LightManager`, `LightsConfiguration`)
-- **Methods**: PascalCase (e.g., `Initialize()`, `TurnOnAmbient()`)
-- **Properties**: PascalCase (e.g., `IsNight`, `CancellationToken`)
-- **Private fields**: camelCase with underscore prefix (e.g., `_config`, `_logger`)
-- **Constants**: PascalCase
+## Architecture
 
-### Imports & Usings
-- Use global usings in `GlobalUsings.cs` and `Daemon3Usings.cs`
-- Group usings: System.*, then third-party, then project-specific
-- Remove unused usings
+- Keep app adapters focused on Home Assistant and NetDaemon orchestration.
+- Put reusable, complex, or framework-independent decisions in pure policy modules under `Domain/`.
+- Store every subscription and schedule through `ReactiveApp`.
+- Initialize reactive apps through `IAsyncInitializable`.
+- Use `TimeProvider` or the injected scheduler instead of `DateTime.Now`.
+- Use the shared Home Assistant vocabulary and `HouseModeCodec` instead of repeated state strings.
+- Validate app configuration at construction time and fail clearly.
 
-### Patterns & Architecture
-- **Dependency Injection**: Constructor injection with `ILogger<T>`, `IScheduler`, `IHaContext`
-- **NetDaemon Apps**: Decorate with `[NetDaemonApp]` attribute
-- **Async Initialization**: Implement `IAsyncInitializable` when needed
-- **Configuration**: Use `IAppConfig<T>` for app-specific settings
-- **Entity Access**: Use `Entities` and `Services` classes from HassModel
+## Testing
 
-### Error Handling
-- Use nullable checks with `?.` operator
-- Handle cancellation tokens in async operations
-- Log errors using `ILogger`
+- Framework: xUnit
+- Mocking: NSubstitute
+- Assertions: FluentAssertions
+- Test public behavior, policy interfaces, and `IHaContext` service calls.
+- Use Arrange–Act–Assert and descriptive `Method_ShouldBehavior_WhenCondition` names.
 
-### Testing
-- **Framework**: xUnit with `Fact` and `Theory`
-- **Mocking**: NSubstitute (preferred) or Moq
-- **Assertions**: FluentAssertions
-- **Test Structure**: Arrange-Act-Assert pattern
-- **Test Naming**: `MethodName_ShouldExpectedBehavior_WhenCondition`
+## Generated model
 
-### Code Generation
-- **Home Assistant entities**: `dotnet tool run nd-codegen` to generate `HomeAssistantGenerated.cs`</content>
-<parameter name="filePath">/home/thhel/git/NetDaemon3Automations/AGENTS.md
+Never hand-edit `src/NetDaemonApps/HomeAssistantGenerated.cs`.
+
+```bash
+dotnet tool restore
+dotnet tool run nd-codegen -o src/NetDaemonApps/HomeAssistantGenerated.cs -ns HomeAssistantGenerated
+```
+
+Keep the local codegen tool and all `NetDaemon.*` packages on the same version. Follow the official guide: https://netdaemon.xyz/docs/user/hass_model/hass_model_codegen/

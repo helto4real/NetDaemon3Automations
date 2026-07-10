@@ -1,61 +1,87 @@
 using System.Reactive.Concurrency;
 
-/// <summary>
-///    Manage room presence 
-/// </summary>
+namespace NetDaemonApps;
+
 [NetDaemonApp]
-public class RoomPresence
+public sealed class RoomPresence : ReactiveApp, IAsyncInitializable
 {
-    private readonly string[] _homeStates = ["Hemma", "Nyss anlänt"];
+    private static readonly HashSet<string> HomeStates =
+        [PresenceStates.Home, PresenceStates.JustArrived];
 
-    public RoomPresence(Services services, Entities entities, ILogger<RoomPresence> logger, IScheduler scheduler)
+    private readonly Services _services;
+    private readonly Entities _entities;
+    private readonly ILogger<RoomPresence> _logger;
+    private readonly IScheduler _scheduler;
+
+    public RoomPresence(
+        Services services,
+        Entities entities,
+        ILogger<RoomPresence> logger,
+        IScheduler scheduler)
     {
-        HandleBleTransmitterAvailabilityForTomasWatch();
+        _services = services;
+        _entities = entities;
+        _logger = logger;
+        _scheduler = scheduler;
+    }
 
-        void HandleBleTransmitterAvailabilityForTomasWatch()
+    public Task InitializeAsync(CancellationToken cancellationToken) => InitializeOnce(() =>
+    {
+        SubscribeLogged(
+            _entities.Person.Tomas.StateChanges(),
+            _logger,
+            "update watch BLE transmitter from presence",
+            change =>
+            {
+                var isHome = HomeStates.Contains(change.New?.State ?? string.Empty);
+                var wasHome = HomeStates.Contains(change.Old?.State ?? string.Empty);
+
+                if (isHome != wasHome)
+                {
+                    SetBleTransmitter(isHome, "presence changed");
+                }
+            });
+
+        SubscribeLogged(
+            _entities.Sensor.TomasKlockaBle.StateChanges()
+                .WhenStateIsFor(
+                    state => state?.State == PresenceStates.Bedroom && IsNight,
+                    TimeSpan.FromMinutes(25),
+                    _scheduler),
+            _logger,
+            "disable watch BLE transmitter from bedroom presence",
+            _ => SetBleTransmitter(enabled: false, "Tomas is in the bedroom during night mode"));
+
+        SubscribeLogged(
+            _entities.InputSelect.HouseModeSelect.StateChanges()
+                .WhenStateIsFor(
+                    state => state?.State == HouseModeCodec.Night && TomasIsInBedroom,
+                    TimeSpan.FromMinutes(25),
+                    _scheduler),
+            _logger,
+            "disable watch BLE transmitter from night mode",
+            _ => SetBleTransmitter(enabled: false, "night mode started while Tomas is in the bedroom"));
+
+        Track(_scheduler.ScheduleCron("0 7 * * *", () =>
         {
-            entities.Person.Tomas.StateChanges()
-                .Subscribe(s =>
-                {
-                    if (_homeStates.Contains(s.New?.State) && !_homeStates.Contains(s.Old?.State))
-                    {
-                        logger.LogInformation("Tomas watch - BLE Transmitter is on");
-                        services.Notify.MobileAppGalaxyWatch6ClassicJq4a("command_ble_transmitter", null, null, new { command = "turn_on" });
-                    }
-                    else if (!_homeStates.Contains(s.New?.State) && _homeStates.Contains(s.Old?.State))
-                    {
-                        logger.LogInformation("Tomas watch - BLE Transmitter is off");
-                        services.Notify.MobileAppGalaxyWatch6ClassicJq4a("command_ble_transmitter", null, null, new { command = "turn_off" });
-                    }
-                });
+            if (_entities.Person.Tomas.State == PresenceStates.Home)
+            {
+                SetBleTransmitter(enabled: true, "morning schedule");
+            }
+        }));
 
-            entities.Sensor.TomasKlockaBle.StateChanges()
-                .WhenStateIsFor(e => e?.State == "sovrummet" && IsNight(), TimeSpan.FromMinutes(25), scheduler)
-                .Subscribe(_ =>
-                    {
-                        logger.LogInformation("Tomas watch - BLE Transmitter is off due to Tomas is in bedroom and night mode");
-                        services.Notify.MobileAppGalaxyWatch6ClassicJq4a("command_ble_transmitter", null, null, new { command = "turn_off" });
-                    });
+    }, cancellationToken);
 
-            scheduler.ScheduleCron($"0 7 * * *",
-                () =>
-                {
-                    if (entities.Person.Tomas?.State == "Hemma")
-                    {
-                        logger.LogInformation("Tomas watch - BLE Transmitter is on due to morning time");
-                        services.Notify.MobileAppGalaxyWatch6ClassicJq4a("command_ble_transmitter", null, null, new { command = "turn_on" });
-                    }
-                });
+    private bool IsNight => _entities.InputSelect.HouseModeSelect.State == HouseModeCodec.Night;
 
-            entities.InputSelect.HouseModeSelect.StateChanges()
-                .WhenStateIsFor(e => e?.State == "Natt" && TomasIsInBedroom(), TimeSpan.FromMinutes(25), scheduler)
-                .Subscribe(s =>
-                    {
-                        logger.LogInformation("Tomas watch - BLE Transmitter is off due to night mode and Tomas is in bedroom");
-                        services.Notify.MobileAppGalaxyWatch6ClassicJq4a("command_ble_transmitter", null, null, new { command = "turn_off" });
-                    });
-        }
-        bool IsNight() => entities.InputSelect.HouseModeSelect?.State == "Natt";
-        bool TomasIsInBedroom() => entities.Sensor.TomasKlockaBle?.State == "sovrummet";
+    private bool TomasIsInBedroom => _entities.Sensor.TomasKlockaBle.State == PresenceStates.Bedroom;
+
+    private void SetBleTransmitter(bool enabled, string reason)
+    {
+        var command = enabled ? "turn_on" : "turn_off";
+        _logger.LogInformation("Tomas watch BLE transmitter is {Command} because {Reason}", command, reason);
+        _services.Notify.MobileAppGalaxyWatch6ClassicJq4a(
+            "command_ble_transmitter",
+            data: new { command });
     }
 }

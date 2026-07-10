@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/NetDaemonApps.Tests/NetDaemonApps.Tests.csproj" />
+  <Project Path="src/NetDaemonApps/NetDaemonApps.csproj" />
+</Solution>

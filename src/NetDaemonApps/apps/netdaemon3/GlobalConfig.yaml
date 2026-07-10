@@ -1,5 +1,9 @@
 GlobalConfig:
   MorningTime: 05:00:00
   DayTime: 09:00:00
+  EveningCheckTime: 15:14:00
   NightTimeWeekends: 23:40:00
   NightTimeWeekdays: 22:40:00
+  EveningIlluminanceThreshold: 20
+  MorningIlluminanceThreshold: 35
+  IlluminanceStabilityDuration: 00:15:00

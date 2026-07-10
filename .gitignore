@@ -3,10 +3,13 @@ bin
 appsettings.json
 appsettings.Development.json
 appsettings.development.json
+!appsettings.example.json
 .vs
 *.gen
 .storage
 .idea
-HomeAssistantGenerated.cs
 nd5
+artifacts
 NetDaemonCodegen
+*.DotSettings.user
+TestResults

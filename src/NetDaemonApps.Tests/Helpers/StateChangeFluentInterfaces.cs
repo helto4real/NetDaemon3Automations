@@ -1,4 +1,4 @@
-﻿using NetDaemon.HassModel.Entities;
+using NetDaemon.HassModel.Entities;
 
 namespace NetDaemonApps.Tests.Helpers;
 
