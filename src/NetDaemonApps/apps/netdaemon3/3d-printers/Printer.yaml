@@ -1,4 +1,4 @@
-PrinterConfig:
+NetDaemonApps.PrinterConfig:
   MaximumFilamentHumidity: 25
   AnnouncementMediaPlayer: media_player.huset
   TextToSpeechEngine: cloud_say

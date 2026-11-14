@@ -1,4 +1,4 @@
-CalendarAnnouncementConfig:
+NetDaemonApps.CalendarAnnouncementConfig:
   ImportantEventKeyword: sopor
   MediaPlayer: media_player.huset
   TextToSpeechEngine: cloud_say

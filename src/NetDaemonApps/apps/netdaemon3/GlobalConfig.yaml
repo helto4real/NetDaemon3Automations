@@ -1,4 +1,4 @@
-GlobalConfig:
+NetDaemonApps.GlobalConfig:
   MorningTime: 05:00:00
   DayTime: 09:00:00
   EveningCheckTime: 15:14:00

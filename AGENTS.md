@@ -11,7 +11,7 @@
 
 ## Platform
 
-- Target framework: .NET 10
+- Target framework: .NET 11
 - Language version: C# 14
 - Nullable reference types: enabled
 - Reactive event handling: System.Reactive

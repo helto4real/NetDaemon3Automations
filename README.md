@@ -1,6 +1,6 @@
 # Helto NetDaemon Automations
 
-Personal Home Assistant automations built with NetDaemon, .NET 10, C# 14, and Reactive Extensions.
+Personal Home Assistant automations built with NetDaemon 26.45.0-alpha-4, .NET 11, C# 14, and Reactive Extensions.
 
 ## Prerequisites
 

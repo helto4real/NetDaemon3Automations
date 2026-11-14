@@ -1,4 +1,4 @@
-TvConfig:
+NetDaemonApps.TvConfig:
   RoomVacancyTimeout: 00:20:00
   TelevisionOffDebounce: 00:00:10
   CommandDelay: 00:00:00.200

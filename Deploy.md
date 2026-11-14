@@ -1,5 +1,7 @@
 # Deploy
 
+The deployment target must have the .NET 11 and ASP.NET Core 11 runtimes installed.
+
 Mount the Home Assistant configuration share, then run the validated deployment script:
 
 ```bash

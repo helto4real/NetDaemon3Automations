@@ -1,4 +1,4 @@
-WelcomeConfig:
+NetDaemonApps.WelcomeConfig:
   PresenceCriteria: '_presence'
   HallwayMediaPlayer: media_player.vardagsrum
   DoorSensor: binary_sensor.hall_dorr_sensor_contact

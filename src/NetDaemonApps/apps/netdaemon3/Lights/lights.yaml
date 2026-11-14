@@ -1,4 +1,4 @@
-LightsConfiguration:
+NetDaemonApps.LightsConfiguration:
   LivingRoomPirs:
     - binary_sensor.trapp_pir_occupancy
     - binary_sensor.vardagsrum_pir_occupancy

@@ -1,7 +1,7 @@
 {
   "name": "Sample NetDaemon App development",
   "dockerFile": "./Dockerfile",
-  "postCreateCommand": "dotnet restore *.csproj",
+  "postCreateCommand": "dotnet tool restore && dotnet restore NetDaemonApps.slnx --locked-mode -m:1",
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash",
     "terminal.integrated.fontSize": 10
