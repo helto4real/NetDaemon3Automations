@@ -1,0 +1,8 @@
+title: Elpris SE2
+views:
+  - title: Elpris SE2
+    path: priser
+    type: panel
+    cards:
+      - type: custom:elpris-se2-card
+        entity: sensor.nasta_billiga_elperiod

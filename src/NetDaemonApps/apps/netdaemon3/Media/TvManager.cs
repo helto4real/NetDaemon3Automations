@@ -114,7 +114,7 @@ public sealed class TvManager : ReactiveApp, IAsyncInitializable
         {
             () => _entities.Light.TvrumBakgrundTv.TurnOn(
                 transition: 0,
-                additionalFields: new { xy_color = _config.BackgroundLightXyColor }),
+                xyColor: _config.BackgroundLightXyColor),
             () =>
             {
                 if (_entities.Cover.TvrumRullgardinHoger.Attributes?.CurrentPosition < 100)

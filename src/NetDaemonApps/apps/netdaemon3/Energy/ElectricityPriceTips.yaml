@@ -1,0 +1,9 @@
+NetDaemonApps.ElectricityPriceTipsConfig:
+  MediaPlayer: media_player.huset
+  TextToSpeechEngine: cloud_say
+  MinimumWindow: "02:00:00"
+  LowPriceSekPerKwh: 0.30
+  DayDiscountSekPerKwh: 0.20
+  NightSavingsSekPerKwh: 0.30
+  EveningTipTime: "19:00:00"
+  NightWindowEnd: "06:00:00"
