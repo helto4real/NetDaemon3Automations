@@ -1,0 +1,7 @@
+title: Energi
+views:
+  - title: Energi
+    path: oversikt
+    type: panel
+    cards:
+      - type: custom:energi-card
